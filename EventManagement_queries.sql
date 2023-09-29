@@ -8,14 +8,14 @@ CREATE TABLE User (
 	Account_type VARCHAR(9) NOT NULL /* Either "attendee" or "organizer" */
 );
 
-/* Represents the Organizer entity */
-CREATE TABLE Organizer ( /* Associated with an user_id */
-	Organizer_id INT NOT NULL PRIMARY KEY,
+/* Represents the Organizer entity - each organizer is associated with a user_id*/
+CREATE TABLE Organizer ( 
+	Organizer_id INT NOT NULL,
 	User_id INT NOT NULL,
-	FOREIGN KEY(User_id) REFERENCES Event(User_id), 
 	Organizer_name VARCHAR(30),
 	Organizer_description VARCHAR(500),
-	Organizer_website VARCHAR(500)
+	Organizer_website VARCHAR(500),
+	PRIMARY KEY(User_id,Organizer_id)
 );
 
 /* 
@@ -24,8 +24,9 @@ Each organizer may create one of more events
 Each event can only be created by one organizer
 */
 CREATE TABLE Organizer_events (
-	Organizer_id INT NOT NULL PRIMARY KEY,
-    FOREIGN KEY(Event_id) REFERENCES Event(Event_id)
+	Organizer_id INT NOT NULL,
+	Event_id INT NOT NULL,
+    PRIMARY KEY(Organizer_id,Event_id)
 );
 
 /* Represents the Event entity */
@@ -49,8 +50,8 @@ Each user may attend one or more events
 Each event may have one or more attendees 
 */
 CREATE TABLE Event_attendees (
-	User_id INTEGER NOT NULL, 
-    Event_id INTEGER NOT NULL,
+	User_id INT NOT NULL, 
+    Event_id INT NOT NULL,
 	PRIMARY KEY(User_id,Event_id)
 );
 
@@ -79,7 +80,7 @@ CREATE TABLE Event_hosting (
 CREATE TABLE Tag (
 	Tag_id INT NOT NULL PRIMARY KEY,
 	Tag_name VARCHAR(20) NOT NULL
-)
+);
 
 /* 
 Relationship between Event and Tag 
@@ -87,9 +88,9 @@ Each event may have one or more tags
 Each tag may be associated with one or more events 
 */
 CREATE TABLE Event_tags (
-	PRIMARY KEY(Event_id,Tag_id),
-    FOREIGN KEY(Event_id) REFERENCES Event(Event_id), 
-	FOREIGN KEY(Tag_id) REFERENCES Tag(Tag_id)
+	Event_id INTEGER NOT NULL,
+	Tag_id INTEGER NOT NULL, 
+	PRIMARY KEY(Event_id,Tag_id)
 );
 
 /* Represents the Caterer entity */
@@ -105,7 +106,7 @@ Each venue may have one or more caterers
 Each caterer may cater to one or more venues 
 */
 CREATE TABLE Venue_caterer (
-	PRIMARY KEY(Venue_id,Caterer_id),
-    FOREIGN KEY(Venue_id) REFERENCES Event(Venue_id), 
-	FOREIGN KEY(Caterer_id) REFERENCES Caterer(Caterer_id)
+	Venue_id INTEGER NOT NULL,
+	Caterer_id INTEGER NOT NULL, 
+	PRIMARY KEY(Venue_id,Caterer_id)
 );
