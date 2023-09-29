@@ -3,7 +3,7 @@ The goal of this system is to help individuals and communities connect with one 
 
 ## Collaborators
 - [Irmak](https://github.com/airmakyalcn)
-- Munevver
+- [Munevver](https://github.com/munevvercoskun)
 - [Camillia Amin](https://github.com/chamin19)
 - [Rudaba](https://github.com/rudabada)
 - [Rahul](https://github.com/Rahuladams1)
