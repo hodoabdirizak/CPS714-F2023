@@ -9,7 +9,7 @@ The goal of this system is to help individuals and communities connect with one 
 - [Camillia Amin](https://github.com/chamin19)
 - [Rudaba](https://github.com/rudabada)
 - [Rahul](https://github.com/Rahuladams1)
-- Eddy
+- [Eddy](https://github.com/DynasDragon)
 - Abdul
 - [Hameedah](https://github.com/Hameedahadeshina)
 - [Aisharja](https://github.com/Aisharja5) 
