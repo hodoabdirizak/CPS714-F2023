@@ -21,7 +21,7 @@ insert into Event_attendees values (4, 84);
 insert into Event_attendees values (6, 102);
 insert into Event_attendees values (5, 102);
 
-insert into Venue values (1004, 'Spongebob's Pineapple', 'House', '25 Bikini Bottom', 'In-Person', 'Krusty Krab');
+insert into Venue values (1004, "Spongebob's Pineapple", 'House', '25 Bikini Bottom', 'In-Person', 'Krusty Krab');
 insert into Venue values (1014, 'Bikini Bottom Hospital', 'Hospital', '83 Emergency St', 'In-Person', 'N/A');
 insert into Venue values (1250, 'Texas', 'Country', '1 Texas CRT', 'Virtual', 'Bring your own food');
 
