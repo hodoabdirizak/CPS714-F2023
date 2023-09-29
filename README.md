@@ -1,4 +1,6 @@
 # CPS714-F2023
+
+## Objective
 The goal of this system is to help individuals and communities connect with one another and for event organizers to prepare for and host events with ease.
 
 ## Collaborators
