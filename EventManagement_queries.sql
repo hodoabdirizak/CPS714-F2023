@@ -5,7 +5,7 @@ CREATE TABLE User (
 	Full_name VARCHAR(255),
 	Phone_number INT CHECK (phone_number BETWEEN 0 AND 9999999999),
 	Pronouns VARCHAR(5), 
-	Account_type VARCHAR(9) NOT NULL /* Either "attendee" or "organizer" */
+	Account_type VARCHAR(9) NOT NULL /* Options: "attendee", "organizer", "approver" */
 );
 
 /* Represents the Organizer entity - each organizer is associated with a user_id*/
