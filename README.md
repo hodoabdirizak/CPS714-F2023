@@ -15,7 +15,7 @@ The goal of this system is to help individuals and communities connect with one 
 - [Aisharja](https://github.com/Aisharja5) 
 - [Hodo](https://github.com/hodoabdirizak)
 - [Syed Abdul Wadood](https://github.com/4bdulWadood)
-- Hoang
+- [Hoang Vo](https://github.com/HoangVo-hnvo)
 
 ## Technologies Used
 
