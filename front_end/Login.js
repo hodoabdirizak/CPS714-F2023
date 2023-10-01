@@ -1,5 +1,6 @@
 // src/Login.js
 import React, { useState } from 'react';
+import { Link } from "react-router-dom"
 
 function Login() {
   const [username, setUsername] = useState('');
@@ -8,6 +9,13 @@ function Login() {
   const handleLogin = (e) => {
     e.preventDefault();
     // Add your authentication logic here
+    if(username == "Admin" && password == "Admin"){
+      alert("Successfull Login");
+    }
+    else{
+      alert("Invalid/Incorrect Username or Password");
+    }
+
     console.log(`Username: ${username}, Password: ${password}`);
   };
 
@@ -38,10 +46,10 @@ function Login() {
         <button type="submit">Login</button>
       </form>
       <div>
-      	<h6>Forgot your password? <a href= "google.ca">Click Here!</a></h6>
+      	<h6>Forgot your password? <a href = "google.ca">Click Here!</a></h6>
       </div>
       <div>
-        <h6>Don't have an account? <a href= "my.torontomu.ca">Register Now!</a></h6>
+        <h6>Don't have an account? <a href = "google.ca">Register Now!</a></h6>
       </div>
     </div>
   );
