@@ -1,0 +1,56 @@
+  /* Navbar.css */
+  
+.navbar {
+    background-image: url('../assets/images/Homepage-Cover-Page.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: white;
+    padding: 10px 20px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .top-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .logo img {
+    height: 40px; 
+  }
+  
+  .search-bar {
+    display: flex;
+    align-items: center;
+  }
+  
+  .search-bar input {
+    width: 200px;
+    padding: 5px;
+    border: none;
+    border-radius: 4px;
+  }
+  
+  .search-bar button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .nav-items {
+    list-style: none;
+    display: flex;
+    justify-content: flex-end; 
+  }
+  
+  .nav-items li {
+    margin-right: 20px;
+    cursor: pointer;
+  }
+  
