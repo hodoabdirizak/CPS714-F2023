@@ -51,7 +51,8 @@ Each event may have one or more attendees
 */
 CREATE TABLE Event_attendees (
 	User_id INT NOT NULL, 
-    Event_id INT NOT NULL,
+    	Event_id INT NOT NULL,
+	Number_of_tickets INT NOT NULL, 
 	PRIMARY KEY(User_id,Event_id)
 );
 
