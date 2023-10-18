@@ -1,9 +1,9 @@
-insert into User values (1, 'patrickstarr@hotmail.com', 'Patrick Star', '9056753264', 'He/Him', 'attendee');
-insert into User values (2, 'spongebobsqpants23@gmail.com', 'Spongebob Squarepants', '6471230124', 'He/Him', 'organizer');
-insert into User values (3, 'jackson.michael@yahoo.com'. 'Michael Jackson', '4168246426', 'He/He', 'approver');
-insert into User values (4, 'USApresident@outlook.com', 'Michelle Obama', '287546193', "Her/She", 'attendee');
-insert into User values (5, 'NickiM@live.com', 'Nicki Minaj', '6479021346', 'She/Her', 'organizer');
-insert into User values (6, 'T.Holland@live.ca', 'Tom Holland', '6477391043', 'He/Him', 'attendee');
+insert into User_Account values (1, 'patrickstarr@hotmail.com', 'Patrick Star', '9056753264', 'He/Him', 'attendee');
+insert into User_Account values (2, 'spongebobsqpants23@gmail.com', 'Spongebob Squarepants', '6471230124', 'He/Him', 'organizer');
+insert into User_Account values (3, 'jackson.michael@yahoo.com', 'Michael Jackson', '4168246426', 'He/He', 'approver');
+insert into User_Account values (4, 'USApresident@outlook.com', 'Michelle Obama', '287546193', 'Her/She', 'attendee');
+insert into User_Account values (5, 'NickiM@live.com', 'Nicki Minaj', '6479021346', 'She/Her', 'organizer');
+insert into User_Account values (6, 'T.Holland@live.ca', 'Tom Holland', '6477391043', 'He/Him', 'attendee');
 
 insert into Organizer values (20, 2, 'Krusty Krab', 'Yellow square that is ready','rippedmypants.com');
 insert into Organizer values (21, 5, 'Barbz', 'Super Bass', 'BarbzRules.com');
