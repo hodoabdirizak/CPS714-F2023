@@ -4,8 +4,8 @@ CREATE TABLE User_Account (
 	Email VARCHAR(255) NOT NULL UNIQUE,
 	Full_name VARCHAR(255),
 	Phone_number INT CHECK (phone_number BETWEEN 0 AND 9999999999),
-	Pronouns VARCHAR(5), 
-	Account_type VARCHAR(9) NOT NULL /* Options: "attendee", "organizer", "approver" */
+	Pronouns VARCHAR(10), 
+	Account_type VARCHAR(10) NOT NULL /* Options: "attendee", "organizer", "approver" */
 );
 
 /* Represents the Organizer entity - each organizer is associated with a user_id*/
@@ -77,7 +77,7 @@ CREATE TABLE Venue (
 	Venue_name VARCHAR(255) NOT NULL,
 	Venue_type VARCHAR(255) NOT NULL,
 	Venue_address VARCHAR(255),
-	Venue_format VARCHAR(9), /*Either "in-person" or "virtual" */
+	Venue_format VARCHAR(20), /*Either "in-person" or "virtual" */
 	Catering_options VARCHAR(255)
 );
 
