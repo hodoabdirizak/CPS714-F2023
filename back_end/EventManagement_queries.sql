@@ -44,6 +44,21 @@ CREATE TABLE Event ( /* Event is a keyword in sql */
 	Ticket_cost DECIMAL(10,2) NOT NULL
 );
 
+/* Altering Event table
+ALTER TABLE Event
+ADD newcolumn DATATYPE;
+
+ALTER TABLE Event
+DROP COLUMN columnName; 
+*/
+
+/*Updating Event table
+UPDATE Event
+SET column1 = value1,...
+WHERE condition;
+*/
+
+
 /* 
 Relationship between User and Event 
 Each user may attend one or more events
