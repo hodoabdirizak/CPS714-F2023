@@ -1,5 +1,5 @@
 /* Represents the User entity */
-CREATE TABLE User (
+CREATE TABLE User_Account (
 	User_id INT NOT NULL PRIMARY KEY,
 	Email VARCHAR(255) NOT NULL UNIQUE,
 	Full_name VARCHAR(255),
@@ -40,8 +40,8 @@ CREATE TABLE Event ( /* Event is a keyword in sql */
   	Family_friendly BOOLEAN NOT NULL,
   	Minimum_age INT NOT NULL, 
 	Approved BOOLEAN NOT NULL,
-	Event_cost FLOAT(10,2) NOT NULL, /* 10 digits before the point, 2 digits after the point */
-	Ticket_cost FLOAT(10,2) NOT NULL
+	Event_cost DECIMAL(10,2) NOT NULL, /* 10 digits before the point, 2 digits after the point */
+	Ticket_cost DECIMAL(10,2) NOT NULL
 );
 
 /* 
@@ -98,7 +98,7 @@ CREATE TABLE Event_tags (
 CREATE TABLE Caterer (
 	Caterer_id INT NOT NULL PRIMARY KEY,
 	Cuisine VARCHAR(20) NOT NULL, /*Ex. Thai, Seafood, Japanese, etc.*/
-	Price_per_attendee FLOAT(10,2) NOT NULL
+	Price_per_attendee DECIMAL(10,2) NOT NULL
 );
 
 /* 
