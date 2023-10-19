@@ -35,9 +35,11 @@ SELECT ua.Full_name, ua.Phone_number, ua.Email
     WHERE ua.User_id = ea.User_ID AND ea.Event_id = 54; 
 
 /*
-    all the venues available for an event
+    Get all the venues available for an event 
+*/
+
+    
     all the caterers available at a venue
     all the venues available for an event
     all the events with a specific tag
-    all the events hosted by an organizer 
-*/
+    all the events hosted by an organizer

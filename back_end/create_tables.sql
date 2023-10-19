@@ -113,9 +113,11 @@ CREATE TABLE Event_tags (
 
 /* Represents the Caterer entity */
 CREATE TABLE Caterer (
-	Caterer_id INT NOT NULL PRIMARY KEY,
+	Caterer_id INT NOT NULL,
+	User_id INT NOT NULL,
 	Cuisine VARCHAR(20) NOT NULL, /*Ex. Thai, Seafood, Japanese, etc.*/
 	Price_per_attendee DECIMAL(10,2) NOT NULL
+	PRIMARY KEY(Caterer_id, User_id)
 );
 
 /* 

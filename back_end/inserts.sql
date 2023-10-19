@@ -4,6 +4,11 @@ insert into User_Account values (3, 'jackson.michael@yahoo.com', 'Michael Jackso
 insert into User_Account values (4, 'USApresident@outlook.com', 'Michelle Obama', '287546193', 'Her/She', 'attendee');
 insert into User_Account values (5, 'NickiM@live.com', 'Nicki Minaj', '6479021346', 'She/Her', 'organizer');
 insert into User_Account values (6, 'T.Holland@live.ca', 'Tom Holland', '6477391043', 'He/Him', 'attendee');
+insert into User_Account values (7, 'pastahouse@gmail.ca', 'Pasta House', '6477891043', '', 'caterer');
+insert into User_Account values (8, 'kelseys@gmail.ca', 'Kelseys', '6477891013', '', 'caterer');
+insert into User_Account values (9, 'ouioui@gmail.ca', 'Oui Oui', '6471021013', '', 'caterer');
+
+
 
 insert into Organizer values (20, 2, 'Krusty Krab', 'Yellow square that is ready','rippedmypants.com');
 insert into Organizer values (21, 5, 'Barbz', 'Super Bass', 'BarbzRules.com');
@@ -39,9 +44,9 @@ insert into Event_tags values (54, 6412);
 insert into Event_tags values (84,6413);
 insert into Event_tags values (102, 6414);
 
-insert into Caterer values (8067, 'American', 7.90);
-insert into Caterer values (8068, 'Italian', 18.99);
-insert into Caterer values (8069, 'French', 54.21);
+insert into Caterer values (8067, 8, 'American', 7.90);
+insert into Caterer values (8068, 7, 'Italian', 18.99);
+insert into Caterer values (8069, 9, 'French', 54.21);
 
 insert into Venue_caterer values (1004, 8067);
 insert into Venue_caterer values (1014, 8069);
