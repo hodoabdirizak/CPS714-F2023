@@ -16,10 +16,10 @@ insert into Event_table values (54, 'Christmas Party', '2023-12-24', '2023-12-24
 insert into Event_table values (84, 'Squidward resuscitation event', '2023-12-25', '2023-12-25', '00:01', '12:01', 'I forgot Squidward is claustrophobic', 5, false, 18, false, 0, 0);
 insert into Event_table values (102, 'My Wedding', '2023-11-16', '2023-11-11', '14:00', '1:00', 'I am marrying Tom Holland', 450, false, 18, true, 15000, 100);
 
-insert into Event_attendees values (1, 54);
-insert into Event_attendees values (4, 84);
-insert into Event_attendees values (6, 102);
-insert into Event_attendees values (5, 102);
+insert into Event_attendees values (1, 54, 1);
+insert into Event_attendees values (4, 84, 2);
+insert into Event_attendees values (6, 102, 1);
+insert into Event_attendees values (5, 102, 1);
 
 insert into Venue values (1004, "Spongebob's Pineapple", 'House', '25 Bikini Bottom', 'In-Person', 'Krusty Krab');
 insert into Venue values (1014, 'Bikini Bottom Hospital', 'Hospital', '83 Emergency St', 'In-Person', 'N/A');
