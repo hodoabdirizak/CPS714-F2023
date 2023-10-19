@@ -30,7 +30,7 @@ CREATE TABLE Organizer_events (
 );
 
 /* Represents the Event entity */
-CREATE TABLE Event ( /* Event is a keyword in sql */
+CREATE TABLE Event_table ( 
 	Event_id INT NOT NULL PRIMARY KEY,
 	Event_name VARCHAR(100) NOT NULL,
 	Event_date DATE NOT NULL, /*format is YYYY-MM-DD*/
@@ -66,7 +66,7 @@ Each event may have one or more attendees
 */
 CREATE TABLE Event_attendees (
 	User_id INT NOT NULL, 
-    	Event_id INT NOT NULL,
+    Event_id INT NOT NULL,
 	Number_of_tickets INT NOT NULL, 
 	PRIMARY KEY(User_id,Event_id)
 );
