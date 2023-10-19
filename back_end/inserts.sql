@@ -12,9 +12,9 @@ insert into Organizer_events values (20, 54);
 insert into Organizer_events values (20, 84);
 insert into Organizer_events values (21, 102);
 
-insert into Event_table values (54, 'Christmas Party', 2023-12-24, 17:00, 'Christmas Party at my house!!', 20, true, 1, true, 323.68, 0);
-insert into Event_table values (84, 'Squidward resuscitation event', 2023-12-25, 00:01, 'I forgot Squidward is claustrophobic', 5, false, 18, false, 0, 0);
-insert into Event_table values (102, 'My Wedding', 2023-11-16, 16:00, 'I am marrying Tom Holland', 450, false, 18, true, 15000, 100);
+insert into Event_table values (54, 'Christmas Party', '2023-12-24', '2023-12-24', '17:00', '23:00', 'Christmas Party at my house!!', 20, true, 1, true, 323.68, 0);
+insert into Event_table values (84, 'Squidward resuscitation event', '2023-12-25', '2023-12-25', '00:01', '12:01', 'I forgot Squidward is claustrophobic', 5, false, 18, false, 0, 0);
+insert into Event_table values (102, 'My Wedding', '2023-11-16', '2023-11-11', '14:00', '1:00', 'I am marrying Tom Holland', 450, false, 18, true, 15000, 100);
 
 insert into Event_attendees values (1, 54);
 insert into Event_attendees values (4, 84);
