@@ -15,4 +15,6 @@ Create queries for retrieving:
 /* Get user account info */
 SELECT * FROM User_Account WHERE User_id=1;
 
-/* Get all the events that a user is attending */
+/* Get the basic into all the events that a user is attending */
+SELECT * FROM Event_attendees WHERE User_id=1;
+
