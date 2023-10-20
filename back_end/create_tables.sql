@@ -74,7 +74,7 @@ Each venue may host one or more events
 Each events can only be hosted at one venue 
 */
 CREATE TABLE Event_hosting (
-	Event_id INTEGER NOT NULL UNIQUE, /*should be unique*/
+	Event_id INTEGER NOT NULL,
 	Venue_id INTEGER NOT NULL, 
     PRIMARY KEY(Event_id,Venue_id)
 );
@@ -115,3 +115,4 @@ CREATE TABLE Venue_caterer (
 	Caterer_id INTEGER NOT NULL, 
 	PRIMARY KEY(Venue_id,Caterer_id)
 );
+
