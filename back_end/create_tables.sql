@@ -3,7 +3,7 @@ CREATE TABLE User_Account (
 	User_id INT NOT NULL PRIMARY KEY,
 	Email VARCHAR(255) NOT NULL UNIQUE,
 	Full_name VARCHAR(255),
-	Phone_number INT CHECK (phone_number BETWEEN 0 AND 9999999999),
+	Phone_number INT CHECK (Phone_number BETWEEN 0 AND 9999999999),
 	Pronouns VARCHAR(10), 
 	Account_type VARCHAR(10) NOT NULL /* Options: "attendee", "organizer", "approver" */
 );
