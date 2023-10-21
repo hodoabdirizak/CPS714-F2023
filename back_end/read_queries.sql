@@ -62,8 +62,8 @@ WHERE eh.Event_id = et.Event_id
 SELECT et.Event_name, , et.Event_description, et.Event_start_date, et.Event_end_date
 FROM Event_table AS et, Event_tags as etg, Tag AS tg
 WHERE et.Event_id = etg.Event_id 
-    AND tg.Tag_id = etg.Tag_id 
-    AND tg.Tag_name = 'Holiday';
+	AND tg.Tag_id = etg.Tag_id 
+	AND tg.Tag_name = 'Holiday';
 
 /*
     Get all the events hosted by an organizer
@@ -73,8 +73,8 @@ WHERE et.Event_id = etg.Event_id
 SELECT et.Event_name, , et.Event_description, et.Event_start_date, et.Event_end_date
 FROM Event_table AS et, Organizer AS oz, Organizer_events AS oe
 WHERE oz.Organizer_id = oe.Organizer_id 
-    AND et.Event_id = oe.Event_id 
-    AND oz.Organizer_name = 'Barbz';
+	AND et.Event_id = oe.Event_id 
+	AND oz.Organizer_name = 'Barbz';
 
 /*
     Get all the venues available for an event 
