@@ -1,26 +1,30 @@
 // Navbar.js
-import React from 'react';
+import React  from 'react';
+import logo from '../assets/logo.png';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import './Navbar.css';
 
 function Navbar() {
     return (
       <div className="navbar">
-        <div className="top-section">
+        <div className="left-section">
           <div className="logo">
-            <img src="../assets/images/logo.png" alt="Logo" />
+            <img src={logo} alt="Logo" />
           </div>
           <div className="search-bar">
-            <input type="text" placeholder="Search for an event" />
-            <button>
-              <i className="fas fa-search"></i>
-            </button>
+            <FontAwesomeIcon icon={ faSearch } />
+            <input type="text" 
+            placeholder='Search for an event'
+            className="rounded-input" 
+            />
           </div>
         </div>
         <ul className="nav-items">
-            <li>Find Events</li>
-            <li>FAQ</li>
-            <li>My Events</li>
-            <li>Sign In</li>
+            <li><a href="/">Find Events</a></li>
+            <li><a href="/">FAQ</a></li>
+            <li><a href="/">My Events</a></li>
+            <li> <a href="/login">Sign In</a></li>
         </ul>
       </div>
     );
