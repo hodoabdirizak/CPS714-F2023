@@ -23,9 +23,9 @@
 
 .content {
     position: relative;
-    margin-top: 0;
+    margin-top: 10px;
     z-index: 2;
-    padding: 20px;
+    margin-left: 90px;
 }
 
 .h1 {
@@ -34,7 +34,7 @@
     font-family: Inter;
     font-size: 42px; 
     font-style: normal;
-    font-weight: 300;
+    font-weight: 200;
     line-height: normal;
 }
 
@@ -46,3 +46,10 @@
     font-weight: 500;
     line-height: normal;
 }
+
+.event-cards {
+    display: flex;
+    justify-content: space-between;
+    overflow-x: auto;
+    padding: 10px;
+  }

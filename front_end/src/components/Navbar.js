@@ -1,4 +1,5 @@
 // Navbar.js
+
 import React  from 'react';
 import logo from '../assets/logo.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -10,7 +11,9 @@ function Navbar() {
       <div className="navbar">
         <div className="left-section">
           <div className="logo">
+          <a href="/">
             <img src={logo} alt="Logo" />
+            </a>
           </div>
           <div className="search-bar">
             <FontAwesomeIcon icon={ faSearch } />
