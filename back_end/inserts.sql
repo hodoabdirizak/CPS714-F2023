@@ -34,16 +34,6 @@ insert into Event_hosting values (54, 1004);
 insert into Event_hosting values (84, 1014);
 insert into Event_hosting values (102, 1250);
 
-insert into Tag values (6412, 'Holiday');
-insert into Tag values (6413, 'Concert');
-insert into Tag values (6414, 'Wedding');
-insert into Tag values (6411, 'Birthday');
-insert into Tag values (6410, 'Rave');
-
-insert into Event_tags values (54, 6412);
-insert into Event_tags values (84,6413);
-insert into Event_tags values (102, 6414);
-
 insert into Caterer values (8067, 8, 'American', 7.90);
 insert into Caterer values (8068, 7, 'Italian', 18.99);
 insert into Caterer values (8069, 9, 'French', 54.21);

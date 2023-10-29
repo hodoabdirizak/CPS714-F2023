@@ -43,14 +43,6 @@ WHERE Venue_id = venid;
 -- Update Event_hosting
 -- Not sure what to update
 
--- Update Tag, Input: tag_id
-UPDATE Tag
-SET Tag_name = newname
-WHERE Tag_id = tagid;
-
--- Update Event_tags
--- Not sure what to update
-
 -- Updtae Caterer, Input: Caterer_id, User_id
 UPDATE Catrer
 SET Cuisine = newcuisine,

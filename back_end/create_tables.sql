@@ -78,23 +78,6 @@ CREATE TABLE Event_hosting (
     PRIMARY KEY(Event_id,Venue_id)
 );
 
-/* Represents the Tag entity */
-CREATE TABLE Tag (
-	Tag_id INT NOT NULL PRIMARY KEY,
-	Tag_name VARCHAR(20) NOT NULL
-);
-
-/* 
-Relationship between Event and Tag 
-Each event may have one or more tags
-Each tag may be associated with one or more events 
-*/
-CREATE TABLE Event_tags (
-	Event_id INTEGER NOT NULL,
-	Tag_id INTEGER NOT NULL, 
-	PRIMARY KEY(Event_id,Tag_id)
-);
-
 /* Represents the Caterer entity */
 CREATE TABLE Caterer (
 	Caterer_id INT NOT NULL,

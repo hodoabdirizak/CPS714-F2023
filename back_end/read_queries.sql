@@ -55,17 +55,6 @@ FROM Event_table AS et, Event_hosting AS eh
 WHERE eh.Event_id = et.Event_id
 
 /*
-    Get all the events with a specific tag
-    For filtering on event search
-    Input: Tag_name
-*/
-SELECT et.Event_name, , et.Event_description, et.Event_start_date, et.Event_end_date
-FROM Event_table AS et, Event_tags as etg, Tag AS tg
-WHERE et.Event_id = etg.Event_id 
-	AND tg.Tag_id = etg.Tag_id 
-	AND tg.Tag_name = 'Holiday';
-
-/*
     Get all the events hosted by an organizer
     For organizer view
     Input: Organizer name

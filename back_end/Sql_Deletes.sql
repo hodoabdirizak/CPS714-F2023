@@ -31,11 +31,6 @@ DELETE FROM Event_Attendees WHERE Event_id = eventid AND User_id = user;
  */
 DELETE FROM Venue WHERE Venue_id = venue;
 
- /* Tag deletion
-    Inputs: tag
- */
- DELETE FROM Tag WHERE Tag_id = tag;
-
  /* Caterer deletion
     Inputs: caterer, eventid 
  */
