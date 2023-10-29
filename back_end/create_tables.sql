@@ -33,13 +33,13 @@ CREATE TABLE Organizer_events (
 CREATE TABLE Event_table ( 
 	Event_id INT NOT NULL PRIMARY KEY,
 	Event_name VARCHAR(100) NOT NULL,
+	Event_type VARCHAR(100) NOT NULL,
 	Event_start_date DATE NOT NULL, /*format is YYYY-MM-DD*/	
 	Event_end_date DATE NOT NULL, /*format is YYYY-MM-DD*/
 	Event_start_time TIME NOT NULL, /*format is HH:MM runs as a 24-hour clock time */
 	Event_end_time TIME NOT NULL, /*format is HH:MM runs as a 24-hour clock time */
   	Event_description VARCHAR(500) NOT NULL,
 	Capacity INT NOT NULL,
-  	Family_friendly BOOLEAN NOT NULL,
   	Minimum_age INT NOT NULL, 
 	Approved BOOLEAN NOT NULL,
 	Event_cost DECIMAL(10,2) NOT NULL, /* 10 digits before the point, 2 digits after the point */
@@ -115,4 +115,3 @@ CREATE TABLE Venue_caterer (
 	Caterer_id INTEGER NOT NULL, 
 	PRIMARY KEY(Venue_id,Caterer_id)
 );
-
