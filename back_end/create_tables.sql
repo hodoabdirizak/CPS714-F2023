@@ -41,8 +41,7 @@ CREATE TABLE Event_table (
   	Event_description VARCHAR(500) NOT NULL,
 	Capacity INT NOT NULL,
   	Minimum_age INT NOT NULL, 
-	Approved BOOLEAN NOT NULL,
-	Event_cost DECIMAL(10,2) NOT NULL, /* 10 digits before the point, 2 digits after the point */
+	Approved BIT NOT NULL, /* 1 for true, 0 for false */
 	Ticket_cost DECIMAL(10,2) NOT NULL
 );
 
