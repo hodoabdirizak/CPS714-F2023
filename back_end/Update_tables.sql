@@ -46,7 +46,7 @@ WHERE Venue_id = venid;
 -- Update Tag, Input: tag_id
 UPDATE Tag
 SET Tag_name = newname
-WHERE Tag_d = tagid;
+WHERE Tag_id = tagid;
 
 -- Update Event_tags
 -- Not sure what to update
