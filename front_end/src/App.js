@@ -1,4 +1,4 @@
-
+// src/App.js
 import Routes from './Routes';
 import './App.css';
 
@@ -8,4 +8,4 @@ const App = () => {
   );
 }
 
-export default App;
+export default App; 
