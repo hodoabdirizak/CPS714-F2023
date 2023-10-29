@@ -54,8 +54,8 @@ WHERE Tag_d = tagid;
 -- Updtae Caterer, Input: Caterer_id, User_id
 UPDATE Catrer
 SET Cuisine = newcuisine,
-	Price_per_attendee = newprice
-WHERE Caterer_id = catid, User_id = userid;
+    Price_per_attendee = newprice
+WHERE Caterer_id = catid AND User_id = userid;
 
 -- Update Venue_caterer
 -- Not sure what to update
