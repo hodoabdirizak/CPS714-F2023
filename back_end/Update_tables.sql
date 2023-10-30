@@ -8,7 +8,7 @@ WHERE User_id = userid;
 
 -- Update Organizer, Input: User_id, organizer_id
 UPDATE Organizer
-SET Organizer_name = newname,
+SET Organizer_name = orgname,
     Organizer_description = newdescription,
     Organizer_website = newwebsite
 WHERE User_id = userid AND Organizer_id = orgid;
@@ -36,7 +36,7 @@ WHERE User_id = userid AND Event_id = eventid;
 -- Update Venue, Input: Venue_id
 UPDATE Venue
 SET Venue_address = newaddress,
-    Venue_name = newname,
+    Venue_name = venname,
     Catering_options = newoption
 WHERE Venue_id = venid;
 
