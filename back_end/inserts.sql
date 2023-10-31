@@ -9,7 +9,6 @@ insert into User_Account values (8, 'kelseys@gmail.ca', 'Kelseys', 6477891013, '
 insert into User_Account values (9, 'ouioui@gmail.ca', 'Oui Oui', 6471021013, '', 'caterer');
 
 
-
 insert into Organizer values (20, 2, 'Krusty Krab', 'Yellow square that is ready','rippedmypants.com');
 insert into Organizer values (21, 5, 'Barbz', 'Super Bass', 'BarbzRules.com');
 
