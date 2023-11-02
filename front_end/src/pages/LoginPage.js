@@ -50,7 +50,7 @@ export const LoginPage = () => {
       	<h6>Forgot your password? <a href = "google.ca">Click Here!</a></h6>
       </div>
       <div>
-        <h6>Don't have an account? <a href = "google.ca">Register Now!</a></h6>
+        <h6>Don't have an account? <a href = "signup">Register Now!</a></h6>
       </div>
     </div>
         </>
