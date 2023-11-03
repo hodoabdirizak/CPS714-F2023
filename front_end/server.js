@@ -3,6 +3,18 @@ const express       = require('express'),
       dbOperation   = require('../back_end/SQLServerFiles/dbOperation'),
       cors          = require('cors');
 
+async function main() {
+  try {
+    const data = await dbOperation();
+    console.dir(data); 
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+main();
+
+
 /*
 // Define port
 const API_PORT = process.env.PORT || 5000;
@@ -23,10 +35,10 @@ app.get('/quit', function(req,res){
 })
 
 
-// Run nodemon server.js to run the server
+// Run `nodemon server.js` to run the server
 app.listen(API_PORT, () => console.log(`Listening on port ${API_PORT}`));
 */
 
-dbOperation.getAccounts().then(res => {
-    console.log(res);
-})
+// dbOperation.getAccounts().then(res => {
+//     console.log(res);
+// })

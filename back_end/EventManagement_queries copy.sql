@@ -58,7 +58,6 @@ SET column1 = value1,...
 WHERE condition;
 */
 
-
 /* 
 Relationship between User and Event 
 Each user may attend one or more events
