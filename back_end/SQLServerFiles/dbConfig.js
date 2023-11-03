@@ -13,7 +13,7 @@ const config = {
     options: {
         // If you are on Microsoft Azure, you need encryption:
         // encrypt: true,
-        // instancename: 'SQLEXPRESS',
+        instancename: 'SQLEXPRESS',
         enableArithAbort: true,
         // trustedConnection: true,
         trustServerCertificate: true
