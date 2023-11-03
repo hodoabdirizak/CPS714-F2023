@@ -9,13 +9,10 @@ const config = {
         min: 0,
         idleTimeoutMillis: 30000
     },
-    // connectionTimeout: 150,
+    connectionTimeout: 150000,
     options: {
-        // If you are on Microsoft Azure, you need encryption:
-        // encrypt: true,
         instancename: 'SQLEXPRESS',
         enableArithAbort: true,
-        // trustedConnection: true,
         trustServerCertificate: true
     }
 };

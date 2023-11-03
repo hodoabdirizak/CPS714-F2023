@@ -59,7 +59,7 @@ WHERE eh.Event_id = et.Event_id
     For organizer view
     Input: Organizer name
 */
-SELECT et.Event_name, , et.Event_description, et.Event_start_date, et.Event_end_date
+SELECT et.Event_name, et.Event_description, et.Event_start_date, et.Event_end_date
 FROM Event_table AS et, Organizer AS oz, Organizer_events AS oe
 WHERE oz.Organizer_id = oe.Organizer_id 
 	AND et.Event_id = oe.Event_id 
