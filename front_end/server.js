@@ -1,6 +1,5 @@
 // Run `nodemon server.js` in terminal to run the server
 
-// Initialize Express.js server
 const express       = require('express'),
       dbOperation   = require('../back_end/SQLServerFiles/dbOperation'),
       cors          = require('cors');
