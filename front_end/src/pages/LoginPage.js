@@ -16,7 +16,7 @@ export const LoginPage = () => {
     // Add your authentication logic here
     if(username === "Admin" && password === "Admin"){
       alert("Successfull Login");
-      history.push('/');
+      history.push('/',{params:'true'});
       history.go(0);
     }
     else{

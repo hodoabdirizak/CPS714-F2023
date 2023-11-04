@@ -1,10 +1,13 @@
 // pages/HomePage.js
 
-// import React, { useState } from 'react';
+import React from 'react'
+import { useLocation } from "react-router-dom";
 import Navbar from '../components/Navbar'; 
 import CoverPhoto from '../assets/images/CoverPhoto.jpeg';
 import EventCard from '../components/EventCard';
 import './HomePage.css';
+
+export const HomePage = () => {
 
 /* dummy data 
 need to retrieve this data from backend */
@@ -39,14 +42,12 @@ const events = [
     },
   ];
 
-
-export const HomePage = () => {
-    // const [isLoggedIn] = useState(false);
+  const location = useLocation();
+  const isLoggedIn = location?.state?.params;
 
     return (
         <div className='home-page-container'>
-            {/* <Navbar isLoggedIn={isLoggedIn} /> */}
-            <Navbar/>
+            <Navbar isLoggedIn={isLoggedIn} />
             <div className='background-image'>
                 <img src={CoverPhoto} alt=''/>
             </div>
