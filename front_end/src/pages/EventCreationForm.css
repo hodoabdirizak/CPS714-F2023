@@ -1,5 +1,6 @@
-/* pages/LoginPage.css */
-.login-container {
+/* pages/EventCreationForm.css */
+
+.event-creation-container {
     width: 50vw;
     margin: 0vh auto;
     padding: 20px;
@@ -11,8 +12,11 @@
     flex-direction: column;
     align-items: center; /* Center content vertically */
     justify-content: center; /* Center content horizontally */
-  }
-  
+}
+
+div{
+  padding: 4px;
+}
   .form-group {
     display: flex;
     flex-direction: row;
@@ -71,6 +75,14 @@
   
   input {
     width: 94%;
+    padding: 8px;
+    margin-top: 4px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  select{
+    width: 100%;
     padding: 8px;
     margin-top: 4px;
     border: 1px solid #ccc;
