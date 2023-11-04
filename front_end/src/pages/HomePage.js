@@ -1,11 +1,13 @@
 // pages/HomePage.js
 
+// import React, { useState } from 'react';
 import Navbar from '../components/Navbar'; 
 import CoverPhoto from '../assets/images/CoverPhoto.jpeg';
 import EventCard from '../components/EventCard';
 import './HomePage.css';
 
-/* dummy data */
+/* dummy data 
+need to retrieve this data from backend */
 const events = [
     {
       id: 1,
@@ -39,9 +41,12 @@ const events = [
 
 
 export const HomePage = () => {
+    // const [isLoggedIn] = useState(false);
+
     return (
         <div className='home-page-container'>
-            <Navbar />
+            {/* <Navbar isLoggedIn={isLoggedIn} /> */}
+            <Navbar/>
             <div className='background-image'>
                 <img src={CoverPhoto} alt=''/>
             </div>
