@@ -3,10 +3,10 @@
 import React  from 'react';
 import logo from '../assets/logo.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import { faSearch, faUser } from '@fortawesome/free-solid-svg-icons'
 import './Navbar.css';
 
-function Navbar() {
+function Navbar({ isLoggedIn=true }) {
     return (
       <div className="navbar">
         <div className="left-section">
@@ -27,7 +27,15 @@ function Navbar() {
             <li><a href="/">Find Events</a></li>
             <li><a href="/">FAQ</a></li>
             <li><a href="/">My Events</a></li>
-            <li> <a href="/login">Sign In</a></li>
+            <li className="profile-item">
+              <a href="/profile">
+                <div className="profile-icon">
+                  <FontAwesomeIcon icon={faUser} size="lg" style={{ color: "#1e0900" }} />
+                </div>
+                Profile
+              </a>
+            </li>
+            {/* <li><a href="/login">Sign In</a></li> */}
         </ul>
       </div>
     );

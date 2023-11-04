@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import './LoginPage.css';
 
-export const LoginPage = () => {
+export const LoginPage = ({ setIsLoggedIn }) => {
     const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -11,6 +11,7 @@ export const LoginPage = () => {
     // Add your authentication logic here
     if(username === "Admin" && password === "Admin"){
       alert("Successfull Login");
+      setIsLoggedIn(true);
     }
     else{
       alert("Invalid/Incorrect Username or Password");
