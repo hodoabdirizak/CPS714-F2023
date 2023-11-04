@@ -1,7 +1,20 @@
-// Initialize Express.js server
+// Run `nodemon server.js` in terminal to run the server
+
 const express       = require('express'),
       dbOperation   = require('../back_end/SQLServerFiles/dbOperation'),
       cors          = require('cors');
+
+
+async function main() {
+  try {
+    const data = await dbOperation();
+    console.dir(data); 
+  } catch (err) {
+    console.log(err);
+  }
+}
+main();
+
 
 /*
 // Define port
@@ -22,11 +35,5 @@ app.get('/quit', function(req,res){
     res.send({result: 'Bye'})
 })
 
-
-// Run nodemon server.js to run the server
 app.listen(API_PORT, () => console.log(`Listening on port ${API_PORT}`));
 */
-
-dbOperation.getAccounts().then(res => {
-    console.log(res);
-})

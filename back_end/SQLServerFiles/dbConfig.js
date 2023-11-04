@@ -1,16 +1,21 @@
 const config = {
-    user: 'camillia',
-    password: '0m@rFa!ls?',
-    server: 'DESKTOP-TR8A4MF',
-    database: 'EventEasy',
-    options: {
-        trustServerCertificate: true,
-        trustedConnection: true,
-        enableArithAbort: true,
-        encrypt: true,
-        instancename: 'SQLEXPRESS'
+    user: 'REPLACE',
+    password: 'REPLACE',
+    database: 'EventEasy', //REPLACE if you named yours differently
+    server: 'DESKTOP-TR8A4MF', //REPLACE
+    port: 1433, //REPLACE
+    pool: {
+        max: 10,
+        min: 0,
+        idleTimeoutMillis: 30000
     },
-    port: 1433
-}
+    connectionTimeout: 150000,
+    options: {
+        instancename: 'SQLEXPRESS',
+        enableArithAbort: true,
+        trustServerCertificate: true
+    }
+};
+
 
 module.exports = config;
