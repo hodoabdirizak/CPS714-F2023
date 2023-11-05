@@ -1,9 +1,9 @@
 const config = {
-    user: 'camillia',
-    password: '0m@rFa!ls?',
-    database: 'EventEasy',
-    server: 'DESKTOP-TR8A4MF',
-    port: 1433,
+    user: 'REPLACE',
+    password: 'REPLACE',
+    database: 'EventEasy', //REPLACE if you named yours differently
+    server: 'DESKTOP-TR8A4MF', //REPLACE
+    port: 1433, //REPLACE
     pool: {
         max: 10,
         min: 0,
