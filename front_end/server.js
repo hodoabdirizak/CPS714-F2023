@@ -16,11 +16,11 @@ async function getAccounts() {
 getAccounts();
 
 // will be determined by input from front-end
-let newAccount = new constructor.User_Account(11, 'tom.hanks@gmail.ca', 'Tom Hanks', 6471012013, '', 'attendee');
+let newAccount = new constructor.User_Account(12, 'ibm@ibm.ca', 'IBM', 6471009000, '', 'organizer');
 
 async function addAccount() {
   try {
-    const add_data = await dbOperation.addAccount(newAccount);
+    await dbOperation.addAccount(newAccount);
     const data = await dbOperation.getAccounts();
     console.dir(data); 
   } catch (err) {
