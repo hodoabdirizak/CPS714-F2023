@@ -8,4 +8,6 @@ class User_Account {
       this.Account_type = Account_type
   }
 }
-module.exports = User_Account;
+module.exports = { 
+  User_Account
+};

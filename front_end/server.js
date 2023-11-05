@@ -1,8 +1,8 @@
 // Run `nodemon server.js` in terminal to run the server
 
 const express       = require('express'),
-      User_Account  = require('../back_end/SQLServerFiles/user_account'),
-      dbOperation   = require('../back_end/SQLServerFiles/dbUserAccountOperation'),
+      constructor   = require('../back_end/SQLServerFiles/constructors'),
+      dbOperation   = require('../back_end/SQLServerFiles/dbOperationUserAccount'),
       cors          = require('cors');
 
 async function getAccounts() {
@@ -16,7 +16,7 @@ async function getAccounts() {
 getAccounts();
 
 // will be determined by input from front-end
-let newAccount = new User_Account(10, 'burgermania@gmail.ca', 'Burger Mania', 6471001013, 'N/A', 'caterer');
+let newAccount = new constructor.User_Account(11, 'tom.hanks@gmail.ca', 'Tom Hanks', 6471012013, '', 'attendee');
 
 async function addAccount() {
   try {
