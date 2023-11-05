@@ -1,20 +1,33 @@
 // Run `nodemon server.js` in terminal to run the server
 
 const express       = require('express'),
-      dbOperation   = require('../back_end/SQLServerFiles/dbOperation'),
+      User_Account  = require('../back_end/SQLServerFiles/user_account'),
+      dbOperation   = require('../back_end/SQLServerFiles/dbUserAccountOperation'),
       cors          = require('cors');
 
-
-async function main() {
+async function getAccounts() {
   try {
-    const data = await dbOperation();
+    const data = await dbOperation.getAccounts();
     console.dir(data); 
   } catch (err) {
     console.log(err);
   }
 }
-main();
+getAccounts();
 
+// will be determined by input from front-end
+let newAccount = new User_Account(10, 'burgermania@gmail.ca', 'Burger Mania', 6471001013, 'N/A', 'caterer');
+
+async function addAccount() {
+  try {
+    const add_data = await dbOperation.addAccount(newAccount);
+    const data = await dbOperation.getAccounts();
+    console.dir(data); 
+  } catch (err) {
+    console.log(err);
+  }
+}
+addAccount();
 
 /*
 // Define port
