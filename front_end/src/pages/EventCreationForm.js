@@ -38,7 +38,7 @@ export const EventCreationForm = () => {
     setSelectedOption(event.target.value);
   };
   const handleOptionChange1 = (event) => {
-    setSelectedOption(event.target.value);
+    setSelectedOption1(event.target.value);
   };
 
   //Variables Obtained from the form
@@ -61,7 +61,20 @@ export const EventCreationForm = () => {
     // You can handle form submission and data storage here.
     // For this example, we'll just navigate to the confirmation page.
 
-    history.push('/confirmation', { eventName, eventDate });
+    history.push('/eventCreationConfirmation', 
+      { eventName, 
+	eventDate,
+	eventLocation,
+	numberOfGuests,
+	eventDescription,
+	eventType,
+	selectedOption,
+	admissionPrice,
+	selectedOption1,
+	catering,
+	additionalNotes 
+      });
+    history.go(0);
   };
 
   return (
@@ -191,7 +204,7 @@ export const EventCreationForm = () => {
 	</div>
 	<div>
 	  <label>If yes, what catering services do you require?</label>
-	  <select value={eventType} onChange={handleChange2}>
+	  <select value={catering} onChange={handleChange2}>
 	    <option value="" hidden>Type of Catering Services</option>
     	    <option value="Catering 1">Catering 1</option>
     	    <option value="Catering 2">Catering 2</option>
