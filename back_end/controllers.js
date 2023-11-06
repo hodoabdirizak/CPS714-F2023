@@ -1,22 +1,22 @@
-const dbOperation   = require('./SQLServerFiles/dbOperationUserAccount');
+const dbOperationUserAccount   = require('./SQLServerFiles/dbOperationUserAccount');
 
 const userAccountController = {
     getAccounts: async(req,res) => {
         console.log('Called /api/account/getaccounts');
-        const result = await dbOperation.getAccounts();
+        const result = await dbOperationUserAccount.getAccounts();
         console.dir(result);
         res.send(result.recordset);
     },    
     getAccountByName: async(req,res) => {
         console.log('Called /api/account/getaccountbyname');
-        const result = await dbOperation.getAccountByName(req.body.name);
+        const result = await dbOperationUserAccount.getAccountByName(req.body.name);
         console.dir(result);
         res.send(result.recordset);
     },
     createUserAccount: async(req,res) => {
         console.log('Called /api/account/addaccount');  
         await dbOperation.addAccount(req.body);  
-        const result = await dbOperation.getAccounts();
+        const result = await dbOperationUserAccount.getAccounts();
         console.dir(result);
         res.send(result.recordset);
     }
