@@ -1,6 +1,6 @@
 
 To run the applications as a live-server: <br>
-1. make sure your login username and password have been updated in `back-end/SQLServerFiles/db.Config.js`
+1. make sure your login username and password have been updated in `back-end/SQLServerFiles/dbConfig.js`
 2. open bash terminal and `cd front-end/`
 3. run `npm run dev` in terminal
 4. when the app launches in your browser, add "/backend-testing" to the URL. 
