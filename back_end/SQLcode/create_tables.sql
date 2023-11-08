@@ -5,7 +5,8 @@ CREATE TABLE User_Account (
 	Full_name VARCHAR(255),
 	Phone_number BIGINT,
 	Pronouns VARCHAR(10), 
-	Account_type VARCHAR(10) NOT NULL /* Options: "attendee", "organizer", "approver" */
+	Account_type VARCHAR(10) NOT NULL, /* Options: "attendee", "organizer", "approver" */
+	Pswd VARCHAR(20) NOT NULL
 );
 
 /* Represents the Organizer entity - each organizer is associated with a user_id*/
