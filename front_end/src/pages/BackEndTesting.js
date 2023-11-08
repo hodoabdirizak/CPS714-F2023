@@ -25,7 +25,7 @@ export const BackEndTesting = () => {
   }
 
   const fetchAccounts = async () => {
-    const response = await fetch('/api/account/getaccounts', {
+    await fetch('/api/account/getaccounts', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -36,7 +36,7 @@ export const BackEndTesting = () => {
 
 
   const fetchAccountData = async () => {
-    const response = await fetch('/api/account/getaccountbyname', {
+    await fetch('/api/account/getaccountbyname', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -49,7 +49,7 @@ export const BackEndTesting = () => {
   }
 
   const addAccount = async () => {
-    const response = await fetch('/api/account/addaccount', {
+    await fetch('/api/account/addaccount', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
