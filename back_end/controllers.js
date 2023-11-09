@@ -1,4 +1,5 @@
-const dbOperationUserAccount    = require('./SQLServerFiles/dbOperationUserAccount');
+const dbOperationUserAccount = require('./SQLServerFiles/dbOperationUserAccount');
+const dbOperationEvent = require('./SQLServerFiles/dbOperationEvent');
 
 const userAccountController = {
     getAccounts: async(req,res) => {
@@ -43,7 +44,7 @@ const organizerController = {
 
 
 const eventController = {
-   OperationEvent.getEvents(req.body. getEventByName: async (req, res) => {
+    getEventByName: async (req, res) => {
         console.log('Called /api/event/getEventByName');
         const result = await dbOperationEvent.getEventByName(req.body.name);
         console.dir(result);
@@ -51,10 +52,18 @@ const eventController = {
     },
     getEvents: async (req, res) => {
         console.log('Called /api/event/getEvents');
-        const result = await dbname);
+        const result = await dbOperationEvent.getEvents(req.body.name);
         console.dir(result);
         res.send(result.recordset);
     },
+    createEvent: async (req, res) => {
+        console.log('Called /api/event/createEvent');
+        console.dir(req.body);
+        await dbOperationEvent.createEvent(req.body);
+        const result = await dbOperationEvent.getEvents();
+        console.dir(result);
+        res.send(result.recordset);
+    }
 };
 
 

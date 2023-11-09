@@ -34,7 +34,7 @@ app.post('/api/account/addaccount', controllers.userAccountController.createUser
 // Event routes
 app.get('/api/event/getEvents', controllers.eventController.getEvents);
 app.post('/api/event/getEventByName', controllers.eventController.getEventByName);
-// app.post('/api/event/', controllers.eventController);
+app.post('/api/event/createEvent', controllers.eventController.createEvent);
 
 
 // Venue routes
