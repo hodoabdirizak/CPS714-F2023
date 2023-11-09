@@ -1,8 +1,8 @@
 const config = {
-    user: 'camillia',
-    password: '0m@rFa!ls?',
+    user: 'cpsdevuser',
+    password: 'password',
     database: 'EventEasy', //REPLACE if you named yours differently
-    server: 'DESKTOP-TR8A4MF', //REPLACE
+    server: 'ROXANNE\\SQLEXPRESS', //REPLACE
     port: 1433, //REPLACE
     pool: {
         max: 10,
