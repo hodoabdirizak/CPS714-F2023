@@ -1,6 +1,6 @@
 /* Represents the User entity */
 CREATE TABLE User_Account (
-	User_id INT NOT NULL PRIMARY KEY,
+	User_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	Email VARCHAR(255) NOT NULL UNIQUE,
 	Full_name VARCHAR(255),
 	Phone_number BIGINT,
@@ -11,7 +11,7 @@ CREATE TABLE User_Account (
 
 /* Represents the Organizer entity - each organizer is associated with a user_id*/
 CREATE TABLE Organizer ( 
-	Organizer_id INT NOT NULL,
+	Organizer_id INT NOT NULL AUTO_INCREMENT,
 	User_id INT NOT NULL,
 	Organizer_name VARCHAR(30),
 	Organizer_description VARCHAR(500),
@@ -32,7 +32,7 @@ CREATE TABLE Organizer_events (
 
 /* Represents the Event entity */
 CREATE TABLE Event_table ( 
-	Event_id INT NOT NULL PRIMARY KEY,
+	Event_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	Event_name VARCHAR(100) NOT NULL,
 	Event_type VARCHAR(100) NOT NULL,
 	Event_start_date DATE NOT NULL, /*format is YYYY-MM-DD*/	
@@ -60,7 +60,7 @@ CREATE TABLE Event_attendees (
 
 /* Represents the Venue entity */
 CREATE TABLE Venue (
-	Venue_id INT NOT NULL PRIMARY KEY,
+	Venue_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	Venue_name VARCHAR(255) NOT NULL,
 	Venue_type VARCHAR(255) NOT NULL,
 	Venue_address VARCHAR(255),
@@ -81,7 +81,7 @@ CREATE TABLE Event_hosting (
 
 /* Represents the Caterer entity */
 CREATE TABLE Caterer (
-	Caterer_id INT NOT NULL,
+	Caterer_id INT NOT NULL AUTO_INCREMENT,
 	User_id INT NOT NULL,
 	Cuisine VARCHAR(20) NOT NULL, /*Ex. Thai, Seafood, Japanese, etc.*/
 	Price_per_attendee DECIMAL(10,2) NOT NULL,
