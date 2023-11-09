@@ -12,6 +12,28 @@ const getAccounts = async () => {
   }
 };
 
+const getUserId = async () => {
+  try {
+    await sql.connect(config)
+    const result = await sql.query('SELECT MAX(User_Id) FROM User_Account'); 
+    const retValue = parseInt(result.recordset[0]['']) + 1
+    return retValue;
+  } catch (err) {
+    throw err;
+  }
+};
+
+const noDupEmails = async (Email) => {
+  try {
+    await sql.connect(config)
+    const result = await sql.query(`SELECT User_Id FROM User_Account WHERE Email='${Email}'`); 
+    const queryResults = result.recordset;
+    return queryResults;
+  } catch (err) {
+    throw err;
+  }
+};
+
 const getAccountByName = async (Full_name) => {
   try {
     await sql.connect(config);
@@ -26,7 +48,8 @@ const getAccountByName = async (Full_name) => {
 const addAccount = async (Account) => {
   try {
     await sql.connect(config);
-    const result = await sql.query(`INSERT INTO User_Account VALUES(${Account.User_id},'${Account.Email}','${Account.Full_name}', ${Account.Phone_number},'${Account.Pronouns}','${Account.Account_type}')`); 
+    console.dir(Account);
+    const result = await sql.query(`INSERT INTO User_Account VALUES(${Account.User_id},'${Account.Email}','${Account.Full_name}', ${Account.Phone_number},'${Account.Pronouns}','${Account.Password}','${Account.Account_type}')`); 
     return result.recordset;
   } catch (err) {
     throw err;
@@ -35,6 +58,8 @@ const addAccount = async (Account) => {
 
 module.exports = {
   getAccounts,
-  getAccountByName,
+  getUserId,
+  noDupEmails,
+  getAccountByName, 
   addAccount
 }

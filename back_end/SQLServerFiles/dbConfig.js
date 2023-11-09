@@ -1,6 +1,6 @@
 const config = {
-    user: 'REPLACE',
-    password: 'REPLACE',
+    user: 'camillia',
+    password: '0m@rFa!ls?',
     database: 'EventEasy', //REPLACE if you named yours differently
     server: 'DESKTOP-TR8A4MF', //REPLACE
     port: 1433, //REPLACE
