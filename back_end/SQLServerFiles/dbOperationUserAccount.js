@@ -6,9 +6,10 @@ const getAccounts = async () => {
     await sql.connect(config)
     const result = await sql.query('SELECT * FROM User_Account'); 
     console.log(result);
-    return result.recordset;
+    return result;
   } catch (err) {
-    throw err;
+        console.error(err);
+        throw err;
   }
 };
 
@@ -35,12 +36,14 @@ const noDupEmails = async (Email) => {
 };
 
 const getAccountByName = async (Full_name) => {
-  try {
+    try {
+      console.log("Getting Account")
     await sql.connect(config);
     const result = await sql.query(`SELECT * FROM User_Account WHERE Full_name='${Full_name}'`); 
     console.log(result);
     return result.recordset;
   } catch (err) {
+      console.error(err);
     throw err;
   }
 };
