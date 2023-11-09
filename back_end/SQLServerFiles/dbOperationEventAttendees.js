@@ -1,0 +1,52 @@
+const config = require('./dbConfig');
+const sql = require('mssql');
+
+const createEventAttendee = async (eventAttendee) => {
+  try {
+    await sql.connect(config);
+    const result = await sql.query(
+      `INSERT INTO Event_attendees (User_id, Event_id, Number_of_tickets) VALUES (${eventAttendee.User_id}, ${eventAttendee.Event_id}, ${eventAttendee.Number_of_tickets})`
+    );
+    return result.recordset;
+  } catch (err) {
+    throw err;
+  }
+};
+
+const getEventAttendees = async (eventId) => {
+  try {
+    await sql.connect(config);
+    const result = await sql.query(`SELECT User_id, Number_of_tickets FROM Event_attendees WHERE Event_id = ${eventId}`);
+    return result.recordset;
+  } catch (err) {
+    throw err;
+  }
+};
+
+const updateEventAttendee = async (userEventAssociation) => {
+  try {
+    await sql.connect(config);
+    const existingRecord = await sql.query(
+      `SELECT * FROM Event_attendees WHERE User_id = ${userEventAssociation.User_id} AND Event_id = ${userEventAssociation.Event_id}`
+    );
+
+    if (existingRecord.recordset.length === 0) {
+      // If the association doesn't exist, you can create it as a new record.
+      return createEventAttendee(userEventAssociation);
+    } else {
+      // Update the existing association with the new number of tickets.
+      const result = await sql.query(
+        `UPDATE Event_attendees SET Number_of_tickets = ${userEventAssociation.Number_of_tickets} WHERE User_id = ${userEventAssociation.User_id} AND Event_id = ${userEventAssociation.Event_id}`
+      );
+      return result.recordset;
+    }
+  } catch (err) {
+    throw err;
+  }
+};
+
+module.exports = {
+  createEventAttendee,
+  getEventAttendees,
+  updateEventAttendee,
+};
