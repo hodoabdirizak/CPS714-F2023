@@ -11,6 +11,19 @@ const getEvents = async () => {
   }
 };
 
+const getEventByName = async (Event_Name) => {
+    try {
+        console.log("Getting Event")
+        await sql.connect(config);
+        const result = await sql.query(`SELECT * FROM Event_Table WHERE Event_name='${Event_Name}'`);
+        console.log(result);
+        return result.recordset;
+    } catch (err) {
+        console.error(err);
+        throw err;
+    }
+};
+
 const createEvent = async (event) => {
   try {
     await sql.connect(config);

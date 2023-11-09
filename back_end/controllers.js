@@ -43,7 +43,18 @@ const organizerController = {
 
 
 const eventController = {
-
+   OperationEvent.getEvents(req.body. getEventByName: async (req, res) => {
+        console.log('Called /api/event/getEventByName');
+        const result = await dbOperationEvent.getEventByName(req.body.name);
+        console.dir(result);
+        res.send(result.recordset);
+    },
+    getEvents: async (req, res) => {
+        console.log('Called /api/event/getEvents');
+        const result = await dbname);
+        console.dir(result);
+        res.send(result.recordset);
+    },
 };
 
 
