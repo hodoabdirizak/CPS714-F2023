@@ -12,7 +12,7 @@ export const BackEndTesting = () => {
   const setInput = (e) => {
     const {name, value} = e.target;
     console.log(name, value);
-    if (name === 'User_id' || name === 'Phone_number'){
+    if (name === 'Capacity' || name === 'MinimumAge'){
         console.log('Convert to number type')
         setEvent(prevState => ({
         ...prevState,
@@ -66,6 +66,8 @@ export const BackEndTesting = () => {
 
 
     const fetchEventData = async () => {
+        console.log("newEvent: " + newEvent.name);
+        console.log("Getting event: " + newEvent.name);
         await fetch('/api/event/getEventbyName', {
             method: 'POST',
             headers: {
@@ -118,14 +120,14 @@ export const BackEndTesting = () => {
   return (
     <div>
       <h1>Back-end Testing page</h1>
-      <input name="Name" placeholder="Name" onChange={setInput}></input>
-      <input name="Type" placeholder="Type" onChange={setInput}></input>
+      <input name="name" placeholder="name" onChange={setInput}></input>
+      <input name="type" placeholder="Type" onChange={setInput}></input>
       <input type="Date" name="startDate" placeholder="Start Date" onChange={setInput}></input>
       <input type="Date" name="endDate" placeholder="End Date" onChange={setInput}></input>
       <input type="time" name="startTime" placeholder="Start Time" onChange={setInput}></input>
       <input name="desc" placeholder="Description" onChange={setInput}></input>
-      <input type="number" name="Capacity" placeholder="Capacity" onChange={setInput}></input>
-      <input type="number" name="minAge" placeholder="Minimum Age" onChange={setInput}></input>
+      <input type="number" name="capacity" placeholder="Capacity" onChange={setInput}></input>
+      <input type="number" name="MinimumAge" placeholder="Minimum Age" onChange={setInput}></input>
       <input type="number" name="cost" placeholder="Ticket Cost" onChange={setInput}></input>
       <button onClick={() => fetchEvents()}>Fetch Data About All Events</button>
           <button onClick={() => fetchEventData()}>Fetch Data About an Event</button>

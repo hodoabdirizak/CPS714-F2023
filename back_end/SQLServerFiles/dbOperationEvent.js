@@ -47,5 +47,6 @@ const updateEvent = async (Event_id, updatedEvent) => {
 module.exports = {
   getEvents,
   createEvent,
-  updateEvent,
+    updateEvent,
+  getEventByName
 };
