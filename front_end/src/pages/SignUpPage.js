@@ -5,17 +5,9 @@ import logo from '../assets/logo.png';
 import bg from '../assets/logo200.png';
 
 export const SignUpPage = () => {
-  const [userId, setUserId] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [pronouns, setPronouns] = useState('');
-  const [accountType, setAccountType] = useState(''); // State to track the selected radio button
-  const [emailExists, setEmailExists] = useState('');
-  const [newUserAccount, setUserAccount] = useState({User_id: 0, Email: '', Full_name: '', 
-                                                  Phone_number: 0, Pronouns: '', Account_type: '', Password: ''});
+  const [newUserAccount, setUserAccount] = useState({Email: '', Full_name: '', 
+                                                  Phone_number: 0, Pronouns: '', Account_type: '', Pswd: ''});
+  const [userId, setUserId] = useState({User_id: 0});
 
   const options = [
     { 
@@ -31,54 +23,81 @@ export const SignUpPage = () => {
       label: "Caterer"
     }
   ];                                                  
-  // const handleOptionChange = (event) => {
-  //   setAccountType(event.target.value); // Update the selected option when a radio button is clicked
-  // };
 
-  const getUserId = async () => {
-    try {
-      let response = await fetch('/api/account/getuserid', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        }
-      });
-  
-      // console.log("HTTP Status Code:",response.status)
-      const data = await response.text();
-      setUserId(data); // Update state with the user ID
+  const setInput = (e) => {
+    const {name, value} = e.target;
+    if (name === 'Phone_number'){
+      setUserAccount(prevState => ({
+        ...prevState,
+        [name]: parseInt(value)
+      }));
+      return;
+    } 
 
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
+    setUserAccount(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+    return;
   }
 
+  const setAccountType = (e) => {
+    const type = e[0]['value'];
+    console.log("Account type", type);
+    setUserAccount(prevState => ({
+      ...prevState,
+      Account_type: type 
+    }));
+    return;
+  }
 
-  const noDupEmails = async () => {
-    try {
-      let response = await fetch('/api/account/nodupemails', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          email: email
-        })
-      });
-  
-      // console.log("HTTP Status Code:",response.status)
-      const data = await response.text();
-      setEmailExists(data); 
+  const getUserIdByEmail = async () => {
+    let response = await fetch('/api/account/getuseridbyemail', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        email: newUserAccount.Email
+      })
+    });
 
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
+    const data = await response.text();
+    setUserId(prevState => ({
+      ...prevState,
+      User_id: data 
+    }));
+  }
+
+  const addOrganizerAccount = async () => {
+    await fetch('/api/account/addorganizeraccount', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        userId: userId.User_id
+      })
+    });
+  }
+
+  const addCatererAccount = async () => {
+    await fetch('/api/account/addcatereraccount', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        userId: userId.User_id
+      })
+    });
   }
 
   const addAccount = async () => {
-    await fetch('/api/account/addaccount', {
+    let response = await fetch('/api/account/addaccount', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -87,103 +106,88 @@ export const SignUpPage = () => {
       body: JSON.stringify({
         ...newUserAccount
       })
-    })
-  }
+    });
 
-  const createAccount = async () => {
-    const newAccount = {
-      User_id: `${userId}`, 
-      Email: `${email}`, 
-      Full_name: `${firstName.concat(" ",lastName)}`, 
-      Phone_number: `${phoneNumber}`, 
-      Pronouns: `${pronouns}`, 
-      Account_type: `${accountType[0]['value']}`, 
-      Password: `${password}`
-    };
+    const data = await response.text();
 
-    setUserAccount(newAccount);
+    if (data==='2627') {
+      alert(`An account for this email already exists.`);
+    } else if (data==='') {
+      if (newUserAccount.Account_type==='Organizer') {
+        getUserIdByEmail();
+        addOrganizerAccount();
+        alert(`Organizer account has been created successfully.`);
+      } else if (newUserAccount.Account_type==='Caterer') {
+        getUserIdByEmail();
+        addCatererAccount();
+        alert(`Caterer account has been created successfully.`);
+      } else {
+        alert(`User account has been created successfully.`);
+      }
 
-    // addAccount();
-    // console.log('account_added');
-    // noDupEmails();
-    // if (emailExists === "true") {
-    //   alert(`An account for ${email} has been successfully created.`)
-    // }
+    } else {
+      alert('An error has occurred. We were unable to create your account.')
+    }
   }
 
   const handleSignUp = (e) => {
     console.log('-----------------');
     e.preventDefault();
-    noDupEmails();
-
-    if (emailExists === "true") {
-      alert(`An account for ${email} already exists.`)
-    } else {
-      getUserId();
-      createAccount();
-    }
-
+    console.log(newUserAccount);
+    addAccount();
   };
 
   return (
     <div style={{ backgroundImage: `url(${bg})` }}>
       <div className="login-container" style={{ backgroundColor: `white` }}>
         <img src={logo} alt="Logo" />
-        <h1>Create an Account</h1>
+        <h1>Sign Up</h1>
         <form onSubmit={handleSignUp}>
-          <div className="form-group">
-            <div className="form-group-item">
-              <input
-                type="text"
-                id="firstName"
-                placeholder="  First Name"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-                required
-                className="input-style"
-              />
-            </div>
-            <div className="form-group-item">
-              <input
-                type="text"
-                id="lastName"
-                placeholder="Last Name"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
-                required
-                className="input-style"
-              />
-            </div>
+          <div className="form-group-item">
+            <input
+              type="text"
+              id="fullName"
+              name="Full_name"
+              placeholder="Full Name"
+              value={newUserAccount.Full_name}
+              onChange={setInput}
+              required
+              className="input-style"
+            />
           </div>
           <br></br>
           <div className="form-group-item">
             <input
               type="text"
               id="email"
+              name="Email" 
               placeholder="Email Address"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={newUserAccount.Email}
+              onChange={setInput}
               required
               className="input-style-2"
             />
           </div>
           <div className="form-group-item">
             <input
+              type="password"
               id="password"
+              name="Pswd"
               placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={newUserAccount.Password}
+              onChange={setInput}
               required
               className="input-style-5"
-              type="password"
             />
           </div>
           <div className="form-group-item">
             <input
+              type="text"
               id="phoneNumber"
+              name="Phone_number"
               placeholder="Phone Number"
-              value={phoneNumber}
-              onChange={(e) => setPhoneNumber(e.target.value)}
+              value={newUserAccount.Phone_number}
+              onChange={setInput}
               required
               className="input-style-5"
             />
@@ -193,26 +197,36 @@ export const SignUpPage = () => {
               <input
                 type="text"
                 id="pronouns"
+                name="Pronouns"
                 placeholder="  Pronouns"
-                value={pronouns}
-                onChange={(e) => setPronouns(e.target.value)}
+                value={newUserAccount.Pronouns}
+                onChange={setInput}
                 required
                 className="input-style-3"
               />
             </div>
             <div className="form-group-item">
               <Select 
+                type="text"
                 id="accountType"
-                placeholder="Account Type"                
+                name="Account_type"
+                placeholder="Account Type"  
+                value={newUserAccount.Account_type}              
                 options={options} 
-                onChange={(value) => {setAccountType(value)}} 
+                onChange={setAccountType} 
                 required
                 className="input-style-3"
+                style={{
+                  margin: '23px 10px',
+                  padding: '10px 10px'
+                }}
               />
             </div>
           </div>
           <br></br>
-          <button type="submit" 
+          <button 
+            // onClick={() => handleSignUp()}
+            type="submit" 
             style={{
               backgroundColor: '#E98123',
               borderRadius: '15px',
@@ -223,6 +237,6 @@ export const SignUpPage = () => {
           >Create Account</button>
         </form>
       </div>
-      </div>
+    </div>
   );
 };
