@@ -9,8 +9,8 @@ insert into User_Account values (8, 'kelseys@gmail.ca', 'Kelseys', 6477891013, '
 insert into User_Account values (9, 'ouioui@gmail.ca', 'Oui Oui', 6471021013, '', 'caterer', 'test');
 
 
-insert into Organizer values (20, 2, 'Krusty Krab', 'Yellow square that is ready','rippedmypants.com');
-insert into Organizer values (21, 5, 'Barbz', 'Super Bass', 'BarbzRules.com');
+insert into Organizer values (2, 'Yellow square that is ready','rippedmypants.com');
+insert into Organizer values (5, 'Super Bass', 'BarbzRules.com');
 
 insert into Organizer_events values (20, 54);
 insert into Organizer_events values (20, 84);
@@ -33,9 +33,9 @@ insert into Event_hosting values (54, 1004);
 insert into Event_hosting values (84, 1014);
 insert into Event_hosting values (102, 1250);
 
-insert into Caterer values (8067, 8, 'American', 7.90);
-insert into Caterer values (8068, 7, 'Italian', 18.99);
-insert into Caterer values (8069, 9, 'French', 54.21);
+insert into Caterer values (8, 'American', 7.90);
+insert into Caterer values (7, 'Italian', 18.99);
+insert into Caterer values (9, 'French', 54.21);
 
 insert into Venue_caterer values (1004, 8067);
 insert into Venue_caterer values (1014, 8069);

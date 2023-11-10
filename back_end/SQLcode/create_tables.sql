@@ -11,9 +11,8 @@ CREATE TABLE User_Account (
 
 /* Represents the Organizer entity - each organizer is associated with a user_id*/
 CREATE TABLE Organizer ( 
-	Organizer_id INT NOT NULL,
+	Organizer_id INT NOT NULL IDENTITY(1,1),
 	User_id INT NOT NULL,
-	Organizer_name VARCHAR(30),
 	Organizer_description VARCHAR(500),
 	Organizer_website VARCHAR(500),
 	PRIMARY KEY(User_id,Organizer_id)
@@ -83,8 +82,8 @@ CREATE TABLE Event_hosting (
 CREATE TABLE Caterer (
 	Caterer_id INT NOT NULL,
 	User_id INT NOT NULL,
-	Cuisine VARCHAR(20) NOT NULL, /*Ex. Thai, Seafood, Japanese, etc.*/
-	Price_per_attendee DECIMAL(10,2) NOT NULL,
+	Cuisine VARCHAR(20), /*Ex. Thai, Seafood, Japanese, etc.*/
+	Price_per_attendee DECIMAL(10,2),
 	PRIMARY KEY(Caterer_id, User_id)
 );
 
