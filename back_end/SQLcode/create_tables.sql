@@ -42,7 +42,8 @@ CREATE TABLE Event_table (
 	Capacity INT NOT NULL,
   	Minimum_age INT NOT NULL, 
 	Approved BIT NOT NULL, /* 1 for true, 0 for false */
-	Ticket_cost DECIMAL(10,2) NOT NULL
+	Ticket_cost DECIMAL(10,2) NOT NULL,
+	Event_location VARCHAR(100) NOT NULL 
 );
 
 /* 

@@ -15,9 +15,9 @@ insert into Organizer_events values (1, 1);
 insert into Organizer_events values (1, 2);
 insert into Organizer_events values (2, 3);
 
-insert into Event_table values ('Christmas Party', 'Social Gathering', '2023-12-24', '2023-12-24', '17:00', '23:00', 'Christmas Party at my house!!', 20, 1, 1, 0);
-insert into Event_table values ('Squidward resuscitation event', 'Social Gathering', '2023-12-25', '2023-12-25', '00:01', '12:01', 'I forgot Squidward is claustrophobic', 5, 18, 0, 0);
-insert into Event_table values ('My Wedding', 'Wedding', '2023-11-16', '2023-11-11', '14:00', '1:00', 'I am marrying Tom Holland', 450, 18, 1, 100);
+insert into Event_table values ('Christmas Party', 'Social Gathering', '2023-12-24', '2023-12-24', '17:00', '23:00', 'Christmas Party at my house!!', 20, 1, 1, 0, 'Toronto On.');
+insert into Event_table values ('Squidward resuscitation event', 'Social Gathering', '2023-12-25', '2023-12-25', '00:01', '12:01', 'I forgot Squidward is claustrophobic', 5, 18, 0, 0,'Toronto On.');
+insert into Event_table values ('My Wedding', 'Wedding', '2023-11-16', '2023-11-11', '14:00', '1:00', 'I am marrying Tom Holland', 450, 18, 1, 100,'Toronto On.');
 
 insert into Event_attendees values (1, 1, 1);
 insert into Event_attendees values (2, 2, 2);
