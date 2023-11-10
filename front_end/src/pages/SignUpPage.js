@@ -6,7 +6,7 @@ import bg from '../assets/logo200.png';
 
 export const SignUpPage = () => {
   const [newUserAccount, setUserAccount] = useState({Email: '', Full_name: '', 
-                                                  Phone_number: 0, Pronouns: '', Account_type: '', Pswd: ''});
+                                                  Phone_number: '', Pronouns: '', Account_type: '', Pswd: ''});
   const [userId, setUserId] = useState({User_id: 0});
 
   const options = [
@@ -152,10 +152,9 @@ export const SignUpPage = () => {
               value={newUserAccount.Full_name}
               onChange={setInput}
               required
-              className="input-style"
+              className="input-style-5"
             />
           </div>
-          <br></br>
           <div className="form-group-item">
             <input
               type="text"
@@ -165,7 +164,7 @@ export const SignUpPage = () => {
               value={newUserAccount.Email}
               onChange={setInput}
               required
-              className="input-style-2"
+              className="input-style-5"
             />
           </div>
           <div className="form-group-item">
@@ -198,11 +197,11 @@ export const SignUpPage = () => {
                 type="text"
                 id="pronouns"
                 name="Pronouns"
-                placeholder="  Pronouns"
+                placeholder="Pronouns"
                 value={newUserAccount.Pronouns}
                 onChange={setInput}
                 required
-                className="input-style-3"
+                className="input-style-5"
               />
             </div>
             <div className="form-group-item">
