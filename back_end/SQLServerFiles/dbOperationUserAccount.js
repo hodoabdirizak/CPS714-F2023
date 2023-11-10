@@ -1,6 +1,40 @@
 const config = require('./dbConfig');
 const sql = require('mssql');
 
+const addAccount = async (Account) => {
+  try {
+    await sql.connect(config);
+    console.dir('Account',Account);
+    const result = await sql.query(`INSERT INTO User_Account VALUES('${Account.Email}','${Account.Full_name}', ${Account.Phone_number},'${Account.Pronouns}','${Account.Account_type}','${Account.Pswd}')`); 
+    return result.recordset;
+  } catch (err) {
+    const errorNumber = err.number || (err.info && err.info.number);
+    return errorNumber;
+  }
+};
+
+const addOrganizerAccount = async (UserId) => {
+  try {
+    await sql.connect(config);
+    console.log('UserId',UserId);
+    await sql.query(`INSERT INTO Organizer (User_id) VALUES('${UserId}')`); 
+  } catch (err) {
+    const errorNumber = err.number || (err.info && err.info.number);
+    return errorNumber;
+  }
+};
+
+const addCatererAccount = async (UserId) => {
+  try {
+    await sql.connect(config);
+    console.log('UserId',UserId);
+    await sql.query(`INSERT INTO Caterer (User_id) VALUES('${UserId}')`); 
+  } catch (err) {
+    const errorNumber = err.number || (err.info && err.info.number);
+    return errorNumber;
+  }
+};
+
 const getAccounts = async () => {
   try {
     await sql.connect(config)
@@ -12,54 +46,34 @@ const getAccounts = async () => {
   }
 };
 
-const getUserId = async () => {
-  try {
-    await sql.connect(config)
-    const result = await sql.query('SELECT MAX(User_Id) FROM User_Account'); 
-    const retValue = parseInt(result.recordset[0]['']) + 1
-    return retValue;
-  } catch (err) {
-    throw err;
-  }
-};
-
-const noDupEmails = async (Email) => {
-  try {
-    await sql.connect(config)
-    const result = await sql.query(`SELECT User_Id FROM User_Account WHERE Email='${Email}'`); 
-    const queryResults = result.recordset;
-    return queryResults;
-  } catch (err) {
-    throw err;
-  }
-};
-
-const getAccountByName = async (Full_name) => {
+const getUserIdByEmail = async (Email) => {
   try {
     await sql.connect(config);
-    const result = await sql.query(`SELECT * FROM User_Account WHERE Full_name='${Full_name}'`); 
-    console.log(result);
+    console.dir('email',Email);
+    const result = await sql.query(`SELECT User_id FROM User_Account WHERE Email = '${Email}'`); 
+    console.dir('dboperation',result);
     return result.recordset;
   } catch (err) {
     throw err;
   }
 };
 
-const addAccount = async (Account) => {
-  try {
-    await sql.connect(config);
-    console.dir(Account);
-    const result = await sql.query(`INSERT INTO User_Account VALUES(${Account.User_id},'${Account.Email}','${Account.Full_name}', ${Account.Phone_number},'${Account.Pronouns}','${Account.Password}','${Account.Account_type}')`); 
-    return result.recordset;
-  } catch (err) {
-    throw err;
-  }
-};
+// const noDupEmails = async (Email) => {
+//   try {
+//     await sql.connect(config)
+//     const result = await sql.query(`SELECT User_Id FROM User_Account WHERE Email='${Email}'`); 
+//     const queryResults = result.recordset;
+//     return queryResults;
+//   } catch (err) {
+//     throw err;
+//   }
+// };
 
 module.exports = {
+  addAccount,
+  addOrganizerAccount,
+  addCatererAccount,
   getAccounts,
-  getUserId,
-  noDupEmails,
-  getAccountByName, 
-  addAccount
+  getUserIdByEmail
+  // noDupEmails,
 }
