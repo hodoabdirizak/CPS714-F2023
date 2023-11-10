@@ -4,7 +4,6 @@ const sql = require('mssql');
 const addAccount = async (Account) => {
   try {
     await sql.connect(config);
-    console.dir('Account',Account);
     const result = await sql.query(`INSERT INTO User_Account VALUES('${Account.Email}','${Account.Full_name}', ${Account.Phone_number},'${Account.Pronouns}','${Account.Account_type}','${Account.Pswd}')`); 
     return result.recordset;
   } catch (err) {
@@ -16,10 +15,11 @@ const addAccount = async (Account) => {
 const addOrganizerAccount = async (UserId) => {
   try {
     await sql.connect(config);
-    console.log('UserId',UserId);
-    await sql.query(`INSERT INTO Organizer (User_id) VALUES('${UserId}')`); 
+    console.dir('dbOp');
+    await sql.query(`INSERT INTO Organizer (User_id) VALUES(${parseInt(UserId)+1})`); 
   } catch (err) {
     const errorNumber = err.number || (err.info && err.info.number);
+    throw err;
     return errorNumber;
   }
 };
@@ -27,8 +27,8 @@ const addOrganizerAccount = async (UserId) => {
 const addCatererAccount = async (UserId) => {
   try {
     await sql.connect(config);
-    console.log('UserId',UserId);
-    await sql.query(`INSERT INTO Caterer (User_id) VALUES('${UserId}')`); 
+    console.dir('dbOp');
+    await sql.query(`INSERT INTO Caterer (User_id) VALUES(${parseInt(UserId)+1})`); 
   } catch (err) {
     const errorNumber = err.number || (err.info && err.info.number);
     return errorNumber;

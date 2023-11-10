@@ -13,7 +13,7 @@ const userAccountController = {
     addOrganizerAccount: async(req,res) => {
         console.log('Called /api/account/addorganizeraccount');
         // console.log('c',req.body['userId']);
-        const result = await dbOperationUserAccount.addAccount(req.body['userId']);  
+        const result = await dbOperationUserAccount.addOrganizerAccount(req.body['userId']);  
         try {
             res.send(result.toString());
         } catch {
@@ -23,7 +23,7 @@ const userAccountController = {
     addCatererAccount: async(req,res) => {
         console.log('Called /api/account/addcatereraccount');
         // console.log('c',req.body['userId']);
-        const result = await dbOperationUserAccount.addAccount(req.body['userId']);  
+        const result = await dbOperationUserAccount.addCatererAccount(req.body['userId']);  
         try {
             res.send(result.toString());
         } catch {
@@ -40,7 +40,7 @@ const userAccountController = {
         console.log('Called /api/account/getuseridbyemail');
         console.log('input',req.body.email);
         const result = await dbOperationUserAccount.getUserIdByEmail(req.body.email);
-        console.log('result',result[0]['User_id']);
+        console.log('result',result[0]['User_id'].toString());
         res.send(result[0]['User_id'].toString());
     }
     // noDupEmails: async(req,res) => {
