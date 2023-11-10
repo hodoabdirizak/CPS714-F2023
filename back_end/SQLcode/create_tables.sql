@@ -31,7 +31,7 @@ CREATE TABLE Organizer_events (
 
 /* Represents the Event entity */
 CREATE TABLE Event_table ( 
-	Event_id INT NOT NULL PRIMARY KEY,
+	Event_id INT IDENTITY(1,1) PRIMARY KEY,
 	Event_name VARCHAR(100) NOT NULL,
 	Event_type VARCHAR(100) NOT NULL,
 	Event_start_date DATE NOT NULL, /*format is YYYY-MM-DD*/	
@@ -52,14 +52,14 @@ Each event may have one or more attendees
 */
 CREATE TABLE Event_attendees (
 	User_id INT NOT NULL, 
-    Event_id INT NOT NULL,
+    	Event_id INT NOT NULL,
 	Number_of_tickets INT NOT NULL, 
 	PRIMARY KEY(User_id,Event_id)
 );
 
 /* Represents the Venue entity */
 CREATE TABLE Venue (
-	Venue_id INT NOT NULL PRIMARY KEY,
+	Venue_id INT IDENTITY(1,1) PRIMARY KEY ,
 	Venue_name VARCHAR(255) NOT NULL,
 	Venue_type VARCHAR(255) NOT NULL,
 	Venue_address VARCHAR(255),
