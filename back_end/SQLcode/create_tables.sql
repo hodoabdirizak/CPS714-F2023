@@ -1,6 +1,6 @@
 /* Represents the User entity */
 CREATE TABLE User_Account (
-	User_id INT NOT NULL PRIMARY KEY,
+	User_id INT NOT NULL PRIMARY KEY IDENTITY(1,1),
 	Email VARCHAR(255) NOT NULL UNIQUE,
 	Full_name VARCHAR(255),
 	Phone_number BIGINT,
