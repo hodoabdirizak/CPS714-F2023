@@ -49,34 +49,63 @@ export const EventCreationForm = () => {
   const [eventDescription, setEventDescription] = useState('');
   const [eventType, setEventType] = useState(getEventType);
   const [selectedOption, setSelectedOption] = useState(''); //Paid or not paid event Y or N
-  const [admissionPrice,setAdmissionPrice] = useState('');
+  const [admissionPrice,setAdmissionPrice] = useState(0);
   const [selectedOption1, setSelectedOption1] = useState('');
   const [catering, setCatering] = useState(getCatering);
   const [additionalNotes, setAdditionalNotes] = useState('');
 
   const history = useHistory();
 
+  const [newEvent, setEvent] = useState({ name: '', type: '',
+                                                        startDate: 0, endDate: '', startTime: '', desc:'',
+                                                        capacity: 1, MinimumAge: 0, approved: 'True', cost: 0, location: '' });
+
   const handleSubmit = (e) => {
     e.preventDefault();
     // You can handle form submission and data storage here.
     // For this example, we'll just navigate to the confirmation page.
+    
 
     history.push('/eventCreationConfirmation', 
       { eventName, 
-	eventDate,
-	eventLocation,
-	numberOfGuests,
-	eventDescription,
-	eventType,
-	selectedOption,
-	admissionPrice,
-	selectedOption1,
-	catering,
-	additionalNotes 
+        eventDate,
+        eventLocation,
+        numberOfGuests,
+        eventDescription,
+        eventType,
+        selectedOption,
+        admissionPrice,
+        selectedOption1,
+        catering,
+        additionalNotes 
       });
     history.go(0);
   };
 
+  const addEvent = async () => {
+    await fetch('/api/event/createevent', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+            Event_name: eventName,
+            Event_type: eventType,
+            Event_start_date: eventDate,
+            Event_end_date: eventDate,
+            Event_start_time: '',
+            Event_end_time: '',
+            Event_description: eventDescription,
+            Capacity: numberOfGuests,
+            Minimum_age: 0,
+            Approved: 'True',
+            Ticket_cost: admissionPrice,
+            Event_location: ' '
+            
+        })
+    })
+}
   return (
   <div style={{ backgroundImage: `url(${bg})` }}>
     <div className = "event-creation-container" style={{ backgroundColor: `white` }}>
@@ -221,7 +250,7 @@ export const EventCreationForm = () => {
             onChange={(e) => setAdditionalNotes(e.target.value)}
 	  />
 	</div>
-        <button type="submit">Create Event</button>
+        <button type="submit" onClick={() => addEvent()}>Create Event</button>
       </form>
     </div>
   </div>

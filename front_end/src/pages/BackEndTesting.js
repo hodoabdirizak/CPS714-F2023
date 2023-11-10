@@ -5,9 +5,9 @@ export const BackEndTesting = () => {
   const [newUserAccount, setUserAccount] = useState({User_id: 0, Email: '', Full_name: '', 
                                                   Phone_number: 0, Pronouns: '', Account_type: ''});
 
-    const [newEvent, setEvent] = useState({eventID: 0, name: '', type: '',
-                                                        startDate: 0, endDate: '', startTime: '', desc:'',
-                                                        capacity: 1, MinimumAge: 0, approved: 'True', cost: 0 });
+    const [newEvent, setEvent] = useState({ name: '', type: '',
+                                                        startDate: 0, endDate: '', startTime: '',endTime: '', desc:'',
+                                                        capacity: 1, MinimumAge: 0, approved: 'True', cost: 0 ,location: '' });
 
   const setInput = (e) => {
     const {name, value} = e.target;
@@ -107,11 +107,13 @@ export const BackEndTesting = () => {
                 Event_start_date: newEvent.startDate,
                 Event_end_date: newEvent.endDate,
                 Event_start_time: newEvent.startTime,
+                Event_end_time: newEvent.endTime,
                 Event_description: newEvent.desc,
                 Capacity: newEvent.capacity,
                 Minimum_age: newEvent.MinimumAge,
                 Approved: newEvent.approved,
-                Ticket_cost: newEvent.cost
+                Ticket_cost: newEvent.cost,
+                Event_location: newEvent.location
                 
             })
         })
@@ -125,6 +127,7 @@ export const BackEndTesting = () => {
       <input type="Date" name="startDate" placeholder="Start Date" onChange={setInput}></input>
       <input type="Date" name="endDate" placeholder="End Date" onChange={setInput}></input>
       <input type="time" name="startTime" placeholder="Start Time" onChange={setInput}></input>
+      <input type="time" name="endTime" placeholder="End Time" onChange={setInput}></input>
       <input name="desc" placeholder="Description" onChange={setInput}></input>
       <input type="number" name="capacity" placeholder="Capacity" onChange={setInput}></input>
       <input type="number" name="MinimumAge" placeholder="Minimum Age" onChange={setInput}></input>

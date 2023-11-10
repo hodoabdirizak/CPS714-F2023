@@ -5,6 +5,7 @@ import { SignUpPage } from './pages/SignUpPage';
 import { BackEndTesting } from './pages/BackEndTesting';
 import { BookingPage } from './pages/BookingPage';
 import { PurchaseTicketPage } from './pages/PurchaseTicketPage';
+import { EventCreationForm } from './pages/EventCreationForm';
 
 const Routes = () => {
     return (
@@ -27,6 +28,9 @@ const Routes = () => {
                 </Route>
                 <Route path="/purchase-tickets">
                     <PurchaseTicketPage/>
+                </Route>
+                <Route path="/event-creation">
+                    <EventCreationForm/>
                 </Route>
             </Switch>
         </Router>
