@@ -80,7 +80,7 @@ CREATE TABLE Event_hosting (
 
 /* Represents the Caterer entity */
 CREATE TABLE Caterer (
-	Caterer_id INT NOT NULL,
+	Caterer_id INT NOT NULL IDENTITY(1,1),
 	User_id INT NOT NULL,
 	Cuisine VARCHAR(20), /*Ex. Thai, Seafood, Japanese, etc.*/
 	Price_per_attendee DECIMAL(10,2),
