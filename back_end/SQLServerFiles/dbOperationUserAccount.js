@@ -69,11 +69,24 @@ const getUserIdByEmail = async (Email) => {
 //   }
 // };
 
+const getUserByEmailAndPass = async (email, pswd) => {
+  try {
+    await sql.connect(config);
+    const result = await sql.query(`SELECT * FROM User_Account WHERE Email = '${email}' AND Pswd = '${pswd}'`);
+    console.log(result);
+    return result.recordset;
+  } catch (err) {
+    throw err;
+  }
+};
+
+
 module.exports = {
   addAccount,
   addOrganizerAccount,
   addCatererAccount,
   getAccounts,
-  getUserIdByEmail
+  getUserIdByEmail,
+  getUserByEmailAndPass,
   // noDupEmails,
-}
+};
