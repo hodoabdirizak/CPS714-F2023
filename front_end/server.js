@@ -34,7 +34,12 @@ app.post('/api/account/addaccount', controllers.userAccountController.createUser
 // Event routes
 // app.get('/api/event/', controllers.eventController);
 // app.post('/api/event/', controllers.eventController);
-// app.post('/api/event/', controllers.eventController);
+app.post('/api/event/getCapacity', controllers.eventController.getCapacity);
+
+//Event Attendee routs
+app.post('/api/eventAttendee/getAttendeeQuantity', controllers.eventAttendeeController.getAttendeeQuantity);
+app.post('/api/eventAttendee/updateEventAttendee', controllers.eventAttendeeController.updateEventAttendee);
+app.post('/api/eventAttendee/getTicketsSold', controllers.eventAttendeeController.getTicketsSold);
 
 
 // Venue routes

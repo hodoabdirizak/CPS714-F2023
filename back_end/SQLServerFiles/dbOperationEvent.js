@@ -31,8 +31,21 @@ const updateEvent = async (Event_id, updatedEvent) => {
   }
 };
 
+const getCapacity = async () => {
+    try {
+        await sql.connect(config)
+        const result = await sql.query('SELECT Capacity FROM Event_Table where Event_ID = ' + eventID);
+        console.log(result);
+        return result;
+    } catch (err) {
+        console.error(err);
+        throw err;
+    }
+};
+
 module.exports = {
-  getEvents,
+    getEvents,
+    getCapacity,
   createEvent,
   updateEvent,
 };

@@ -13,56 +13,51 @@ export const BookingPage = () => {
     const userID = 1;
     const eventID = 1;
 
+    //Determine remaining tickets for the event
 
     const getCapacity = async () => {
-        try {
-            await sql.connect(config)
-            const result = await sql.query('SELECT Capacity FROM Event_Table where Event_ID = '+eventID);
-            console.log(result);
-            return result;
-        } catch (err) {
-            console.error(err);
-            throw err;
-        }
-    };
+        console.log("Getting Capacity for eventID " + eventID);
+        await fetch('/api/event/getCapacity', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                id: eventID
+            })
+        })
+    }
 
     const getTicketsSold = async () => {
-        try {
-            await sql.connect(config)
-            const result = await sql.query('SELECT Count(Number_of_tickets) FROM Event_attendees where Event_ID = ' + eventID);
-            console.log(result);
-            return result;
-        } catch (err) {
-            console.error(err);
-            throw err;
-        }
-    };
-
-    const getTicketsSold = async () => {
-        try {
-            await sql.connect(config)
-            const result = await sql.query('SELECT Count(Number_of_tickets) FROM Event_attendees where Event_ID = ' + eventID);
-            console.log(result);
-            return result;
-        } catch (err) {
-            console.error(err);
-            throw err;
-        }
-    };
+        console.log("Getting Tickets Sold for eventID " + eventID);
+        await fetch('/api/event/getCapacity', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                id: eventID
+            })
+        })
+    }
 
     const getTicketsOwned = async () => {
-        try {
-            await sql.connect(config)
-            const result = await sql.query('SELECT Number_of_tickets FROM Event_attendees where Event_ID = ' + eventID + " and user_ID = " +userID);
-            console.log(result);
-            return result;
-        } catch (err) {
-            console.error(err);
-            throw err;
-        }
-    };
+        console.log("Getting Tickets owned for eventID " + eventID + " and userID "+ userID);
+        await fetch('/api/eventattendee/getAttendeeQuantity', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                eventID: eventID,
+                userID: userID
+            })
+        })
+    }
 
-    //Determine remaining tickets for the event
     const capacity = getCapacity();
     const ticketsSold = getTicketsSold();
     const remainingTicket = capacity - ticketsSold;
@@ -82,7 +77,7 @@ export const BookingPage = () => {
         if (numOfTickets > remainingTicket)
             console.log("There are not enough tickets for your selection");
         else if (userOwnedTicket + numOfTickets > 6)
-                console.log("Adding")
+                console.log("Adding "+ numOfTickets +" would exceed your limit of 6 tickets")
         else {
             history.push(`/purchase-tickets?quantity=${numOfTickets}`);
             history.go(0);
