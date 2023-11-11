@@ -53,7 +53,7 @@ Each event may have one or more attendees
 */
 CREATE TABLE Event_attendees (
 	User_id INT NOT NULL, 
-    	Event_id INT NOT NULL,
+    Event_id INT NOT NULL,
 	Number_of_tickets INT NOT NULL, 
 	PRIMARY KEY(User_id,Event_id)
 );
@@ -83,6 +83,7 @@ CREATE TABLE Event_hosting (
 CREATE TABLE Caterer (
 	Caterer_id INT NOT NULL IDENTITY(1,1),
 	User_id INT NOT NULL,
+	Full_address VARCHAR(255),
 	Cuisine VARCHAR(20), /*Ex. Thai, Seafood, Japanese, etc.*/
 	Price_per_attendee DECIMAL(10,2),
 	PRIMARY KEY(Caterer_id, User_id)
