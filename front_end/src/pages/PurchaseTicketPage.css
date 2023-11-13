@@ -1,24 +1,79 @@
 /* PurchaseTicketPage.css */
 
-.purchase-container img {
-    width: 50px;
-    padding-left: 20px;
-    padding-right: 30px;
-  }
+.purchase-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-  .purchase-container h1 {
-    font-size: 32px;
-    font-weight: 550;
-  }
+.page-header {
+  margin-left: 80px;
+  margin-top: 40px;
+}
 
-  .purchase-container h2 {
-    color: #6C6C6C;
-    font-size: 30px;
-    font-weight: 550;
-  }
+.page-header-img {
+  width: 65px;
+  display: inline-block;
+  vertical-align: middle;
+}
 
-  .purchase-container p {
-    color: #6C6C6C;
-    font-size: 25px;
-    font-weight: 350;
-  }
+.page-header-text {
+  margin-left: 70px;
+  font-size: 38px;
+  font-weight: 500;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.content-container {
+  display: flex;
+  justify-content: space-between;
+  width: 80%; /* Adjust this value based on your layout needs */
+}
+
+.event-section {
+  display: flex;
+  flex-direction: column; /* Stack the children vertically */
+  width: 60%; /* Adjust this value to control the width of the event-section */
+  margin-top: 20px;
+}
+
+.info-section {
+  width: 100%; /* Take up the full width */
+  box-sizing: border-box;
+  margin-left: -60px; /* Remove the left margin */
+  margin-bottom: 30px;
+}
+
+.info-section h2,
+.info-section h3,
+.info-section p,
+.payment h2 {
+  line-height: 0.5;
+  font-weight: 425;
+}
+
+.info-section h2, .payment h2 {
+  color: #6C6C6C;
+  font-size: 30px;
+}
+
+.info-section h3, .payment h3 {
+  color: #000;
+  font-size: 34px;
+}
+
+.info-section p, .payment p {
+  color: #6C6C6C;
+  font-size: 30px;
+}
+
+.payment-line {
+  border-top: 1px solid #6C6C6C;
+  margin-top: -15px;
+}
+
+.payment {
+  width: 40%; /* Adjust this value to control the width of the payment section */
+  box-sizing: border-box;
+}
