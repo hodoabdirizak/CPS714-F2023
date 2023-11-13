@@ -1,0 +1,58 @@
+/* PurchaseSuccessPage.css */
+
+.ticket-success-container {
+    background-image: url('../assets/images/Confetti.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.thank-you-container {
+  background-color: white;
+  width: 800px;
+  height: 450px;
+  border-radius: 55px;
+  text-align: center;
+  padding: 20px;
+  display: flex;
+  flex-direction: column; /* Add this line to stack items vertically */
+  justify-content: center;
+  align-items: center;
+}
+
+.thank-you-text {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.checkmark-container {
+  background-color: #7DC756;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.checkmark-container {
+  font-size: 50px;
+  color: white;
+}
+
+.view-tickets-btn {
+    background-color: #E98123;
+    color: #FFF;
+    border-radius: 20px;
+    font-size: 20px;
+    width: 450px;
+    padding: 15px;
+}
+
+.view-tickets-btn:hover {
+    background-color: #db6a08;
+}

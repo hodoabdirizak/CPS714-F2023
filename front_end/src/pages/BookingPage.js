@@ -13,6 +13,10 @@ export const BookingPage = () => {
     const location = useLocation()
     const userID = location.state?.userID || 1;
     const eventID = location.state?.eventID || 1;
+    const eventName = location.state?.eventName || "Generic Event";
+    const eventVenue = location.state?.eventVenue || "Generic Venue";
+    const eventDate = location.state?.eventDate || "Generic Date";
+
     //Determine remaining tickets for the event
 
     const getCapacity = async () => {
@@ -89,7 +93,10 @@ export const BookingPage = () => {
                     userID: userID,
                     eventID: eventID,
                     userOwnedTicket: userOwnedTicket,
-                    numOfTickets: numOfTickets
+                    numOfTickets: numOfTickets,
+                    eventDate: eventDate,
+                    eventName: eventName,
+                    eventVenue: eventVenue
                 }
         );
             history.go(0);
