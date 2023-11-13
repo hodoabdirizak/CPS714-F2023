@@ -6,6 +6,8 @@ import { BackEndTesting } from './pages/BackEndTesting';
 import { BookingPage } from './pages/BookingPage';
 import { PurchaseTicketPage } from './pages/PurchaseTicketPage';
 import { PurchaseSuccessPage } from './pages/PurchaseSuccessPage';
+import { EventCreationForm } from './pages/EventCreationForm';
+import { EventCreationConfirmation } from './pages/EventCreationConfirmation';
 
 const Routes = () => {
     return (
@@ -32,6 +34,12 @@ const Routes = () => {
                 <Route path="/purchase-success">
                     <PurchaseSuccessPage/>
                 </Route>
+		<Route path="/eventCreation">
+		    <EventCreationForm/>
+		</Route>
+ 		<Route path="/eventCreationConfirmation">
+		    <EventCreationConfirmation/>
+		</Route>
             </Switch>
         </Router>
     )
