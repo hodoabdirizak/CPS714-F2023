@@ -23,6 +23,30 @@ const getEventAttendees = async (eventId) => {
   }
 };
 
+const getAttendeeQuantity = async (eventId, userID) => {
+    try {
+        await sql.connect(config)
+        const result = await sql.query('SELECT Number_of_tickets FROM Event_attendees where Event_ID = ' + eventId + " and User_id = " + userID);
+        console.log(result);
+        return result;
+    } catch (err) {
+        console.error(err);
+        throw err;
+    }
+};
+
+const getTicketsSold = async () => {
+    try {
+        await sql.connect(config)
+        const result = await sql.query('SELECT Count(Number_of_tickets) FROM Event_attendees where Event_ID = ' + eventID);
+        console.log(result);
+        return result;
+    } catch (err) {
+        console.error(err);
+        throw err;
+    }
+};
+
 const updateEventAttendee = async (userEventAssociation) => {
   try {
     await sql.connect(config);
@@ -48,5 +72,7 @@ const updateEventAttendee = async (userEventAssociation) => {
 module.exports = {
   createEventAttendee,
   getEventAttendees,
-  updateEventAttendee,
+    updateEventAttendee,
+    getAttendeeQuantity,
+    getTicketsSold
 };

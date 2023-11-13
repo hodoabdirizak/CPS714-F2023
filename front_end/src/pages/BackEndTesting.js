@@ -24,7 +24,8 @@ export const BackEndTesting = () => {
     return;
   }
 
-  const fetchAccounts = async () => {
+    const fetchAccounts = async () => {
+      console.log("Getting all accounts")
     await fetch('/api/account/getaccounts', {
       method: 'GET',
       headers: {

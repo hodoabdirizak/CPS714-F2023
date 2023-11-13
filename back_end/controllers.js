@@ -1,4 +1,6 @@
-const dbOperationUserAccount    = require('./SQLServerFiles/dbOperationUserAccount');
+const dbOperationUserAccount = require('./SQLServerFiles/dbOperationUserAccount');
+const dbOperationEvent = require('./SQLServerFiles/dbOperationEvent');
+const dbOperationEventAttendees = require('./SQLServerFiles/dbOperationEventAttendees');
 
 const userAccountController = {
     createUserAccount: async(req,res) => {
@@ -59,14 +61,38 @@ const organizerController = {
 
 
 const eventController = {
-
+    getCapacity: async (req, res) => {
+        console.log('Called /api/event/getCapacity');
+        const result = await dbOperationEvent.getCapacity(req.body.id);
+        console.dir(result);
+        res.send(result.recordset);
+    },
 };
 
+const eventAttendeeController = {
+    getAttendeeQuantity: async (req, res) => {
+        console.log('Called /api/eventAttendee/getAttendeeQuantity');
+        const result = await dbOperationEventAttendees.getAttendeeQuantity(req.body.eventID,req.body.userID);
+        console.dir(result);
+        res.send(result.recordset);
+    },
+    updateEventAttendee: async (req, res) => {
+        console.log('Called /api/eventAttendee/updateEventAttendee');
+        const result = await dbOperationEventAttendees.updateEventAttendee(req.body.eventID, req.body.userID, req.body.numOfTickets);
+        console.dir(result);
+        res.send(result.recordset);
+    },
+    getTicketsSold: async (req, res) => {
+        console.log('Called /api/eventAttendee/getTicketsSold');
+        const result = await dbOperationEventAttendee.getTicketsSold(req.body.id);
+        console.dir(result);
+        res.send(result.recordset);
+    }
+};
 
 const venueController = {
 
 };
-
 
 const catererController = {
 
@@ -77,6 +103,7 @@ module.exports = {
     userAccountController,
     organizerController,
     eventController,
+    eventAttendeeController,
     venueController,
     catererController
 }
