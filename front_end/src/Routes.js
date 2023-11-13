@@ -5,6 +5,7 @@ import { SignUpPage } from './pages/SignUpPage';
 import { BackEndTesting } from './pages/BackEndTesting';
 import { BookingPage } from './pages/BookingPage';
 import { PurchaseTicketPage } from './pages/PurchaseTicketPage';
+import { PurchaseSuccessPage } from './pages/PurchaseSuccessPage';
 import { EventCreationForm } from './pages/EventCreationForm';
 import { EventCreationConfirmation } from './pages/EventCreationConfirmation';
 
@@ -29,6 +30,9 @@ const Routes = () => {
                 </Route>
                 <Route path="/purchase-tickets">
                     <PurchaseTicketPage/>
+                </Route>
+                <Route path="/purchase-success">
+                    <PurchaseSuccessPage/>
                 </Route>
 		<Route path="/eventCreation">
 		    <EventCreationForm/>
