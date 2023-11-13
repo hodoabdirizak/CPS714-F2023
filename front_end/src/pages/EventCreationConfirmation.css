@@ -14,7 +14,7 @@
     justify-content: center; /* Center content horizontally */
 }
 
-div{
+.event-confirmation-bg div{
   padding: 4px;
 }
   .form-group {
