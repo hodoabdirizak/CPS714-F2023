@@ -61,6 +61,26 @@ const organizerController = {
 
 
 const eventController = {
+    getEventByName: async (req, res) => {
+        console.log('Called /api/event/getEventByName');
+        const result = await dbOperationEvent.getEventByName(req.body.name);
+        console.dir(result);
+        res.send(result.recordset);
+    },
+    getEvents: async (req, res) => {
+        console.log('Called /api/event/getEvents');
+        const result = await dbOperationEvent.getEvents(req.body.name);
+        console.dir(result);
+        res.send(result.recordset);
+    },
+    createEvent: async (req, res) => {
+        console.log('Called /api/event/createEvent');
+        console.dir(req.body);
+        await dbOperationEvent.createEvent(req.body);
+        const result = await dbOperationEvent.getEvents();
+        console.dir(result);
+        res.send(result.recordset);
+    },
     getCapacity: async (req, res) => {
         console.log('Called /api/event/getCapacity');
         const result = await dbOperationEvent.getCapacity(req.body.id);
