@@ -16,6 +16,7 @@ app.use(cors());
 
 
 // ROUTES
+app.get("/")
 
 // User_Account routes
 app.post('/api/account/addaccount', controllers.userAccountController.createUserAccount);
@@ -37,8 +38,6 @@ app.post('/api/account/getuseridbyemail', controllers.userAccountController.getU
 app.get('/api/event/getEvents', controllers.eventController.getEvents);
 app.post('/api/event/getEventByName', controllers.eventController.getEventByName);
 app.post('/api/event/createEvent', controllers.eventController.createEvent);
-// app.get('/api/event/', controllers.eventController);
-// app.post('/api/event/', controllers.eventController);
 app.post('/api/event/getCapacity', controllers.eventController.getCapacity);
 
 //Event Attendee routs
@@ -48,7 +47,7 @@ app.post('/api/eventAttendee/getTicketsSold', controllers.eventAttendeeControlle
 
 
 // Venue routes
-// app.get('/api/venue/', controllers.venueController);
+app.get('/api/venue/getVenues', controllers.venueController.getVenues);
 // app.post('/api/venue/', controllers.venueController);
 // app.post('/api/venue/', controllers.venueController);
 

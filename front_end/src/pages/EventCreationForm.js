@@ -60,6 +60,9 @@ export const EventCreationForm = () => {
                                                         startDate: 0, endDate: '', startTime: '', desc:'',
                                                         capacity: 1, MinimumAge: 0, approved: 'True', cost: 0, location: '' });
 
+  const [newVenue, setVenue] = useState({key:'', id: '1', name: 'a', type: '',address:''});      
+  //var venueList = [newVenue,newVenue,newVenue];
+
   const handleSubmit = (e) => {
     e.preventDefault();
     // You can handle form submission and data storage here.
@@ -83,30 +86,18 @@ export const EventCreationForm = () => {
     history.go(0);
   };
 
-  const addEvent = async () => {
-    await fetch('/api/event/createevent', {
-        method: 'POST',
+  const getVenues = async () => {
+    console.log("Getting all venues")
+    await fetch('/api/venue/getVenues', {
+        method: 'GET',
         headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-            Event_name: eventName,
-            Event_type: eventType,
-            Event_start_date: eventDate,
-            Event_end_date: eventDate,
-            Event_start_time: '',
-            Event_end_time: '',
-            Event_description: eventDescription,
-            Capacity: numberOfGuests,
-            Minimum_age: 0,
-            Approved: 'True',
-            Ticket_cost: admissionPrice,
-            Event_location: ' '
-            
-        })
+        }
     })
 }
+var venueList = [getVenues()];
+
   return (
     <div className='event-creation-bg'>
       <div style={{ backgroundImage: `url(${bg})` }}>
@@ -137,11 +128,11 @@ export const EventCreationForm = () => {
             <div className="form-group">
               <div>
                 <select value={eventLocation} onChange={handleChange}>
-                  <option value="" hidden>Event Location</option>
-                  <option value="Location 1">Location 1</option>
-                  <option value="Location 2">Location 2</option>
-                  <option value="Location 3">Location 3</option>
-                  <option value="Location 4">Location 4</option>
+                <option value="">Select the location</option>
+                  {venueList.map((venue) => (
+                    <option value={venue.venue_name}> 
+                    {venue.venue_name} 
+                </option>))}
                 </select>
               </div>
               <div>

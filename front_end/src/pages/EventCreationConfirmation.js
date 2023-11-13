@@ -41,6 +41,31 @@ export const EventCreationConfirmation = () => {
 		history.push('/');
 		history.go(0);
 	}
+	
+	const addEvent = async () => {
+		await fetch('/api/event/createevent', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				'Accept': 'application/json'
+			},
+			body: JSON.stringify({
+				Event_name: eventName,
+				Event_type: eventType,
+				Event_start_date: eventDate,
+				Event_end_date: eventDate,
+				Event_start_time: '',
+				Event_end_time: '',
+				Event_description: eventDescription,
+				Capacity: numberOfGuests,
+				Minimum_age: 0,
+				Approved: 'True',
+				Ticket_cost: admissionPrice,
+				Event_location: ' '
+				
+			})
+		})
+	}
 
 	return (
 		<div className='event-confirmation-bg'>
@@ -126,7 +151,7 @@ export const EventCreationConfirmation = () => {
 												/>
 											</div>
 										</div>
-										<button type="submit">Create Event</button>
+										<button type="submit" onClick={() => addEvent()}>Create Event</button>
 									</div>
 								</form>
 							</td>
