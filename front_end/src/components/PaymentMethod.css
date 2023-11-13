@@ -1,0 +1,78 @@
+/* PaymentMethod.css */
+
+.payment-method {
+  margin-top: 20px;
+}
+
+.payment-options {
+  margin-bottom: 20px;
+}
+
+.payment-options label {
+  margin-bottom: 10px;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  color: #6C6C6C;
+}
+
+.payment-options input {
+  margin-right: 5px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid #DADADA;
+  text-align: left;
+  display: block;
+}
+
+.payment-options input[type='radio'] {
+  accent-color:#3A2371;
+}
+
+.card-details {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.card-details input {
+  flex: 1;
+  padding: 15px;
+  margin-right: 10px;
+  border: 2px solid #DADADA;
+  border-radius: 15px;
+  color: #6C6C6C;
+  outline: none;
+}
+
+.card-details input::placeholder {
+  color: #6C6C6C;
+  font-size: 20px;
+}
+
+.card-number {
+  width: 575px;
+}
+
+.expiration-date {
+  width: 295px;
+}
+
+.cvv {
+  width: 241px;
+}
+
+.confirm-purchase {
+  background-color: #E98123;
+  color: white;
+  padding: 15px;
+  font-size: 20px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.confirm-purchase:hover {
+  background-color: #db6a08;
+}

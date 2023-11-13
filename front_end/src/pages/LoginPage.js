@@ -37,10 +37,10 @@ export const LoginPage = () => {
               type="text"
               id="username"
               value={username}
-	      placeholder="Username"
+	            placeholder="Username"
               onChange={(e) => setUsername(e.target.value)}
               required
-	      className="input-style"
+	            className="input-style-3"
             />
           </div>
           <div className="form-group">
@@ -48,26 +48,27 @@ export const LoginPage = () => {
               type="password"
               id="password"
               value={password}
-	      placeholder="Password"
+	            placeholder="Password"
               onChange={(e) => setPassword(e.target.value)}
               required
-	      className="input-style"
+	            className="input-style-3"
             />
           </div>
-          <button type="submit"
-	style={{
+          <br></br>
+          <button 
+            type="submit"
+	          style={{
               backgroundColor: '#E98123',
               borderRadius: '15px',
-              fontSize: '1.5rem',    // Increase the font size
+              fontSize: '1.2rem',    // Increase the font size
               width: '50%',          // Set the width to 50% of its container
               padding: '10px 20px',  // Add padding to control the button size
-            }}>Login</button>
+            }}>Login
+          </button>
         </form>
         <div>
-      	  <h6>Forgot your password? <a href = "/eventCreation">Click Here!</a></h6>
-        </div>
-        <div>
-          <h6>Don't have an account? <a href = "/signup">Register Now!</a></h6>
+      	  <h5>Forgot your password? <a href = "/eventCreation">Click Here!</a></h5>
+          <h5>Don't have an account? <a href = "/signup">Register Now!</a></h5>
         </div>
 	<div>
 	  <br></br>

@@ -18,11 +18,13 @@ app.use(cors());
 // ROUTES
 
 // User_Account routes
-app.get('/api/account/getaccounts', controllers.userAccountController.getAccounts);
-app.get('/api/account/getuserid', controllers.userAccountController.getUserId);
-app.post('/api/account/nodupemails',controllers.userAccountController.noDupEmails);
-app.post('/api/account/getaccountbyname', controllers.userAccountController.getAccountByName);
 app.post('/api/account/addaccount', controllers.userAccountController.createUserAccount);
+app.post('/api/account/addorganizeraccount', controllers.userAccountController.addOrganizerAccount);
+app.post('/api/account/addcatereraccount', controllers.userAccountController.addCatererAccount);
+app.get('/api/account/getaccounts', controllers.userAccountController.getAccounts);
+app.post('/api/account/getuseridbyemail', controllers.userAccountController.getUserIdByEmail);
+
+// app.post('/api/account/nodupemails', controllers.userAccountController.noDupEmails);
 
 
 // Organizer routes
@@ -35,6 +37,14 @@ app.post('/api/account/addaccount', controllers.userAccountController.createUser
 app.get('/api/event/getEvents', controllers.eventController.getEvents);
 app.post('/api/event/getEventByName', controllers.eventController.getEventByName);
 app.post('/api/event/createEvent', controllers.eventController.createEvent);
+// app.get('/api/event/', controllers.eventController);
+// app.post('/api/event/', controllers.eventController);
+app.post('/api/event/getCapacity', controllers.eventController.getCapacity);
+
+//Event Attendee routs
+app.post('/api/eventAttendee/getAttendeeQuantity', controllers.eventAttendeeController.getAttendeeQuantity);
+app.post('/api/eventAttendee/updateEventAttendee', controllers.eventAttendeeController.updateEventAttendee);
+app.post('/api/eventAttendee/getTicketsSold', controllers.eventAttendeeController.getTicketsSold);
 
 
 // Venue routes

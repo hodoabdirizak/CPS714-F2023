@@ -1,7 +1,7 @@
 /* pages/EventCreationForm.css */
 
-.event-creation-container {
-    width: 50vw;
+.event-confirmation-container {
+    width: 75vw;
     margin: 0vh auto;
     padding: 20px;
     border: 1px solid #ccc;
@@ -14,7 +14,7 @@
     justify-content: center; /* Center content horizontally */
 }
 
-.event-creation-bg div{
+.event-confirmation-bg div{
   padding: 4px;
 }
   .form-group {
@@ -103,7 +103,9 @@
       width: 70px;
       height: 70px;
   }
-  
+  .container {
+    margin-left: 0;
+  }  
   button:hover {
     background-color: #0056b3;
   }

@@ -5,9 +5,9 @@ import logo from '../assets/logo.png';
 import bg from '../assets/logo200.png';
 
 export const SignUpPage = () => {
+  // const [emailExists, setEmailExists] = useState({Exists:''});
   const [newUserAccount, setUserAccount] = useState({Email: '', Full_name: '', 
-                                                  Phone_number: '', Pronouns: '', Account_type: '', Pswd: ''});
-  const [userId, setUserId] = useState({User_id: 0});
+                                                  Phone_number: 0, Pronouns: '', Account_type: '', Pswd: ''});
 
   const options = [
     { 
@@ -24,6 +24,80 @@ export const SignUpPage = () => {
     }
   ];                                                  
 
+  // const getUserId = async () => {
+  //   try {
+  //     let response = await fetch('/api/account/getuserid', {
+  //       method: 'GET',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         'Accept': 'application/json'
+  //       }
+  //     });
+  
+  //     // console.log("HTTP Status Code:",response.status)
+  //     const data = await response.text();
+
+  //     setUserAccount(prevState => ({
+  //       ...prevState,
+  //       User_id: parseInt(data)
+  //     }));
+  //     return;
+  //   } catch (error) {
+  //     console.error('Error fetching User ID:', error);
+  //     return 'error';
+  //   }
+  // }
+
+  // const noDupEmails = async () => {
+  //   try {
+  //     let response = await fetch('/api/account/nodupemails', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         'Accept': 'application/json'
+  //       },
+  //       body: JSON.stringify({
+  //         email: newUserAccount.Email
+  //       })
+  //     });
+  
+  //     // console.log("HTTP Status Code:",response.status)
+  //     const data = await response.text();
+  //     setEmailExists(prevState => ({
+  //       ...prevState,
+  //       Exists: data
+  //     }));
+
+  //     console.log(emailExists.Exists);
+
+  //   } catch (error) {
+  //     console.error('Error fetching data:', error);
+  //     console.log('Duplicate email');
+  //   }
+  // }
+
+  const addAccount = async () => {
+    let response = await fetch('/api/account/addaccount', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        ...newUserAccount
+      })
+    });
+    const data = await response.text();
+    if (data==='2627') {
+      alert(`An account for this email already exists.`);
+    } else if (data==='') {
+      alert(`Account has been created successfully.`);
+    } else {
+      alert('An error has occurred. We were unable to create your account.')
+    }
+
+  } 
+  
   const setInput = (e) => {
     const {name, value} = e.target;
     if (name === 'Phone_number'){
@@ -51,97 +125,33 @@ export const SignUpPage = () => {
     return;
   }
 
-  const getUserIdByEmail = async () => {
-    let response = await fetch('/api/account/getuseridbyemail', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify({
-        email: newUserAccount.Email
-      })
-    });
-
-    const data = await response.text();
-    setUserId(prevState => ({
-      ...prevState,
-      User_id: data 
-    }));
-  }
-
-  const addOrganizerAccount = async () => {
-    await fetch('/api/account/addorganizeraccount', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify({
-        userId: userId.User_id
-      })
-    });
-  }
-
-  const addCatererAccount = async () => {
-    await fetch('/api/account/addcatereraccount', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify({
-        userId: userId.User_id
-      })
-    });
-  }
-
-  const addAccount = async () => {
-    let response = await fetch('/api/account/addaccount', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify({
-        ...newUserAccount
-      })
-    });
-
-    const data = await response.text();
-
-    if (data==='2627') {
-      alert(`An account for this email already exists.`);
-    } else if (data==='') {
-      if (newUserAccount.Account_type==='Organizer') {
-        getUserIdByEmail();
-        addOrganizerAccount();
-        alert(`Organizer account has been created successfully.`);
-      } else if (newUserAccount.Account_type==='Caterer') {
-        getUserIdByEmail();
-        addCatererAccount();
-        alert(`Caterer account has been created successfully.`);
-      } else {
-        alert(`User account has been created successfully.`);
-      }
-
-    } else {
-      alert('An error has occurred. We were unable to create your account.')
-    }
-  }
-
   const handleSignUp = (e) => {
     console.log('-----------------');
     e.preventDefault();
     console.log(newUserAccount);
     addAccount();
+    
+    // noDupEmails();
+    // console.log('line 124',emailExists.Exists);
+    // if (emailExists.Exists === "true") {
+    //   alert(`An account for ${newUserAccount.Email} already exists.`);
+    // } 
+    
+    // else if (emailExists.Exists === "false") {
+    //   console.log(newUserAccount);
+      // try {
+      //   addAccount();
+      // } catch (err) {
+      //   console.log(`Unable to add account`,err);
+      // }
+    // } 
   };
 
   return (
     <div style={{ backgroundImage: `url(${bg})` }}>
       <div className="login-container" style={{ backgroundColor: `white` }}>
         <img src={logo} alt="Logo" />
-        <h1>Sign Up</h1>
+        <h1>Create an Account</h1>
         <form onSubmit={handleSignUp}>
           <div className="form-group-item">
             <input
@@ -152,9 +162,10 @@ export const SignUpPage = () => {
               value={newUserAccount.Full_name}
               onChange={setInput}
               required
-              className="input-style-5"
+              className="input-style"
             />
           </div>
+          <br></br>
           <div className="form-group-item">
             <input
               type="text"
@@ -164,7 +175,7 @@ export const SignUpPage = () => {
               value={newUserAccount.Email}
               onChange={setInput}
               required
-              className="input-style-5"
+              className="input-style-2"
             />
           </div>
           <div className="form-group-item">
@@ -197,11 +208,11 @@ export const SignUpPage = () => {
                 type="text"
                 id="pronouns"
                 name="Pronouns"
-                placeholder="Pronouns"
+                placeholder="  Pronouns"
                 value={newUserAccount.Pronouns}
                 onChange={setInput}
                 required
-                className="input-style-5"
+                className="input-style-3"
               />
             </div>
             <div className="form-group-item">

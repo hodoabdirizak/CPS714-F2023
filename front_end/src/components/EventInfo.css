@@ -1,0 +1,45 @@
+.event-details {
+    margin-left: 590px;
+}
+.side-by-side {
+    display: flex;
+}
+
+.left-email {
+    width: 40%;
+}
+
+
+.event-details h1 {
+    color: #4391B1;
+    font-weight: 800;
+    margin-top: 167px;
+}
+
+.event-details h2 {
+    color: #8A8080;
+    font-size: medium;
+    font-weight: 450;
+}
+
+.event-details h3 {
+    font-size: larger;
+    font-weight: 500;
+    margin-top: -10px;
+}
+
+.buy-ticket {
+    background-color: #E98123;
+    color: white;
+    width: 500px;
+    padding: 15px;
+    font-size: 20px;
+    font-weight: 500;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+  
+  .buy-ticket:hover {
+    background-color: #db6a08;
+  }
