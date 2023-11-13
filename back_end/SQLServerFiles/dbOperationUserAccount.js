@@ -1,4 +1,3 @@
-const { noDupEmails } = require('../../../../../../AppData/Local/Temp/TFSTemp/vctmp21760_37539.dbOperationUserAccount.7e3a5d06');
 const config = require('./dbConfig');
 const sql = require('mssql');
 
@@ -84,16 +83,16 @@ const getUserIdByEmail = async (Email) => {
   }
 };
 
-// const noDupEmails = async (Email) => {
-//   try {
-//     await sql.connect(config)
-//     const result = await sql.query(`SELECT User_Id FROM User_Account WHERE Email='${Email}'`); 
-//     const queryResults = result.recordset;
-//     return queryResults;
-//   } catch (err) {
-//     throw err;
-//   }
-// };
+ const noDupEmails = async (Email) => {
+   try {
+     await sql.connect(config)
+     const result = await sql.query(`SELECT User_Id FROM User_Account WHERE Email='${Email}'`); 
+     const queryResults = result.recordset;
+     return queryResults;
+   } catch (err) {
+     throw err;
+   }
+ };
 
 module.exports = {
   addAccount,
@@ -102,6 +101,6 @@ module.exports = {
   getAccounts,
   getUserId,
   getAccountByName, 
-  getUserIdByEmail
-  //noDupEmails
+  getUserIdByEmail,
+  noDupEmails
 }
