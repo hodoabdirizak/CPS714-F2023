@@ -31,7 +31,7 @@ const updateEvent = async (Event_id, updatedEvent) => {
   }
 };
 
-const getCapacity = async () => {
+const getCapacity = async (eventID) => {
     try {
         await sql.connect(config)
         const result = await sql.query('SELECT Capacity FROM Event_Table where Event_ID = ' + eventID);

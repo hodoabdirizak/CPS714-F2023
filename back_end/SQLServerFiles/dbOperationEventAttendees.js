@@ -26,7 +26,7 @@ const getEventAttendees = async (eventId) => {
 const getAttendeeQuantity = async (eventId, userID) => {
     try {
         await sql.connect(config)
-        const result = await sql.query('SELECT Number_of_tickets FROM Event_attendees where Event_ID = ' + eventID + " and User_id = " + userID);
+        const result = await sql.query('SELECT Number_of_tickets FROM Event_attendees where Event_ID = ' + eventId + " and User_id = " + userID);
         console.log(result);
         return result;
     } catch (err) {

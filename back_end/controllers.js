@@ -54,7 +54,7 @@ const eventController = {
 };
 
 const eventAttendeeController = {
-    getTicketsOwned: async (req, res) => {
+    getAttendeeQuantity: async (req, res) => {
         console.log('Called /api/eventAttendee/getAttendeeQuantity');
         const result = await dbOperationEventAttendees.getAttendeeQuantity(req.body.eventID,req.body.userID);
         console.dir(result);
@@ -77,7 +77,6 @@ const eventAttendeeController = {
 const venueController = {
 
 };
-
 
 const catererController = {
 
