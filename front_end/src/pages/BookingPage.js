@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { Dropdown } from '../components/Dropdown';
-//import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCouch } from '@fortawesome/free-solid-svg-icons'
@@ -10,14 +10,9 @@ import './BookingPage.css';
 
 export const BookingPage = () => {
     //Get this from previous page or something somehow
-    //const location = useLocation()
-
-    //const { user_ID,
-    //    event_ID
-    //} = location.state;
-
-    const userID = 1;
-    const eventID = 1;
+    const location = useLocation()
+    const userID = location.state?.userID || 1;
+    const eventID = location.state?.eventID || 1;
     //Determine remaining tickets for the event
 
     const getCapacity = async () => {
@@ -67,7 +62,9 @@ export const BookingPage = () => {
     const capacity = getCapacity();
     const ticketsSold = getTicketsSold();
     const remainingTicket = capacity - ticketsSold;
-    const userOwnedTicket = getTicketsOwned();
+    const userTickets = getTicketsOwned().value;
+    const [userOwnedTicket, setUserOwnedTicket] = useState(0);
+
 
 
 
@@ -79,6 +76,7 @@ export const BookingPage = () => {
     };
 
     const handleSubmit = (e) => {
+        setUserOwnedTicket(userTickets);
         //check if tickets are allowed
         if (numOfTickets > remainingTicket)
             console.log("There are not enough tickets for your selection");
@@ -86,13 +84,13 @@ export const BookingPage = () => {
             console.log("Adding " + numOfTickets + " would exceed your limit of 6 tickets")
         else {
             history.push(`/purchase-tickets`,
-                 JSON.stringify(
-                    {
+                 
+                {
                     userID: userID,
                     eventID: eventID,
                     userOwnedTicket: userOwnedTicket,
                     numOfTickets: numOfTickets
-                })
+                }
         );
             history.go(0);
         }

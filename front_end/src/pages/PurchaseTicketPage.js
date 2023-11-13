@@ -7,7 +7,8 @@ import './PurchaseTicketPage.css';
 
 export const PurchaseTicketPage = props => {
     const location = useLocation();
-    console.log(location.state)
+    const { state } = location;
+    console.log(state)
     //const queryParams = new URLSearchParams(location.search);
     //const numOfTickets = queryParams.get('quantity');
     const {
@@ -15,7 +16,7 @@ export const PurchaseTicketPage = props => {
         eventID = 0,
         userOwnedTickets = 0,
         numOfTickets = 0
-    } = location.state;
+    } = state;
     console.log(userID + ", " + eventID + ", " + userOwnedTickets);
 
     class PaymentFormextended extends PaymentForm {
