@@ -80,9 +80,9 @@ const eventController = {
         console.log('Called /api/event/createEvent');
         console.dir(req.body);
         await dbOperationEvent.createEvent(req.body);
-        const result = await dbOperationEvent.getEvents();
-        console.log('hosting');
-        await dbOperationEventHosting.createEventHosting(result.Event_id, req.body.VenueId);
+        const result = await dbOperationEvent.getEventByName(req.body.Event_name);
+        console.log('hosting ' + JSON.parse(JSON.stringify(result.recordset[0]))['Event_id']);
+        await dbOperationEventHosting.createEventHosting(JSON.parse(JSON.stringify(result.recordset[0]))['Event_id'], req.body.VenueId);
         //console.log('organizer');
         //await dbOperationOrganizerEvents.createOrganizerEvent(result.values.Event_id, req.OrganizerId);
         console.dir(result);
