@@ -61,7 +61,10 @@ export const EventCreationConfirmation = () => {
 				Minimum_age: 0,
 				Approved: 'True',
 				Ticket_cost: admissionPrice,
-				Event_location: ' '
+				Event_location: ' ',
+				VenueId: eventLocation,
+				OrganizerId: '1',
+				cateringid: catering,
 				
 			})
 		})

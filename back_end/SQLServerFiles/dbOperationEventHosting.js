@@ -1,11 +1,11 @@
 const config = require('./dbConfig');
 const sql = require('mssql');
 
-const createEventHosting = async (eventHosting) => {
+const createEventHosting = async (eventId,venueId) => {
   try {
     await sql.connect(config);
     const result = await sql.query(
-      `INSERT INTO Event_hosting (Event_id, Venue_id) VALUES (${eventHosting.Event_id}, ${eventHosting.Venue_id})`
+      `INSERT INTO Event_hosting (Event_id, Venue_id) VALUES (${eventId}, ${venueId})`
     );
     return result.recordset;
   } catch (err) {

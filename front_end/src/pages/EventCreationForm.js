@@ -88,15 +88,17 @@ export const EventCreationForm = () => {
 
   const getVenues = async () => {
     console.log("Getting all venues")
-    await fetch('/api/venue/getVenues', {
+    const result = await fetch('/api/venue/getVenues', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
         }
-    })
+      
+    });
+    return result;
 }
-var venueList = [getVenues()];
+
 
   return (
     <div className='event-creation-bg'>
@@ -128,11 +130,10 @@ var venueList = [getVenues()];
             <div className="form-group">
               <div>
                 <select value={eventLocation} onChange={handleChange}>
-                <option value="">Select the location</option>
-                  {venueList.map((venue) => (
-                    <option value={venue.venue_name}> 
-                    {venue.venue_name} 
-                </option>))}
+                <option value= "" hidden>Select the location</option>
+                <option value= '1' >Spongebob's Pineapple</option>
+                <option value= '2' >Bikini Bottom Hospital</option>
+                <option value= '3' >Texas</option>
                 </select>
               </div>
               <div>
@@ -157,10 +158,10 @@ var venueList = [getVenues()];
             <div>
               <select value={eventType} onChange={handleChange1}>
                 <option value="" hidden>Type of Event</option>
-                <option value="EvenType 1">EvenType 1</option>
-                <option value="EvenType 2">EvenType 2</option>
-                <option value="EvenType 3">EvenType 3</option>
-                <option value="EvenType 4">EvenType 4</option>
+                <option value="EvenType 1">Wedding</option>
+                <option value="EvenType 2">Funeral</option>
+                <option value="EvenType 3">Class</option>
+                <option value="EvenType 4">Party</option>
               </select>
               <br></br>
             </div>
@@ -228,10 +229,9 @@ var venueList = [getVenues()];
               <label>If yes, what catering services do you require?</label>
               <select value={catering} onChange={handleChange2}>
                 <option value="" hidden>Type of Catering Services</option>
-                <option value="Catering 1">Catering 1</option>
-                <option value="Catering 2">Catering 2</option>
-                <option value="Catering 3">Catering 3</option>
-                <option value="Catering 4">Catering 4</option>
+                <option value='1'>American</option>
+                <option value='2'>Italian</option>
+                <option value='3'>French</option>
               </select>
               <br></br>
             </div>
