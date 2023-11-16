@@ -7,23 +7,60 @@ import logo from '../assets/logo.png';
 import bg from '../assets/logo200.png';
 
 export const LoginPage = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  // const [username, setUsername] = useState('');
+  // const [password, setPassword] = useState('');
+  const [loginInfo, setLoginInfo] = useState({username: '', password: ''});
   const history = useHistory();
+
+  const setInput = (e) => {
+    const {name, value} = e.target;
+    setLoginInfo(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+    return;
+  }
+
+  const verifyLogin = async () => {
+    let response = await fetch('/api/account/verifylogin', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        email: loginInfo.username, 
+        password: loginInfo.password
+      })
+    });
+
+    // Response return 
+    const data = await response.text();
+    // refer to SingUpPage.js line 99
+    // if data returns a userID:
+    // alert the user that their exists
+    //   history.push('/',{params:'true'});
+    //   history.go(0);
+
+    // else if returns ''
+    // alert the user that their account doesnt exist
+
+  }
 
   const handleLogin = (e) => {
     e.preventDefault();
-    // Add your authentication logic here
-    if(username === "Admin" && password === "Admin"){
-      alert("Successfull Login");
-      history.push('/',{params:'true'});
-      history.go(0);
-    }
-    else{
-      alert("Invalid/Incorrect Username or Password");
-    }
+    verifyLogin();
 
-    console.log(`Username: ${username}, Password: ${password}`);
+    // Add your authentication logic here
+    // if(username === "Admin" && password === "Admin"){
+    //   history.push('/',{params:'true'});
+    //   history.go(0);
+    // }
+    // else{
+    //   alert("Invalid/Incorrect Username or Password");
+    // }
+
+    console.log(`Username: ${loginInfo.username}, Password: ${loginInfo.password}`);
   };
 
     return (
@@ -36,9 +73,10 @@ export const LoginPage = () => {
             <input
               type="text"
               id="username"
-              value={username}
+              name="Username"
+              value={loginInfo.username}
 	            placeholder="Username"
-              onChange={(e) => setUsername(e.target.value)}
+              onChange={setInput}
               required
 	            className="input-style-3"
             />
@@ -47,9 +85,10 @@ export const LoginPage = () => {
             <input
               type="password"
               id="password"
-              value={password}
+              name="Password"
+              value={loginInfo.password}
 	            placeholder="Password"
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={setInput}
               required
 	            className="input-style-3"
             />

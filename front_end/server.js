@@ -22,7 +22,7 @@ app.post('/api/account/addorganizeraccount', controllers.userAccountController.a
 app.post('/api/account/addcatereraccount', controllers.userAccountController.addCatererAccount);
 app.get('/api/account/getaccounts', controllers.userAccountController.getAccounts);
 app.post('/api/account/getuseridbyemail', controllers.userAccountController.getUserIdByEmail);
-app.post('/api/account/getUserByEmailAndPass', controllers.userAccountController.getUserByEmailAndPass);
+app.post('/api/account/verifylogin', controllers.userAccountController.verifyLogin);
 
 // app.post('/api/account/nodupemails', controllers.userAccountController.noDupEmails);
 
