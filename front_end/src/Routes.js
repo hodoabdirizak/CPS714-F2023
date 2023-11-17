@@ -8,6 +8,7 @@ import { PurchaseTicketPage } from './pages/PurchaseTicketPage';
 import { PurchaseSuccessPage } from './pages/PurchaseSuccessPage';
 import { EventCreationForm } from './pages/EventCreationForm';
 import { EventCreationConfirmation } from './pages/EventCreationConfirmation';
+import EventInfo from './components/EventInfo';
 
 const Routes = () => {
     return (
@@ -20,26 +21,29 @@ const Routes = () => {
                     <LoginPage />
                 </Route>
                 <Route path="/signup">
-                    <SignUpPage/>
+                    <SignUpPage />
                 </Route>
                 <Route path="/backend-testing">
-                    <BackEndTesting/>
+                    <BackEndTesting />
                 </Route>
                 <Route path="/booking">
-                    <BookingPage/>
+                    <BookingPage />
                 </Route>
                 <Route path="/purchase-tickets">
-                    <PurchaseTicketPage/>
+                    <PurchaseTicketPage />
                 </Route>
                 <Route path="/purchase-success">
-                    <PurchaseSuccessPage/>
+                    <PurchaseSuccessPage />
                 </Route>
-		<Route path="/eventCreation">
-		    <EventCreationForm/>
-		</Route>
- 		<Route path="/eventCreationConfirmation">
-		    <EventCreationConfirmation/>
-		</Route>
+                <Route path="/eventCreation">
+                    <EventCreationForm />
+                </Route>
+                <Route path="/eventCreationConfirmation">
+                    <EventCreationConfirmation />
+                </Route>
+                <Route path="/event/:id">
+                    <EventInfo/>
+                </Route>
             </Switch>
         </Router>
     )

@@ -82,16 +82,16 @@ const getUserIdByEmail = async (Email) => {
   }
 };
 
-// const noDupEmails = async (Email) => {
-//   try {
-//     await sql.connect(config)
-//     const result = await sql.query(`SELECT User_Id FROM User_Account WHERE Email='${Email}'`); 
-//     const queryResults = result.recordset;
-//     return queryResults;
-//   } catch (err) {
-//     throw err;
-//   }
-// };
+ const noDupEmails = async (Email) => {
+   try {
+     await sql.connect(config)
+     const result = await sql.query(`SELECT User_Id FROM User_Account WHERE Email='${Email}'`); 
+     const queryResults = result.recordset;
+     return queryResults;
+   } catch (err) {
+     throw err;
+   }
+ };
 
 module.exports = {
   addAccount,
@@ -100,6 +100,6 @@ module.exports = {
   getAccounts,
   getUserId,
   getAccountByName, 
-  getUserIdByEmail
-  //noDupEmails
+  getUserIdByEmail,
+  noDupEmails
 }
