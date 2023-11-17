@@ -1,4 +1,3 @@
-const { noDupEmails } = require('../../../../../../AppData/Local/Temp/TFSTemp/vctmp21760_37539.dbOperationUserAccount.7e3a5d06');
 const config = require('./dbConfig');
 const sql = require('mssql');
 
@@ -16,12 +15,11 @@ const getAccounts = async () => {
 
 const addAccount = async (Account) => {
     try {
-        await sql.connect(config);
-        const result = await sql.query(`INSERT INTO User_Account VALUES('${Account.Email}','${Account.Full_name}', ${Account.Phone_number},'${Account.Pronouns}','${Account.Account_type}','${Account.Pswd}')`);
-        return result.recordset;
+      await sql.connect(config);
+      const result = await sql.query(`INSERT INTO User_Account VALUES('${Account.Email}','${Account.Full_name}', ${Account.Phone_number},'${Account.Pronouns}','${Account.Account_type}','${Account.Pswd}')`);
+      return result.recordset;
     } catch (err) {
-        const errorNumber = err.number || (err.info && err.info.number);
-        return errorNumber;
+      throw err;
     }
 };
 
