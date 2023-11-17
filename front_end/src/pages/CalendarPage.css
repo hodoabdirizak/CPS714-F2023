@@ -1,0 +1,11 @@
+/* Homepage.css */
+
+.home-page-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.calendar-section {
+    height: 700px;
+    margin-top: 3vh;
+}
