@@ -1,8 +1,8 @@
 const config = {
-    user: 'camillia',
-    password: '0m@rFa!ls?',
+    user: 'rudabada',
+    password: 'pm23',
     database: 'EventEasy', //REPLACE if you named yours differently
-    server: 'DESKTOP-TR8A4MF', //REPLACE
+    server: 'LAPTOP-TB3L796Q', //REPLACE
     port: 1433, //REPLACE
     pool: {
         max: 10,
@@ -11,7 +11,7 @@ const config = {
     },
     connectionTimeout: 150000,
     options: {
-        instancename: 'SQLEXPRESS',
+        instancename: 'SQLEXPRESS01',
         enableArithAbort: true,
         trustServerCertificate: true
     }

@@ -7,8 +7,8 @@ import logo from '../assets/logo.png';
 import bg from '../assets/logo200.png';
 
 export const LoginPage = () => {
-  // const [username, setUsername] = useState('');
-  // const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [loginInfo, setLoginInfo] = useState({username: '', password: ''});
   const history = useHistory();
 
@@ -19,7 +19,7 @@ export const LoginPage = () => {
       [name]: value
     }));
     return;
-  }
+  };
 
   const verifyLogin = async () => {
     let response = await fetch('/api/account/verifylogin', {
@@ -38,12 +38,13 @@ export const LoginPage = () => {
     const data = await response.text();
     // refer to SingUpPage.js line 99
     // if data returns a userID:
-    // alert the user that their exists
-    //   history.push('/',{params:'true'});
-    //   history.go(0);
-
-    // else if returns ''
-    // alert the user that their account doesnt exist
+    if (data==='2627') {
+      alert(`An account for this email exists.`);
+      history.push('/',{params:'true'});
+      history.go(0);
+    } else if(data==='') {
+      alert(`Account does not exist. Please create an account.`);
+    }
 
   }
 
@@ -52,14 +53,14 @@ export const LoginPage = () => {
     verifyLogin();
 
     // Add your authentication logic here
-    // if(username === "Admin" && password === "Admin"){
-    //   history.push('/',{params:'true'});
-    //   history.go(0);
-    // }
-    // else{
-    //   alert("Invalid/Incorrect Username or Password");
-    // }
-
+    if(loginInfo.username === "Admin" && loginInfo.password === "Admin"){
+      alert(`Successful login.`);
+      history.push('/', {params: 'true'});
+      history.go(0);
+    } else {
+      alert(`Invalid/Incorrect Username or Password`);
+    }
+    
     console.log(`Username: ${loginInfo.username}, Password: ${loginInfo.password}`);
   };
 
@@ -123,4 +124,4 @@ export const LoginPage = () => {
       </div>
     </div>
     );
-}
+};
