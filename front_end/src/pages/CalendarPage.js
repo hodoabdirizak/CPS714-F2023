@@ -1,3 +1,4 @@
+
 // pages/HomePage.js
 
 import React from 'react';
@@ -7,20 +8,37 @@ import './CalendarPage.css';
 import { Scheduler } from "@aldabil/react-scheduler";
 
 export const CalendarPage = () => {
-  /* dummy data 
-  need to retrieve this data from backend */
+
   const events = [
     {
       event_id: 1,
-      title: "Event 1",
-      start: new Date("2023/11/2 09:30"),
-      end: new Date("2023/11/2 10:30"),
+      title: "Harmony Fest",
+      start: new Date("2023/10/31 09:30"),
+      end: new Date("2023/10/31 10:30"),
+      color: "teal",
+      editable: false,
+      deletable: false,
+      draggable: false
     },
     {
       event_id: 2,
-      title: "Event 2",
-      start: new Date("2023/11/8 10:00"),
-      end: new Date("2023/11/8 11:00"),
+      title: "Networking Events",
+      start: new Date("2023/11/15 09:30"),
+      end: new Date("2023/11/15 11:30"),
+      color: "teal",
+      editable: false,
+      deletable: false,
+      draggable: false
+    },
+    {
+      event_id: 4,
+      title: "TechInsight Summit",
+      start: new Date("2024/01/20 09:30"),
+      end: new Date("2024/01/20 11:30"),
+      color: "teal",
+      editable: false,
+      deletable: false,
+      draggable: false
     },
   ];
 
