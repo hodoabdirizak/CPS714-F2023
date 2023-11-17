@@ -9,13 +9,14 @@ import { faCouch } from '@fortawesome/free-solid-svg-icons'
 import './BookingPage.css';
 
 export const BookingPage = () => {
-    //Get this from previous page or something somehow
-    const location = useLocation()
+    // Get this from previous page or something somehow
+    const location = useLocation();
+    const { event } = location.state;
     const userID = location.state?.userID || 1;
-    const eventID = location.state?.eventID || 1;
-    const eventName = location.state?.eventName || "Generic Event";
-    const eventVenue = location.state?.eventVenue || "Generic Venue";
-    const eventDate = location.state?.eventDate || "Generic Date";
+    const eventID = event.id || 1;
+    const eventName = event.title || "Generic Event";
+    const eventVenue = event.venue || "Generic Venue";
+    const eventDate = event.date || "Generic Date";
 
     //Determine remaining tickets for the event
 
@@ -48,7 +49,7 @@ export const BookingPage = () => {
     }
 
     const getTicketsOwned = async () => {
-        console.log("Getting Tickets owned for eventID " + eventID + " and userID "+ userID);
+        console.log("Getting Tickets owned for eventID " + eventID + " and userID " + userID);
         await fetch('/api/eventattendee/getAttendeeQuantity', {
             method: 'POST',
             headers: {
@@ -88,7 +89,7 @@ export const BookingPage = () => {
             console.log("Adding " + numOfTickets + " would exceed your limit of 6 tickets")
         else {
             history.push(`/purchase-tickets`,
-                 
+
                 {
                     userID: userID,
                     eventID: eventID,
@@ -98,7 +99,7 @@ export const BookingPage = () => {
                     eventName: eventName,
                     eventVenue: eventVenue
                 }
-        );
+            );
             history.go(0);
         }
     };
@@ -109,18 +110,18 @@ export const BookingPage = () => {
                 <h2>How many tickets?</h2>
                 <Dropdown
                     options={[
-                        { label: '1 ticket', value: 1, key: 1},
-                        { label: '2 tickets', value: 2, key: 2},
-                        { label: '3 tickets', value: 3, key: 3},
-                        { label: '4 tickets', value: 4, key: 4},
-                        { label: '5 tickets', value: 5, key: 5},
-                        { label: '6 tickets', value: 6, key: 6},
+                        { label: '1 ticket', value: 1, key: 1 },
+                        { label: '2 tickets', value: 2, key: 2 },
+                        { label: '3 tickets', value: 3, key: 3 },
+                        { label: '4 tickets', value: 4, key: 4 },
+                        { label: '5 tickets', value: 5, key: 5 },
+                        { label: '6 tickets', value: 6, key: 6 },
                     ]}
                     value={numOfTickets}
                     onChange={handleQuantityChange}
                 />
-                { numOfTickets > 1 ? <h3>You'll be seated together <FontAwesomeIcon icon={faCouch} className='fa' size="sm"/> 
-                <FontAwesomeIcon icon={faCouch} className='fa' size="sm"/></h3> : <div style={{padding: '15px'}}></div>}
+                {numOfTickets > 1 ? <h3>You'll be seated together <FontAwesomeIcon icon={faCouch} className='fa' size="sm" />
+                    <FontAwesomeIcon icon={faCouch} className='fa' size="sm" /></h3> : <div style={{ padding: '15px' }}></div>}
                 <button className='submit-quantity' onClick={handleSubmit}>Continue</button>
             </div>
         </div>

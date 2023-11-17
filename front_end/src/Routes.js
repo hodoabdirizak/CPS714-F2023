@@ -41,9 +41,7 @@ const Routes = () => {
                 <Route path="/eventCreationConfirmation">
                     <EventCreationConfirmation />
                 </Route>
-                <Route path="/event/:id">
-                    <EventInfo/>
-                </Route>
+                <Route path="/event/:id" component={EventInfo} />
             </Switch>
         </Router>
     )
