@@ -18,10 +18,10 @@ export const PurchaseTicketPage = props => {
         userID = 0,
         eventID = 0,
         userOwnedTickets = 0,
-        numOfTickets = 0,
-        eventDate = "Event Date",
-        eventName = "Event Name",
-        eventVenue = "Event Venue"
+        numOfTickets = 1,
+        eventDate = "December 10th, 2023",
+        eventName = "Graduation Ceremony",
+        eventVenue = "Madison Square Garden"
     } = JSON.stringify(state);
     console.log(userID + ", " + eventID + ", " + userOwnedTickets);
 
