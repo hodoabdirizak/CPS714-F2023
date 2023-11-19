@@ -79,12 +79,19 @@ const eventController = {
     createEvent: async (req, res) => {
         console.log('Called /api/event/createEvent');
         console.dir(req.body);
+        //create and return event
         await dbOperationEvent.createEvent(req.body);
         const result = await dbOperationEvent.getEventByName(req.body.Event_name);
+
+        //adding to relation table event hosting
         console.log('hosting ' + JSON.parse(JSON.stringify(result.recordset[0]))['Event_id']);
         await dbOperationEventHosting.createEventHosting(JSON.parse(JSON.stringify(result.recordset[0]))['Event_id'], req.body.VenueId);
-        //console.log('organizer');
-        //await dbOperationOrganizerEvents.createOrganizerEvent(result.values.Event_id, req.OrganizerId);
+        
+        //addint to catering table if required
+        if(req.body.selectedOption1 === "yes"){
+            //console.log('organizer');
+            //await dbOperationOrganizerEvents.createOrganizerEvent(result.values.Event_id, req.OrganizerId);
+        }
         console.dir(result);
         res.send(result.recordset);
     },

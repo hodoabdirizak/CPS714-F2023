@@ -8,6 +8,9 @@ import bg from '../assets/logo200.png';
 import './EventCreationForm.css';
 
 export const EventCreationForm = () => {
+
+  //const userID = location.state?.userID || 1;
+
   //Functions for dropdown options
   const getLocation = () => {
     const value = "Orange";
@@ -81,24 +84,24 @@ export const EventCreationForm = () => {
         admissionPrice,
         selectedOption1,
         catering,
-        additionalNotes
+        additionalNotes,
+        //userID
       });
     history.go(0);
   };
 
   const getVenues = async () => {
-    console.log("Getting all venues")
-    const result = await fetch('/api/venue/getVenues', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
+    await fetch('/api/venue/getVenues')
+      .then(res => {
+        if(res.ok){
+          console.log("Got venues successfuly")
+        } else{
+          console.log("not successful")
         }
-      
-    });
-    return result;
-}
-
+      })
+      .then(data => console.log(data))
+      .catch(error => console.log('ERROR'))
+  }
 
   return (
     <div className='event-creation-bg'>
