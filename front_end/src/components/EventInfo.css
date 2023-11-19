@@ -1,19 +1,38 @@
-.event-details {
-    margin-left: 590px;
+.event-container {
+    display: flex;
 }
+
+.event-date {
+    text-align: center;
+    line-height: 0.6;
+}
+
+.event-details {
+    padding-left: 50px;
+    width: 700px;
+}
+
 .side-by-side {
     display: flex;
 }
 
 .left-email {
-    width: 40%;
+    width: 50%;
 }
 
+.event-photo {
+    width: 440px;
+    height: 440px;
+    object-fit: cover;
+    border-radius: 10%;
+    margin-left: 50px;
+    margin-top: 25%
+}
 
 .event-details h1 {
     color: #4391B1;
     font-weight: 800;
-    margin-top: 167px;
+    margin-top: 120px;
 }
 
 .event-details h2 {

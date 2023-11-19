@@ -49,7 +49,7 @@ const getTicketsSold = async () => {
 
 const updateEventAttendee = async (userEventAssociation) => {
   try {
-    await sql.connect(config);
+      await sql.connect(config);
     const existingRecord = await sql.query(
       `SELECT * FROM Event_attendees WHERE User_id = ${userEventAssociation.User_id} AND Event_id = ${userEventAssociation.Event_id}`
     );
