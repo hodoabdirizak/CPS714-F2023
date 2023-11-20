@@ -112,9 +112,9 @@ const eventAttendeeController = {
     },
     updateEventAttendee: async (req, res) => {
         console.log('Called /api/eventAttendee/updateEventAttendee');
-        const result = await dbOperationEventAttendees.updateEventAttendee(req.body.eventID, req.body.userID, req.body.numOfTickets);
-        console.dir(result);
-        res.send(result.recordset);
+        const result = await dbOperationEventAttendees.updateEventAttendee(req.body);
+        console.dir("result: "+result);
+        res.send(result);
     },
     getTicketsSold: async (req, res) => {
         console.log('Called /api/eventAttendee/getTicketsSold');

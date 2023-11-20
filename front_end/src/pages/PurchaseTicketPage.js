@@ -18,28 +18,33 @@ export const PurchaseTicketPage = props => {
         userID = 0,
         eventID = 0,
         userOwnedTickets = 0,
-        numOfTickets = 0,
-        eventDate = "Event Date",
-        eventName = "Event Name",
-        eventVenue = "Event Venue"
-    } = state;
+        numOfTickets = 1,
+        eventDate = "December 10th, 2023",
+        eventName = "Graduation Ceremony",
+        eventVenue = "Madison Square Garden"
+    } = JSON.stringify(state);
     console.log(userID + ", " + eventID + ", " + userOwnedTickets);
 
     const updateTickets = async () => {
-        console.log("Updating Tickets Sold for eventID " + this.state.eventID + " and userID " + this.state.userID
-            + " for " + this.state.numOfTickets);
-        await fetch('/api/eventAttendee/updateEventAttendee', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify({
-                eventID: this.state.eventID,
-                userID: this.state.userID,
-                numOfTickets: this.state.numOfTickets
+        try {
+            console.log("Updating Tickets Sold for eventID " + state.eventID + " and userID " + state.userID
+                + " for " + state.numOfTickets);
+            await fetch('/api/eventAttendee/updateEventAttendee', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    Event_id: state.eventID,
+                    User_id: state.userID,
+                    Number_of_tickets: state.numOfTickets
+                })
             })
-        })
+        }
+        catch (e) {
+            console.log(e);
+        }
     }
 
     const handleConfirm = (e) => {

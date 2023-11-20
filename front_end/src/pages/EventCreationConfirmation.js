@@ -21,16 +21,20 @@ export const EventCreationConfirmation = () => {
 
 	const location = useLocation();
 	const { eventName,
-		eventDate,
-		eventLocation,
-		numberOfGuests,
-		eventDescription,
-		eventType,
-		selectedOption,
-		admissionPrice,
-		selectedOption1,
-		catering,
-		additionalNotes
+        	eventDate,
+        	eventLocation,
+        	numberOfGuests,
+		startTime,
+		endTime,
+        	eventDescription,
+        	eventType,
+        	selectedOption,
+        	admissionPrice,
+		selectedOption2,
+		ageRestriction,
+        	selectedOption1,
+        	catering,
+        	additionalNotes
 	} = location.state;
 
 	const history = useHistory();
@@ -89,6 +93,7 @@ export const EventCreationConfirmation = () => {
 									<p>Event Date: {eventDate}</p>
 									<p>Event Location: {eventLocation}</p>
 									<p>Number of Guests: {numberOfGuests}</p>
+									<p>Event Start and End times: {startTime} to {endTime}</p>
 									<p>Event Description: {eventDescription}</p>
 									<p>Event Type: {eventType}</p>
 									<p>Cost per person: ${admissionPrice}</p>
