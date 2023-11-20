@@ -95,6 +95,8 @@ export const EventCreationForm = () => {
       .then(res => {
         if(res.ok){
           console.log("Got venues successfuly")
+          console.log(res.json())
+          return(res.json())
         } else{
           console.log("not successful")
         }
