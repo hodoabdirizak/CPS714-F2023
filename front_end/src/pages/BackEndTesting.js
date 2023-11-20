@@ -65,7 +65,9 @@ export const BackEndTesting = () => {
 
   return (
     <div>
-      <h1>Back-end Testing page</h1>
+      <br></br>
+      <button onClick={() => fetchAccounts()}>Test DB Remote Connection</button>
+      {/* <h1>Back-end Testing page</h1>
       <input type="number" name="User_id" placeholder="User_id" onChange={setInput}></input>
       <input name="Email" placeholder="Email" onChange={setInput}></input>
       <input name="Full_name" placeholder="Full_name" onChange={setInput}></input>
@@ -74,7 +76,7 @@ export const BackEndTesting = () => {
       <input name="Account_type" placeholder="Account_type" onChange={setInput}></input>
       <button onClick={() => fetchAccounts()}>Fetch Data About All Users</button>
       <button onClick={() => fetchAccountData()}>Fetch Data About A User</button>
-      <button onClick={() => addAccount()}>Add User Account</button>
+      <button onClick={() => addAccount()}>Add User Account</button> */}
     </div>
   );
 }

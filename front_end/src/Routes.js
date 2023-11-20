@@ -16,7 +16,7 @@ const Routes = () => {
         <Router>
             <Switch>
                 <Route exact path="/">
-                    <HomePage />
+                    <BackEndTesting />
                 </Route>
                 <Route path="/login">
                     <LoginPage />
