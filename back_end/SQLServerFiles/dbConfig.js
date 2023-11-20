@@ -2,7 +2,7 @@ const config = {
     user: 'camillia',
     password: '0m@rFa!ls?',
     database: 'EventEasy', //REPLACE if you named yours differently
-    server: 'DESKTOP-TR8A4MF', //REPLACE
+    server: '192.168.56.1', //REPLACE
     port: 1433, //REPLACE
     pool: {
         max: 10,
@@ -13,6 +13,7 @@ const config = {
     options: {
         instancename: 'SQLEXPRESS',
         enableArithAbort: true,
+        encrypt: false,
         trustServerCertificate: true
     }
 };
