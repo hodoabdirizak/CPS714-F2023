@@ -7,7 +7,8 @@ CREATE TABLE User_Account (
 	Pronouns VARCHAR(10), 
 	Account_type VARCHAR(10) NOT NULL, /* Options: "attendee", "organizer", "approver" */
 	Pswd VARCHAR(20) NOT NULL,
-	Age INT
+	Age INT, 
+	Account_verified VARCHAR(3)
 );
 
 /* Represents the Organizer entity - each organizer is associated with a user_id*/
@@ -35,6 +36,7 @@ CREATE TABLE Event_table (
 	Event_id INT IDENTITY(1,1) PRIMARY KEY,
 	Event_name VARCHAR(100) NOT NULL,
 	Event_type VARCHAR(100) NOT NULL,
+	Event_format VARCHAR(100) NOT NULL,
 	Event_start_date DATE NOT NULL, /*format is YYYY-MM-DD*/	
 	Event_end_date DATE NOT NULL, /*format is YYYY-MM-DD*/
 	Event_start_time TIME NOT NULL, /*format is HH:MM runs as a 24-hour clock time */
@@ -43,8 +45,7 @@ CREATE TABLE Event_table (
 	Capacity INT NOT NULL,
   	Minimum_age INT NOT NULL, 
 	Approved BIT NOT NULL, /* 1 for true, 0 for false */
-	Ticket_cost DECIMAL(10,2) NOT NULL,
-	Event_location VARCHAR(100) NOT NULL 
+	Ticket_cost DECIMAL(10,2) NOT NULL
 );
 
 /* 
@@ -64,9 +65,7 @@ CREATE TABLE Venue (
 	Venue_id INT IDENTITY(1,1) PRIMARY KEY ,
 	Venue_name VARCHAR(255) NOT NULL,
 	Venue_type VARCHAR(255) NOT NULL,
-	Venue_address VARCHAR(255),
-	Venue_format VARCHAR(20), /*Either "in-person" or "virtual" */
-	Catering_options VARCHAR(255)
+	Venue_address VARCHAR(255)
 );
 
 /* 
