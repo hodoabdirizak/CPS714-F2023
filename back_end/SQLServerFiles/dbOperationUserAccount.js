@@ -1,4 +1,4 @@
-const config = require('./dbConfig');
+const config = require('./dbConfigMaster');
 const sql = require('mssql');
 
 const getAccounts = async () => {
