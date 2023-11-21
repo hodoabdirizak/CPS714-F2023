@@ -66,7 +66,7 @@ export const BackEndTesting = () => {
   return (
     <div>
       <br></br>
-      <button onClick={() => fetchAccounts()}>Test DB Remote Connection</button>
+      <button onClick={() => fetchAccounts()}>Test (Check Terminal Output)</button>
       {/* <h1>Back-end Testing page</h1>
       <input type="number" name="User_id" placeholder="User_id" onChange={setInput}></input>
       <input name="Email" placeholder="Email" onChange={setInput}></input>
