@@ -1,6 +1,6 @@
 // pages/EventCreationForm.js
 import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import logo from '../assets/logo.png';
 import bg from '../assets/logo200.png';
@@ -8,8 +8,8 @@ import bg from '../assets/logo200.png';
 import './EventCreationForm.css';
 
 export const EventCreationForm = () => {
-
-  //const userID = location.state?.userID || 1;
+  const location = useLocation()
+  const userID = location.state?.userID || 1;
 
   //Functions for dropdown options
   const getLocation = () => {
@@ -66,13 +66,6 @@ export const EventCreationForm = () => {
 
   const history = useHistory();
 
-  const [newEvent, setEvent] = useState({ name: '', type: '',
-                                                        startDate: 0, endDate: '', startTime: '', desc:'',
-                                                        capacity: 1, MinimumAge: 0, approved: 'True', cost: 0, location: '' });
-
-  const [newVenue, setVenue] = useState({key:'', id: '1', name: 'a', type: '',address:''});      
-  //var venueList = [newVenue,newVenue,newVenue];
-
   const handleSubmit = (e) => {
     e.preventDefault();
     // You can handle form submission and data storage here.
@@ -85,36 +78,51 @@ export const EventCreationForm = () => {
         eventDate,
         eventLocation,
         numberOfGuests,
-	startTime,
-	endTime,
+	      startTime,
+	      endTime,
         eventDescription,
         eventType,
         selectedOption,
         admissionPrice,
-	selectedOption2,
-	ageRestriction,
+	      selectedOption2,
+	      ageRestriction,
         selectedOption1,
         catering,
         additionalNotes,
-        //userID
+        userID
       });
     history.go(0);
   };
 
-  const getVenues = async () => {
-    await fetch('/api/venue/getVenues')
-      .then(res => {
-        if(res.ok){
-          console.log("Got venues successfuly")
-          console.log(res.json())
-          return(res.json())
-        } else{
-          console.log("not successful")
+  var venueList = [];
+  var catererList = [];
+  var catererIDList = [];
+
+    const getVenues = async () => {
+        console.log("Getting all venues")
+        const result = await fetch('/api/venue/getVenues', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+
+        });
+        const data = await result.json();
+        console.log(data[0]);
+        for (var i = 0; i < data.length; i++) {
+            var length = venueList.push(data[i]);
+            console.log("Appending " + JSON.stringify(data[i]));
+            console.log("Length: " + length);
         }
-      })
-      .then(data => console.log(data))
-      .catch(error => console.log('ERROR'))
-  }
+    }
+
+    getVenues().then(res => {
+        console.log("Displaying Venues");
+        for (var j = 0; j < venueList.length; j++) {
+            console.log("Venue: " + JSON.parse(JSON.stringify(venueList[j]))["Venue_name"]);
+        }
+    });
 
   return (
     <div className='event-creation-bg'>
@@ -143,7 +151,7 @@ export const EventCreationForm = () => {
                 />
               </div>
             </div>
-            <div className="form-group">
+            <div className="form-group"> 
               <div>
                 <select value={eventLocation} onChange={handleChange}>
                 <option value= "" hidden>Select the location</option>

@@ -53,7 +53,7 @@ app.get('/api/venue/getVenues', controllers.venueController.getVenues);
 
 
 // Caterer routes
-// app.get('/api/caterer/', controllers.catererController);
+app.get('/api/caterer/getCatererbyVenue', controllers.catererController.getCatererbyVenue);
 // app.post('/api/caterer/', controllers.catererController);
 // app.post('/api/caterer/', controllers.catererController);
 

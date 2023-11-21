@@ -86,12 +86,8 @@ const eventController = {
         //adding to relation table event hosting
         console.log('hosting ' + JSON.parse(JSON.stringify(result.recordset[0]))['Event_id']);
         await dbOperationEventHosting.createEventHosting(JSON.parse(JSON.stringify(result.recordset[0]))['Event_id'], req.body.VenueId);
-        
-        //addint to catering table if required
-        if(req.body.selectedOption1 === "yes"){
-            //console.log('organizer');
-            //await dbOperationOrganizerEvents.createOrganizerEvent(result.values.Event_id, req.OrganizerId);
-        }
+        console.log('event'+ JSON.parse(JSON.stringify(result.recordset[0]))['Event_id']);
+        await dbOperationOrganizerEvents.createOrganizerEvent(JSON.parse(JSON.stringify(result.recordset[0]))['Event_id'], req.body.OrganizerId);
         console.dir(result);
         res.send(result.recordset);
     },
@@ -135,6 +131,12 @@ const venueController = {
 
 
 const catererController = {
+    getCatererbyVenue: async(req,res) => {
+        console.log('Called/api/caterer/getCatererbyVenue');
+        const result = await dbOperationVenues.getCatererbyVenue(req.body.VenueId);
+        console.dir(result);
+        res.send(result.recordset);
+    }
 
 };
 

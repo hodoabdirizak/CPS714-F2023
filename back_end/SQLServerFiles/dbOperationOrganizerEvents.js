@@ -4,9 +4,8 @@ const sql = require('mssql');
 const createOrganizerEvent = async (EventId,OrganizerId) => {
   try {
     await sql.connect(config);
-    const result = await sql.query(
-      `INSERT INTO Organizer_events (Organizer_id, Event_id) VALUES (${OrganizerId}, ${EventId})`
-    );
+    console.log("adding to organizer Event")
+    const result = await sql.query(`INSERT INTO Organizer_events (Organizer_id, Event_id) VALUES (${OrganizerId}, ${EventId})`);
     return result.recordset;
   } catch (err) {
     throw err;

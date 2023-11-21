@@ -35,8 +35,19 @@ const updateCaterer = async (caterer) => {
   }
 };
 
+const getCaterersByVenue = async (venueID) => {
+  try {
+    await sql.connect(config);
+    const result = await sql.query(`SELECT Caterer_id, Cuisine FROM Caterer`);
+    return result.recordset;
+  } catch (err) {
+    throw err;
+  }
+};
+
 module.exports = {
   createCaterer,
   getCaterersByCuisine,
   updateCaterer,
+  getCaterersByVenue,
 };

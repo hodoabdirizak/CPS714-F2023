@@ -4,11 +4,9 @@ const sql = require('mssql');
 const createEventHosting = async (eventId,venueId) => {
   try {
       await sql.connect(config);
-      console.log("INSERT INTO Event_hosting (Event_id, Venue_id) VALUES ("+eventId+"}, "+venueId+")");
-    const result = await sql.query(
-      `INSERT INTO Event_hosting (Event_id, Venue_id) VALUES (${eventId}, ${venueId})`
-    );
-    return result.recordset;
+      console.log("INSERT INTO Event_hosting (Event_id, Venue_id) VALUES ("+eventId+", "+venueId+")");
+      const result = await sql.query(`INSERT INTO Event_hosting (Event_id, Venue_id) VALUES (${eventId}, ${venueId})`);
+      return result.recordset;
   } catch (err) {
     throw err;
   }
