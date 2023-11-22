@@ -38,20 +38,31 @@ const userAccountController = {
         console.dir(result);
         res.send(result);
     },    
+    verifyEmail: async(req,res) => {
+        console.log('Called /api/account/verifyemail');
+        const result = await dbOperationUserAccount.verifyEmail(req.body.email);
+        console.dir(result[0]);
+        res.send(result);
+    }, 
     getUserIdByEmail: async(req,res) => {
         console.log('Called /api/account/getuseridbyemail');
         console.log('input',req.body.email);
         const result = await dbOperationUserAccount.getUserIdByEmail(req.body.email);
         console.log('result',result[0]['User_id'].toString());
         res.send(result[0]['User_id'].toString());
-    }
-    // noDupEmails: async(req,res) => {
-    //     console.log('Called /api/account/nodupemails');
-    //     const result = await dbOperationUserAccount.noDupEmails(req.body.email);
-    //     const emailExists = result.toString().length > 0;
-    //     // console.dir(`Email exists: ${emailExists}`);
-    //     res.send(emailExists.toString());
-    // }
+    },
+    changePassword: async(req,res) => {
+        console.log('Called /api/account/changepassword');
+        console.log(req.body['email']);
+        const result = await dbOperationUserAccount.changePassword(req.body['email'],req.body['password']);  
+        try {
+            console.log(result.toString());
+            res.send(result.toString());
+        } catch {
+            res.send(''.toString());
+        }
+    },
+
 };
 
 

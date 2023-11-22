@@ -67,6 +67,10 @@ export const BackEndTesting = () => {
     <div>
       <br></br>
       <button onClick={() => fetchAccounts()}>Test (Check Terminal Output)</button>
+      <br></br>
+      <button><a href = "/forgot-password">ForgotPassword</a></button>
+      <button><a href = "/signup">Sign Up</a></button>
+      <button><a href = "/login">Login</a></button>
       {/* <h1>Back-end Testing page</h1>
       <input type="number" name="User_id" placeholder="User_id" onChange={setInput}></input>
       <input name="Email" placeholder="Email" onChange={setInput}></input>

@@ -13,6 +13,21 @@ const getAccounts = async () => {
   }
 };
 
+const verifyEmail = async (Email) => {
+  try {
+    await sql.connect(config);
+    const result = await sql.query(`SELECT * FROM User_Account WHERE Email = '${Email}'`); 
+    if (result.rowsAffected[0] == 1) {
+      return "True";
+    } else {
+      return "False";
+    }
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+};
+
 // const getAccounts = async () => {
 //   try {
 //     await sql.connect(config)
@@ -41,6 +56,7 @@ const addAccount = async (Account) => {
       throw err;
     }
 };
+
 
 const getUserId = async () => {
   try {
@@ -100,36 +116,25 @@ const getUserIdByEmail = async (Email) => {
   }
 };
 
-const noDupEmails = async (Email) => {
+const changePassword = async (Email,newPassword) => {
   try {
     await sql.connect(config);
-    const result = await sql.query(`SELECT User_Id FROM User_Account WHERE Email='${Email}'`); 
-    const queryResults = result.recordset;
-    return queryResults;
+    console.dir(`UPDATE User_Account SET Pswd = '${newPassword}' WHERE Email = '${Email}'`);
+    await sql.query(`UPDATE User_Account SET Pswd = '${newPassword}' WHERE Email = '${Email}'`);
+    return "True";
   } catch (err) {
     throw err;
   }
 };
 
-const changePassword = async (UserId,newPassword) => {
-  try {
-    await sql.connect(config);
-    console.dir('dbOp');
-    await sql.query(`UPDATE User_Account SET Pswd = '${newPassword}' WHERE User_id = ${UserId}`);
-  } catch (err) {
-    const errorNumber = err.number || (err.info && err.info.number);
-    return errorNumber;
-  }
-};
-
 module.exports = {
   addAccount,
+  verifyEmail,
   addOrganizerAccount,
   addCatererAccount,
   getAccounts,
   getUserId,
   getAccountByName, 
   getUserIdByEmail,
-  noDupEmails,
   changePassword
 }

@@ -1,6 +1,6 @@
 // pages/LoginPage.js
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom';
 import './LoginPage.css';
 
 import logo from '../assets/logo.png';
