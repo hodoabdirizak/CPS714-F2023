@@ -15,6 +15,23 @@ const userAccountController = {
             res.send(''.toString());
         }
     },
+    verifyEmail: async(req,res) => {
+        console.log('Called /api/account/verifyemail');
+        const result = await dbOperationUserAccount.verifyEmail(req.body.email);
+        console.dir(result[0]);
+        res.send(result);
+    }, 
+    changePassword: async(req,res) => {
+        console.log('Called /api/account/changepassword');
+        console.log(req.body['email']);
+        const result = await dbOperationUserAccount.changePassword(req.body['email'],req.body['password']);  
+        try {
+            console.log(result.toString());
+            res.send(result.toString());
+        } catch {
+            res.send(''.toString());
+        }
+    },
     addOrganizerAccount: async(req,res) => {
         console.log('Called /api/account/addorganizeraccount');
         // console.log('c',req.body['userId']);
