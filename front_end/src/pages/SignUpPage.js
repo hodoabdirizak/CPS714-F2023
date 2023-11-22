@@ -3,12 +3,13 @@ import Select from "react-dropdown-select";
 import './SignupPage.css';
 import logo from '../assets/logo.png';
 import bg from '../assets/logo200.png';
+import { useHistory } from 'react-router-dom';
 
 export const SignUpPage = () => {
   const [newUserAccount, setUserAccount] = useState({Email: '', Full_name: '', 
                                                   Phone_number: '', Pronouns: '', Account_type: '', Pswd: ''});
   const [userId, setUserId] = useState({User_id: 0});
-
+  const history = useHistory();
   const options = [
     { 
       value: "Attendee",
@@ -124,7 +125,8 @@ export const SignUpPage = () => {
       } else {
         alert(`User account has been created successfully.`);
       }
-
+      history.push('/login',{params:'true'});
+      history.go(0);
     } else {
       alert('An error has occurred. We were unable to create your account.')
     }
@@ -234,6 +236,10 @@ export const SignUpPage = () => {
               padding: '10px 20px',  // Add padding to control the button size
             }}
           >Create Account</button>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
         </form>
       </div>
     </div>
