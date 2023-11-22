@@ -67,7 +67,7 @@ export const LoginPage = () => {
           </button>
         </form>
         <div>
-      	  <h5>Forgot your password? <a href = "/eventCreation">Click Here!</a></h5>
+      	  <h5>Forgot your password? <a href = "/forgot-password">Click Here!</a></h5>
           <h5>Don't have an account? <a href = "/signup">Register Now!</a></h5>
         </div>
 	<div>
