@@ -61,7 +61,7 @@ const userAccountController = {
         const result = await dbOperationUserAccount.getUserIdByEmail(req.body.email);
         console.log('result',result[0]['User_id'].toString());
         res.send(result[0]['User_id'].toString());
-    }
+    },
     // noDupEmails: async(req,res) => {
     //     console.log('Called /api/account/nodupemails');
     //     const result = await dbOperationUserAccount.noDupEmails(req.body.email);
@@ -69,6 +69,25 @@ const userAccountController = {
     //     // console.dir(`Email exists: ${emailExists}`);
     //     res.send(emailExists.toString());
     // }
+    
+    verifyLogin: async (req, res) => {
+        try {
+          console.log('Called /api/account/verifylogin');
+          console.log('input', req.body.email);
+          const result = await dbOperationUserAccount.verifyLogin(req.body.email, req.body.password);
+    
+          if (result.length > 0) {
+            console.log('Login successful for user:', result[0].User_id);
+            res.send(result[0].User_id.toString());
+          } else {
+            console.log('Invalid credentials');
+            res.status(401).send('Invalid credentials');
+          }
+        } catch (error) {
+          console.error('Error in verifyLogin:', error);
+          res.status(500).send('Internal Server Error');
+        }
+      }
 };
 
 
