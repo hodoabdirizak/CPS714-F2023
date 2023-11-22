@@ -28,7 +28,14 @@ const getAccounts = async () => {
 const addAccount = async (Account) => {
     try {
       await sql.connect(config);
-      const result = await sql.query(`INSERT INTO User_Account VALUES('${Account.Email}','${Account.Full_name}', ${Account.Phone_number},'${Account.Pronouns}','${Account.Account_type}','${Account.Pswd}')`);
+      const result = await sql.query(`INSERT INTO User_Account VALUES
+      ('${Account.Email}',
+      '${Account.Full_name}', 
+      ${Account.Phone_number},
+      '${Account.Pronouns}',
+      '${Account.Account_type}',
+      '${Account.Pswd}',
+      'No')`);
       return result.recordset;
     } catch (err) {
       throw err;
