@@ -33,7 +33,7 @@ export const ForgotPassword = () => {
     const data = await response.text();
     if (data==='True') {
       alert(`Password has been updated successfully.`);
-      history.push('/',{params:'true'});
+      history.push('/login',{params:'true'});
       history.go(0);
     } else {
       alert('We were unable to reset your password.')
