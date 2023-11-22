@@ -25,6 +25,7 @@ app.get('/api/account/getaccounts', controllers.userAccountController.getAccount
 app.post('/api/account/getuseridbyemail', controllers.userAccountController.getUserIdByEmail);
 app.post('/api/account/verifyemail', controllers.userAccountController.verifyEmail);
 app.post('/api/account/changepassword', controllers.userAccountController.changePassword);
+app.post('/api/account/verifylogin', controllers.userAccountController.verifyLogin);
 // app.post('/api/account/nodupemails', controllers.userAccountController.noDupEmails);
 
 
