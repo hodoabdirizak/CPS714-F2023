@@ -3,15 +3,27 @@ const sql = require('mssql');
 
 const getAccounts = async () => {
   try {
-    await sql.connect(config)
-    const result = await sql.query('SELECT * FROM User_Account'); 
+    let pool = await sql.connect(config);
+    let result = pool.request().query('SELECT * FROM User_Account'); 
     console.log(result);
     return result;
   } catch (err) {
-        console.error(err);
-        throw err;
+    console.error(err);
+    throw err;
   }
 };
+
+// const getAccounts = async () => {
+//   try {
+//     await sql.connect(config)
+//     const result = await sql.query('SELECT * FROM User_Account'); 
+//     console.log(result);
+//     return result;
+//   } catch (err) {
+//         console.error(err);
+//         throw err;
+//   }
+// };
 
 const addAccount = async (Account) => {
     try {
@@ -25,7 +37,7 @@ const addAccount = async (Account) => {
 
 const getUserId = async () => {
   try {
-    await sql.connect(config)
+    await sql.connect(config);
     const result = await sql.query('SELECT MAX(User_Id) FROM User_Account'); 
     const retValue = parseInt(result.recordset[0]['']) + 1
     return retValue;
@@ -83,7 +95,7 @@ const getUserIdByEmail = async (Email) => {
 
 const noDupEmails = async (Email) => {
   try {
-    await sql.connect(config)
+    await sql.connect(config);
     const result = await sql.query(`SELECT User_Id FROM User_Account WHERE Email='${Email}'`); 
     const queryResults = result.recordset;
     return queryResults;
