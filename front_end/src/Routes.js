@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { HomePage } from './pages/HomePage';
 import { LoginPage } from './pages/LoginPage';
 import { SignUpPage } from './pages/SignUpPage';
+import { ForgotPassword } from './pages/ForgotPassword';
 import { BackEndTesting } from './pages/BackEndTesting';
 import { BookingPage } from './pages/BookingPage';
 import { PurchaseTicketPage } from './pages/PurchaseTicketPage';
@@ -23,6 +24,9 @@ const Routes = () => {
                 </Route>
                 <Route path="/signup">
                     <SignUpPage />
+                </Route>
+                <Route path="/forgot-password">
+                    <ForgotPassword />
                 </Route>
                 <Route path="/backend-testing">
                     <BackEndTesting />
