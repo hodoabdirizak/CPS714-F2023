@@ -1,6 +1,6 @@
 const config = {
-    user: 'masteruser',
-    password: 'qe4FFKFXgz9XvbsnCPlX',
+    user: '714user',
+    password: 'ughhhhh',
     database: 'EventEasy', //REPLACE if you named yours differently
     server: 'eventeasy2.cv70awf1gzpj.ca-central-1.rds.amazonaws.com', //REPLACE
     port: 1433, //REPLACE
