@@ -56,7 +56,6 @@ export const LoginPage = () => {
     const data = await response.text();
     if (data==='True') {
       getAccountType();
-      alert(`Successful Login`);
       history.push('/', { isLoggedIn: 'true', username: loginInfo.username, accountType: accountType.type });
     } else if (data==='False') {
       alert(`Invalid/Incorrect email or password.`);

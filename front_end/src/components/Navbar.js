@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faUser } from '@fortawesome/free-solid-svg-icons'
 import './Navbar.css';
 
-function Navbar({ isLoggedIn }) {
+function Navbar({ isLoggedIn, username }) {
     return (
       <div className="navbar">
         <div className="left-section">
@@ -36,7 +36,7 @@ function Navbar({ isLoggedIn }) {
                 <div className="profile-icon">
                   <FontAwesomeIcon icon={faUser} size="lg" style={{ color: "#1e0900" }} />
                 </div>
-                Profile
+                {username}
               </a>
             </li>
             : <li><a href="/login">Sign In</a></li>

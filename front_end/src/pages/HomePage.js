@@ -83,7 +83,7 @@ export const HomePage = () => {
 
   return (
     <div className='home-page-container'>
-      <Navbar isLoggedIn={isLoggedIn} />
+      <Navbar isLoggedIn={isLoggedIn} username={username}/>
       <div className='background-image'>
         <img src={CoverPhoto} alt='' />
       </div>
