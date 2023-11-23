@@ -11,6 +11,9 @@ import { EventCreationForm } from './pages/EventCreationForm';
 import { EventCreationConfirmation } from './pages/EventCreationConfirmation';
 import { CalendarPage } from './pages/CalendarPage';
 import EventInfo from './components/EventInfo';
+import { ProfileAttendee } from './pages/ProfileAttendee';
+import { ProfileCaterer } from './pages/ProfileCaterer';
+import { ProfileOrganizer } from './pages/ProfileOrganizer';
 
 const Routes = () => {
     return (
@@ -27,6 +30,12 @@ const Routes = () => {
                 </Route>
                 <Route path="/forgot-password">
                     <ForgotPassword />
+                </Route>
+                <Route path="/profile-attendee">
+                    <ProfileAttendee />
+                </Route>
+                <Route path="/profile-caterer">
+                    <ProfileCaterer />
                 </Route>
                 <Route path="/backend-testing">
                     <BackEndTesting />

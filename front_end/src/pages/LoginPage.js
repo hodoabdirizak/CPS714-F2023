@@ -9,20 +9,27 @@ import bg from '../assets/logo200.png';
 export const LoginPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [accountType, setAccountType] = useState('Attendee');
+
   const history = useHistory();
 
   const handleLogin = (e) => {
     e.preventDefault();
-    // Add your authentication logic here
-    if(username === "Admin" && password === "Admin"){
-      alert("Successfull Login");
-      history.push('/',{params:'true'});
-      history.go(0);
+    if(password === "Admin" ){
+      alert("Successful Login");
+      // fetch accountType
+      // setAccountType("Attendee");
+      if (accountType === "Attendee"){
+        history.push('/profile-attendee', { params: username });
+      } else if (accountType === "Organizer"){
+        history.push('/profile-organizer', { params: username });
+      } else {
+        history.push('/profile-caterer', { params: username });
+      }
     }
     else{
       alert("Invalid/Incorrect Username or Password");
     }
-
     console.log(`Username: ${username}, Password: ${password}`);
   };
 
@@ -80,6 +87,9 @@ export const LoginPage = () => {
 	  <br></br>
 	  <br></br>
 	  <br></br>
+    <br></br>
+	  <br></br>
+    <br></br>
   	</div>
       </div>
     </div>

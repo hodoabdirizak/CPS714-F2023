@@ -19,6 +19,8 @@ app.use(cors());
 
 // User_Account routes
 app.post('/api/account/addaccount', controllers.userAccountController.createUserAccount);
+app.post('/api/account/getuseraccount', controllers.userAccountController.getUserAccount);
+app.post('/api/account/updateuseraccount', controllers.userAccountController.updateUserAccount);
 app.post('/api/account/addorganizeraccount', controllers.userAccountController.addOrganizerAccount);
 app.post('/api/account/addcatereraccount', controllers.userAccountController.addCatererAccount);
 app.get('/api/account/getaccounts', controllers.userAccountController.getAccounts);

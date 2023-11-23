@@ -49,6 +49,12 @@ const userAccountController = {
             res.send(''.toString());
         }
     },
+    getUserAccount: async(req,res) => {
+        console.log('Called /api/account/getuseraccount');
+        const result = await dbOperationUserAccount.getUserAccount(req.body.email);
+        console.dir(result);
+        res.send(result);
+    },    
     getAccounts: async(req,res) => {
         console.log('Called /api/account/getaccounts');
         const result = await dbOperationUserAccount.getAccounts();
@@ -61,7 +67,16 @@ const userAccountController = {
         const result = await dbOperationUserAccount.getUserIdByEmail(req.body.email);
         console.log('result',result[0]['User_id'].toString());
         res.send(result[0]['User_id'].toString());
-    }
+    },
+    updateUserAccount: async(req,res) => {
+        console.log('Called /api/account/updateuseraccount');
+        const result = await dbOperationUserAccount.updateUserAccount(req.body);  
+        try {
+            res.send(result);
+        } catch {
+            res.send(''.toString());
+        }
+    },
     // noDupEmails: async(req,res) => {
     //     console.log('Called /api/account/nodupemails');
     //     const result = await dbOperationUserAccount.noDupEmails(req.body.email);
