@@ -118,6 +118,12 @@ const eventController = {
         console.dir(result);
         res.send(result.recordset);
     },
+    getEventInfo: async (req, res) => {
+        console.log('Called /api/event/getEventInfo');
+        const result = await dbOperationEvent.getEventInfo(req.body.id);
+        console.dir(result);
+        res.send(result.recordset);
+    },
 };
 
 const eventAttendeeController = {
@@ -135,10 +141,16 @@ const eventAttendeeController = {
     },
     getTicketsSold: async (req, res) => {
         console.log('Called /api/eventAttendee/getTicketsSold');
-        const result = await dbOperationEventAttendee.getTicketsSold(req.body.id);
+        const result = await dbOperationEventAttendees.getTicketsSold(req.body.id);
         console.dir(result);
         res.send(result.recordset);
-    }
+    },
+    getUserEvents: async (req, res) => {
+        console.log('Called /api/eventAttendee/getUserEvents');
+        const result = await dbOperationEventAttendees.getUserEvents(req.body.id);
+        console.dir("Controller "+ result);
+        res.send(result);
+    },
 };
 
 const venueController = {
