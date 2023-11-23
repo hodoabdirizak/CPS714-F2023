@@ -4,20 +4,102 @@ import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Navbar from '../components/Navbar';
 import { useParams } from 'react-router-dom';
+import { areIntervalsOverlapping } from "date-fns";
 import './EventInfo.css';
 
 const EventInfo = () => {
-    const event = useSelector((state) => state.event);
+    const event = useSelector((state) => state.event.event);
+    const userID = useSelector((state) => state.event.userID);
     const history = useHistory();
     const { id } = useParams();
+    var eventsAttending = [];
+    var conflicts = [];
     console.log('Event ID:', id);
 
+    const getUserEvents = async () => {
+        console.log("Getting events for user " + userID);
+        const result = await fetch('/api/eventAttendee/getUserEvents', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                id: userID
+            })
+        })
+        const eventIDs = await result.json();
+        console.log("Calendar " + eventIDs);
+        for (var i in eventIDs) {
+            getEventInfo(eventIDs[i]);
+        }
+    }
+
+    const getEventInfo = async (eventID) => {
+        console.log("Getting event " + eventID);
+        const result = await fetch('/api/event/getEventInfo', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                id: eventID
+            })
+        })
+        const SQLevent = JSON.parse(JSON.stringify(await result.json()));
+        var temp = {
+            event_id: eventID,
+            title: SQLevent[0]["Event_name"],
+            start: new Date(SQLevent[0]["Event_start_date"] + " " + SQLevent[0]["Event_start_time"]),
+            end: new Date(SQLevent[0]["Event_end_date"] + " " + SQLevent[0]["Event_end_time"]),
+            color: "teal",
+            editable: false,
+            deletable: false,
+            draggable: false
+        };
+        isConflict(temp)
+    }
+
+    const isConflict = (temp) => {
+        const startTime = event.time.split(" - ")[0];
+        const endTime = event.time.split(" - ")[1];
+        const eventStart = (new Date(event.date + " " + startTime));
+        const eventEnd = new Date(event.date + " " + endTime);
+        console.log(eventStart + " " + eventEnd);
+        console.log(temp.start + " " + temp.end);
+        //temp.start = new Date(event.date + " 19:00");
+        //temp.end = new Date(event.date + " 21:00");
+
+        if (!(eventStart > temp.end || eventEnd < temp.start)) {
+            if (!(eventEnd < temp.start && eventStart < temp.start)) {
+                conflicts.push(temp.title);
+            }
+        }
+
+        
+        console.log("Conflicts " + conflicts);
+    }
+
+    getUserEvents();
+
     const handleBuy = () => {
+        if (conflicts.length > 0) {
+
+            if (!window.confirm("This event have time conflicts with the following events: \n" + conflicts + "\nDo you want to continue?")) {
+                return;
+            }
+        }
+
         history.push({
             pathname: '/booking',
-            state: { event: event }
+            state: {
+                event: event,
+                userID: userID
+            }
         });
         history.go(0);
+
     };
 
     return (

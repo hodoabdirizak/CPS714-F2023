@@ -72,7 +72,6 @@ export const BookingPage = () => {
 
 
 
-
     const [numOfTickets, setNumOfTickets] = useState(1);
     const history = useHistory();
 
@@ -82,6 +81,7 @@ export const BookingPage = () => {
 
     const handleSubmit = (e) => {
         setUserOwnedTicket(userTickets);
+        console.log(userOwnedTicket);
         //check if tickets are allowed
         if (numOfTickets > remainingTicket)
             console.log("There are not enough tickets for your selection");
