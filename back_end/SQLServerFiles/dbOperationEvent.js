@@ -72,8 +72,10 @@ const getEventInfo = async (eventID) => {
 module.exports = {
     getEvents,
     getCapacity,
+
     createEvent,
     updateEvent,
     getEventByName,
+
     getEventInfo
 };

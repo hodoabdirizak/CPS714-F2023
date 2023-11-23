@@ -52,6 +52,7 @@ export const EventCreationForm = () => {
     setSelectedOption1(event.target.value);
   };
 
+
   const getdropdown1 = () =>{
       getVenues().then(res => {
           console.log("Displaying Venues");
@@ -70,6 +71,7 @@ export const EventCreationForm = () => {
           
       });
   };
+
 
   const getdropdown2 = () =>{
     

@@ -64,6 +64,7 @@ export const CalendarPage = () => {
 
     var events = [];
     var eventIDs = getUserEvents();
+
   
 
   const translations = {

@@ -31,6 +31,7 @@ export const EventCreationConfirmation = () => {
         	selectedOption,
         	admissionPrice,
 			ageRestriction,
+
         	catering,
         	additionalNotes,
 			eventFormat,
