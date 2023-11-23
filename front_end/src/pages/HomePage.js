@@ -11,6 +11,10 @@ import './HomePage.css';
 
 export const HomePage = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
+  const isLoggedIn = location?.state?.isLoggedIn;
+  const accountType = location?.state?.accountType;
+  const username = location?.state?.username;
 
   /* dummy data 
   need to retrieve this data from backend */
@@ -76,9 +80,6 @@ export const HomePage = () => {
       imageUrl: 'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&q=60&w=800&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGV2ZW50fGVufDB8fDB8fHww',
     },
   ];
-
-  const location = useLocation();
-  const isLoggedIn = location?.state?.params;
 
   return (
     <div className='home-page-container'>

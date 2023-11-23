@@ -9,7 +9,6 @@ import bg from '../assets/logo200.png';
 export const LoginPage = () => {
   const [loginInfo, setLoginInfo] = useState({username: '', password: ''});
   const [accountType, setAccountType] = useState({type: ''});
-
   const history = useHistory();
 
   const setInput = (e) => {
@@ -20,7 +19,7 @@ export const LoginPage = () => {
     }));
     return;
   };
-
+  
   const getAccountType = async () => {
     let response = await fetch('/api/account/getaccounttype', {
       method: 'POST',
@@ -54,18 +53,11 @@ export const LoginPage = () => {
       })
     });
 
-    // Response return 
     const data = await response.text();
     if (data==='True') {
       getAccountType();
-      alert(`Successful Login for ${accountType.type}`);
-      // if (accountType === "Attendee"){
-      //   history.push('/profile-attendee', { params: loginInfo.username });
-      // } else if (accountType === "Organizer"){
-      //   history.push('/profile-organizer', { params: loginInfo.username });
-      // } else {
-      //   history.push('/profile-caterer', { params: loginInfo.username });
-      // }
+      alert(`Successful Login`);
+      history.push('/', { isLoggedIn: 'true', username: loginInfo.username, accountType: accountType.type });
     } else if (data==='False') {
       alert(`Invalid/Incorrect email or password.`);
     } else {
