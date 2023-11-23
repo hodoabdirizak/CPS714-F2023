@@ -40,9 +40,6 @@ export const EventCreationForm = () => {
   const handleOptionChange1 = (event) => {
     setSelectedOption1(event.target.value);
   };
-  const handleOptionChange2 = (event) => {
-    setSelectedOption2(event.target.value);
-  };
 
   //Variables Obtained from the form
   const [eventName, setEventName] = useState('');
@@ -53,11 +50,9 @@ export const EventCreationForm = () => {
   const [endTime, setEndTime] = useState('');
   const [eventDescription, setEventDescription] = useState('');
   const [eventType, setEventType] = useState(getEventType);
-  const [selectedOption2, setSelectedOption2] = useState(''); //Age Restriction Y or N
-  const [ageRestriction, setAgeRestriction] = useState('');
   const [selectedOption, setSelectedOption] = useState(''); //Paid or not paid event Y or N
   const [admissionPrice, setAdmissionPrice] = useState('');
-  const [selectedOption1, setSelectedOption1] = useState('');
+  const [selectedOption1, setSelectedOption1] = useState('');//Catering Y or N
   const [catering, setCatering] = useState(getCatering);
   const [additionalNotes, setAdditionalNotes] = useState('');
 
@@ -80,8 +75,6 @@ export const EventCreationForm = () => {
         eventType,
         selectedOption,
         admissionPrice,
-	selectedOption2,
-	ageRestriction,
         selectedOption1,
         catering,
         additionalNotes
@@ -139,7 +132,7 @@ export const EventCreationForm = () => {
 	    <div className="form-group">
 	      <div>
 	        <input
-                  type="text"
+                  type="time"
                   value={startTime}
                   placeholder="Start Time (i.e 13:00)"
                   onChange={(e) => setStartTime(e.target.value)}
@@ -147,11 +140,11 @@ export const EventCreationForm = () => {
                 />
 	      </div>
 	      <div>
-	        <p>to</p>
+	        <p> to </p>
 	      </div>
 	      <div>
 	        <input
-                  type="text"
+                  type="time"
                   value={endTime}
                   placeholder="End Time (i.e 13:00)"
                   onChange={(e) => setEndTime(e.target.value)}
@@ -208,40 +201,6 @@ export const EventCreationForm = () => {
                     value={admissionPrice}
                     placeholder="Admission Price"
                     onChange={(e) => setAdmissionPrice(e.target.value)}
-                  />
-                </div>
-              </div>
-            </div>
-	    <div>
-              <label>Is there an age restriction?</label>
-              <div className="form-group">
-                <label className="radio-label">
-                  <input
-                    type="radio"
-                    name="eventAgeRestriction"
-                    value="yes"
-                    checked={selectedOption2 === 'yes'}
-                    onChange={handleOptionChange2}
-                  />
-                  Yes
-                </label>
-                <br />
-                <label className="radio-label">
-                  <input
-                    type="radio"
-                    name="eventAgeRestriction"
-                    value="no"
-                    checked={selectedOption2 === 'no'}
-                    onChange={handleOptionChange2}
-                  />
-                  No
-                </label>
-                <div className="form-group-item">
-                  <input
-                    type="text"
-                    value={ageRestriction}
-                    placeholder="Minimum Age"
-                    onChange={(e) => setAgeRestriction(e.target.value)}
                   />
                 </div>
               </div>
