@@ -51,12 +51,43 @@ export const EventCreationForm = () => {
   const handleOptionChange1 = (event) => {
     setSelectedOption1(event.target.value);
   };
-  const handleOptionChange2 = (event) => {
-    setSelectedOption2(event.target.value);
-    if(event.target.value === 'no'){
-      setAgeRestriction(0);
-    }
+
+  const getdropdown1 = () =>{
+      getVenues().then(res => {
+          console.log("Displaying Venues");
+          for (var j = 0; j < venueList.length; j++) {
+              console.log("Venue: " + JSON.parse(JSON.stringify(venueList[j]))["Venue_name"]);
+          }
+          
+          var select = document.getElementById("selectVenue");
+          for(var i = 0; i < venueList.length; i++) {
+              var opt = JSON.parse(JSON.stringify(venueList[i]))["Venue_name"];
+              var el = document.createElement("option");
+              el.textContent = opt;
+              el.value = parseInt(JSON.parse(JSON.stringify(venueList[i]))["Venue_id"]);
+              select.appendChild(el);
+          }
+          
+      });
   };
+
+  const getdropdown2 = () =>{
+    
+    getCaterers().then(res => {
+      console.log("Displaying Caterers");
+      for (var j = 0; j < catererList.length; j++) {
+          console.log("Caterer: " + JSON.parse(JSON.stringify(catererList[j]))["Cuisine"]);
+      }
+      var select = document.getElementById("selectCaterer");
+      for(var i = 0; i < catererList.length; i++) {
+          var opt = JSON.parse(JSON.stringify(catererList[i]))["Cuisine"];
+          var el = document.createElement("option");
+          el.textContent = opt;
+          el.value = parseInt(JSON.parse(JSON.stringify(catererList[i]))["Caterer_id"]);
+          select.appendChild(el);
+      }
+  });
+  }
 
   //Variables Obtained from the form
   const [eventName, setEventName] = useState('');
@@ -94,8 +125,6 @@ export const EventCreationForm = () => {
         eventType,
         selectedOption,
         admissionPrice,
-	      selectedOption2,
-	      ageRestriction,
         selectedOption1,
         catering,
         additionalNotes,
@@ -108,79 +137,45 @@ export const EventCreationForm = () => {
   var venueList = [];
   var catererList = [];
 
-
-    const getVenues = async () => {
-        console.log("Getting all venues")
-        const result = await fetch('/api/venue/getVenues', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            }
-
-        });
-
-          console.log("in get venues1");
-          const data = await result.json();  
-          console.log("in get venues2");
-          for (var i = 0; i < data.length; i++) {
-            var length = venueList.push(data[i]);
-            console.log("Appending " + JSON.stringify(data[i]));
-            console.log("Length: " + length);
-          }
-    }
-
-    getVenues().then(res => {
-        console.log("Displaying Venues");
-        for (var j = 0; j < venueList.length; j++) {
-            console.log("Venue: " + JSON.parse(JSON.stringify(venueList[j]))["Venue_name"]);
+  const getVenues = async () => {
+    console.log("Getting all venues")
+    const result = await fetch('/api/venue/getVenues', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
         }
-        
-        var select = document.getElementById("selectVenue");
-        for(var i = 0; i < venueList.length; i++) {
-            var opt = JSON.parse(JSON.stringify(venueList[i]))["Venue_name"];
-            var el = document.createElement("option");
-            el.textContent = opt;
-            el.value = JSON.parse(JSON.stringify(venueList[i]))["Venue_id"];
-            select.appendChild(el);
-        }
+
     });
-
-    const getCaterers = async () => {
-      console.log("Getting all caterers")
-      const result = await fetch('/api/caterer/getcaterers', {
-          method: 'GET',
-          headers: {
-              'Content-Type': 'application/json',
-              'Accept': 'application/json'
-          }
-
-      });
-      console.log("in get caterers1");
+      
+      console.log("in get venues1");
       const data = await result.json();  
-      console.log("in get caterers2");
+      console.log("in get venues2");
       for (var i = 0; i < data.length; i++) {
-          var length = catererList.push(data[i]);
-          console.log("Appending " + JSON.stringify(data[i]));
-          console.log("Length: " + length);
+        var length = venueList.push(data[i]);
+        console.log("Appending " + JSON.stringify(data[i]));
+        console.log("Length: " + length);
       }
-    }
+};
+const getCaterers = async () => {
+  console.log("Getting all caterers")
+  const result = await fetch('/api/caterer/getcaterers', {
+      method: 'GET',
+      headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+      }
 
-    getCaterers().then(res => {
-      console.log("Displaying Caterers");
-      for (var j = 0; j < catererList.length; j++) {
-          console.log("Caterer: " + JSON.parse(JSON.stringify(catererList[j]))["Cuisine"]);
-      }
-      var select;
-      var select = document.getElementById("selectCaterer");
-      for(var i = 0; i < catererList.length; i++) {
-          var opt = JSON.parse(JSON.stringify(catererList[i]))["Cuisine"];
-          var el = document.createElement("option");
-          el.textContent = opt;
-          el.value = JSON.parse(JSON.stringify(catererList[i]))["Caterer_id"];
-          select.appendChild(el);
-      }
   });
+  console.log("in get caterers1");
+  const data = await result.json();  
+  console.log("in get caterers2");
+  for (var i = 0; i < data.length; i++) {
+      var length = catererList.push(data[i]);
+      console.log("Appending " + JSON.stringify(data[i]));
+      console.log("Length: " + length);
+  }
+};
 
   return (
     <div className='event-creation-bg'>
@@ -211,7 +206,7 @@ export const EventCreationForm = () => {
             </div>
             <div className="form-group"> 
               <div>
-                <select id="selectVenue" value={eventLocation} onChange={handleChange}>
+                <select id="selectVenue" value={eventLocation} onChange={handleChange} onClick={getdropdown1}>
                 <option value= "" hidden>Select the location</option>
                 </select>
               </div>
@@ -331,7 +326,7 @@ export const EventCreationForm = () => {
             </div>
             <div>
               <label>If yes, what catering services do you require?</label>
-              <select id="selectCaterer" value={catering} onChange={handleChange2}>
+              <select id="selectCaterer" value={catering} onChange={handleChange2} onClick={getdropdown2}>
                 <option value="" hidden>Type of Catering Services</option>
               </select>
               <br></br>

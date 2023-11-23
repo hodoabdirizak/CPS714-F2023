@@ -30,25 +30,25 @@ export const EventCreationConfirmation = () => {
         	eventType,
         	selectedOption,
         	admissionPrice,
-			selectedOption2,
 			ageRestriction,
-        	selectedOption1,
         	catering,
         	additionalNotes,
-			eventFormat
+			eventFormat,
+			userID
 	} = location.state;
 
 	const history = useHistory();
 	const handleSubmit = (e) => {
 		e.preventDefault();
+		addEvent();
 		alert("Event Created Succesfully.");
-		//Insert statement to database
 		history.push('/');
 		history.go(0);
+
 	}
 	
 	const addEvent = async () => {
-		await fetch('/api/event/createevent', {
+		await fetch('/api/event/createEvent', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -63,12 +63,12 @@ export const EventCreationConfirmation = () => {
 				Event_end_time: endTime,
 				Event_description: eventDescription,
 				Capacity: numberOfGuests,
-				Minimum_age: ageRestriction,
+				Minimum_age: 0,
 				Approved: 'True',
 				Ticket_cost: admissionPrice,
 				Event_location: ' ',
 				VenueId: eventLocation,
-				OrganizerId: '1',
+				OrganizerId: userID,
 				cateringid: catering,
 				eventFormat
 				
@@ -161,7 +161,7 @@ export const EventCreationConfirmation = () => {
 												/>
 											</div>
 										</div>
-										<button type="submit" onClick={() => addEvent()}>Create Event</button>
+										<button type="submit" onClick={(e) => handleSubmit}>Create Event</button>
 									</div>
 								</form>
 							</td>

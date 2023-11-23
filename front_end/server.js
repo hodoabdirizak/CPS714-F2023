@@ -40,7 +40,7 @@ app.post('/api/account/getaccounttype', controllers.userAccountController.getAcc
 
 // Event routes
 // app.get('/api/event/', controllers.eventController);
-// app.post('/api/event/', controllers.eventController);
+app.post('/api/event/createEvent', controllers.eventController.createEvent);
 app.post('/api/event/getCapacity', controllers.eventController.getCapacity);
 
 //Event Attendee routs
