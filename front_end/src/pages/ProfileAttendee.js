@@ -7,7 +7,7 @@ import { useLocation } from "react-router-dom";
 
 export const ProfileAttendee = () => {
   const location = useLocation();
-  // const email = location?.state?.params;
+  // const email = location?.state?.username;
   const email = "hanaan.amin@torontomu.ca"
   const [newUserAccount, setUserAccount] = useState({Email: email, Full_name: '', 
                                                     Phone_number: '', Pronouns: ''});

@@ -7,30 +7,67 @@ import logo from '../assets/logo.png';
 import bg from '../assets/logo200.png';
 
 export const LoginPage = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [accountType, setAccountType] = useState('Attendee');
-
+  const [loginInfo, setLoginInfo] = useState({username: '', password: ''});
+  const [accountType, setAccountType] = useState({type: ''});
   const history = useHistory();
 
+  const setInput = (e) => {
+    const {name, value} = e.target;
+    setLoginInfo(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+    return;
+  };
+  
+  const getAccountType = async () => {
+    let response = await fetch('/api/account/getaccounttype', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        email: loginInfo.username
+      })
+    });
+
+    const data = await response.text();
+    setAccountType(prevState => ({
+      ...prevState,
+      type: data
+    }));
+    return;
+  }
+
+  const verifyLogin = async () => {
+    let response = await fetch('/api/account/verifylogin', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        email: loginInfo.username, 
+        password: loginInfo.password
+      })
+    });
+
+    const data = await response.text();
+    if (data==='True') {
+      getAccountType();
+      history.push('/', { isLoggedIn: 'true', username: loginInfo.username, accountType: accountType.type });
+    } else if (data==='False') {
+      alert(`Invalid/Incorrect email or password.`);
+    } else {
+      alert('An error has occurred.')
+    }
+  }
+  
   const handleLogin = (e) => {
     e.preventDefault();
-    if(password === "Admin" ){
-      alert("Successful Login");
-      // fetch accountType
-      // setAccountType("Attendee");
-      if (accountType === "Attendee"){
-        history.push('/profile-attendee', { params: username });
-      } else if (accountType === "Organizer"){
-        history.push('/profile-organizer', { params: username });
-      } else {
-        history.push('/profile-caterer', { params: username });
-      }
-    }
-    else{
-      alert("Invalid/Incorrect Username or Password");
-    }
-    console.log(`Username: ${username}, Password: ${password}`);
+    console.log(`Username: ${loginInfo.username}, Password: ${loginInfo.password}`);
+    verifyLogin();
   };
 
     return (
@@ -43,9 +80,10 @@ export const LoginPage = () => {
             <input
               type="text"
               id="username"
-              value={username}
+              name="username"
+              value={loginInfo.username}
 	            placeholder="Username"
-              onChange={(e) => setUsername(e.target.value)}
+              onChange={setInput}
               required
 	            className="input-style-3"
             />
@@ -54,9 +92,10 @@ export const LoginPage = () => {
             <input
               type="password"
               id="password"
-              value={password}
+              name="password"
+              value={loginInfo.password}
 	            placeholder="Password"
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={setInput}
               required
 	            className="input-style-3"
             />
