@@ -36,7 +36,7 @@ export const BookingPage = () => {
 
     const getTicketsSold = async () => {
         console.log("Getting Tickets Sold for eventID " + eventID);
-        await fetch('/api/event/getCapacity', {
+        await fetch('/api/eventAttendee/getTicketsSold', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -50,7 +50,7 @@ export const BookingPage = () => {
 
     const getTicketsOwned = async () => {
         console.log("Getting Tickets owned for eventID " + eventID + " and userID " + userID);
-        await fetch('/api/eventattendee/getAttendeeQuantity', {
+        await fetch('/api/eventAttendee/getAttendeeQuantity', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
