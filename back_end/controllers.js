@@ -4,6 +4,7 @@ const dbOperationEventAttendees = require('./SQLServerFiles/dbOperationEventAtte
 const dbOperationVenues = require('./SQLServerFiles/dbOperationVenues');
 const dbOperationEventHosting = require('./SQLServerFiles/dbOperationEventHosting');
 const dbOperationOrganizerEvents = require('./SQLServerFiles/dbOperationOrganizerEvents');
+const dbOperationCaterers = require('./SQLServerFiles/dbOperationCaterer');
 
 const userAccountController = {
     createUserAccount: async(req,res) => {
@@ -147,17 +148,17 @@ const venueController = {
         console.log('Called /api/venue/getVenues');
         const result = await dbOperationVenues.getVenues(req.body);
         console.dir(result);
-        res.send(result.recordset);
+        res.send(result);
     }
 };
 
 
 const catererController = {
-    getCatererbyVenue: async(req,res) => {
-        console.log('Called/api/caterer/getCatererbyVenue');
-        const result = await dbOperationVenues.getCatererbyVenue(req.body.VenueId);
+    getCaterers: async(req,res) => {
+        console.log('Called /api/caterer/getCaterers');
+        const result = await dbOperationCaterers.getCaterers(req.body);
         console.dir(result);
-        res.send(result.recordset);
+        res.send(result);
     }
 
 };

@@ -70,7 +70,7 @@ export const EventCreationConfirmation = () => {
 				VenueId: eventLocation,
 				OrganizerId: '1',
 				cateringid: catering,
-				eventFormat,
+				eventFormat
 				
 			})
 		})
