@@ -145,7 +145,7 @@ const eventAttendeeController = {
     getUserEvents: async (req, res) => {
         console.log('Called /api/eventAttendee/getUserEvents');
         const result = await dbOperationEventAttendees.getUserEvents(req.body.id);
-        console.dir("Controller "+ result);
+        console.dir(result);
         res.send(result);
     },
 };
