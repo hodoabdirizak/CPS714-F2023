@@ -9,41 +9,62 @@ import { Scheduler } from "@aldabil/react-scheduler";
 
 export const CalendarPage = () => {
 
-  const events = [
-    {
-      event_id: 1,
-      title: "Harmony Fest",
-      start: new Date("2023/10/31 09:30"),
-      end: new Date("2023/10/31 10:30"),
-      color: "teal",
-      editable: false,
-      deletable: false,
-      draggable: false
-    },
-    {
-      event_id: 2,
-      title: "Networking Events",
-      start: new Date("2023/11/15 09:30"),
-      end: new Date("2023/11/15 11:30"),
-      color: "teal",
-      editable: false,
-      deletable: false,
-      draggable: false
-    },
-    {
-      event_id: 4,
-      title: "TechInsight Summit",
-      start: new Date("2024/01/20 09:30"),
-      end: new Date("2024/01/20 11:30"),
-      color: "teal",
-      editable: false,
-      deletable: false,
-      draggable: false
-    },
-  ];
+  /*const events = */
 
   const location = useLocation();
-  const isLoggedIn = location?.state?.params;
+   const isLoggedIn = location?.state?.params;
+
+    const userID = location.state?.userID || 1;
+
+    const getUserEvents = async () => {
+        console.log("Getting events for user " + userID);
+        const result = await fetch('/api/eventAttendee/getUserEvents', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                id: userID
+            })
+        })
+        const eventIDs = await result.json();
+        console.log("Calendar "+ eventIDs);
+        for (var i in eventIDs) {
+            getEventInfo(eventIDs[i]);
+        }
+            
+    }
+
+    const getEventInfo = async (eventID) => {
+        console.log("Getting event " + eventID);
+        const result = await fetch('/api/event/getEventInfo', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                id: eventID
+            })
+        })
+        const event = JSON.parse(JSON.stringify(await result.json()));
+        var temp = {
+            event_id: eventID,
+            title: event[0]["Event_name"],
+            start: new Date(event[0]["Event_start_date"] + " " + event[0]["Event_start_time"]),
+            end: new Date(event[0]["Event_end_date"] + " " + event[0]["Event_end_time"]),
+            color: "teal",
+            editable: false,
+            deletable: false,
+            draggable: false
+        };
+        events.push(temp);
+    }
+
+    var events = [];
+    var eventIDs = getUserEvents();
+  
 
   const translations = {
     navigation: {

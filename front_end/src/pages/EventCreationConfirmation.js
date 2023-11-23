@@ -144,9 +144,9 @@ export const EventCreationConfirmation = () => {
 										<div className='form-group' style={{ display: 'flex', justifyContent: 'center' }}>
 											<div className='form-group-item'>
 												<input
-													type="date"
+													type="text"
 													value={expiryDate}
-													placeholder="Event Date (yyyy-mm-dd)"
+													placeholder="MMYY"
 													onChange={(e) => setExpiryDate(e.target.value)}
 													required
 												/>

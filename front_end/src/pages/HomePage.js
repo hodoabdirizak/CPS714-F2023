@@ -11,6 +11,10 @@ import './HomePage.css';
 
 export const HomePage = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
+  const isLoggedIn = location?.state?.isLoggedIn;
+  const accountType = location?.state?.accountType;
+  const username = location?.state?.username;
 
   /* dummy data 
   need to retrieve this data from backend */
@@ -77,12 +81,9 @@ export const HomePage = () => {
     },
   ];
 
-  const location = useLocation();
-  const isLoggedIn = location?.state?.params;
-
   return (
     <div className='home-page-container'>
-      <Navbar isLoggedIn={isLoggedIn} />
+      <Navbar isLoggedIn={isLoggedIn} username={username} accountType={accountType}/>
       <div className='background-image'>
         <img src={CoverPhoto} alt='' />
       </div>

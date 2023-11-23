@@ -13,6 +13,34 @@ const getAccounts = async () => {
   }
 };
 
+const getUserAccount = async (Email) => {
+  try {
+    await sql.connect(config)
+    const result = await sql.query(`SELECT Full_name, Phone_number, Pronouns FROM User_Account WHERE Email = '${Email}'`); 
+    const data = result.recordset[0];
+    console.log(data);
+    if (data) {
+      return `${data['Full_name']} ${data['Phone_number']} ${data['Pronouns']}`;
+    }
+    return 'False';
+  } catch (err) {
+      console.error(err);
+      throw err;
+  }
+};
+
+const getAccountType = async (Email) => {
+  try {
+    await sql.connect(config)
+    const result = await sql.query(`SELECT Account_type FROM User_Account WHERE Email = '${Email}'`); 
+    const data = result.recordset[0]['Account_type'];
+    return data;
+  } catch (err) {
+      console.error(err);
+      throw err;
+  }
+}
+
 const verifyEmail = async (Email) => {
   try {
     await sql.connect(config);
@@ -28,10 +56,21 @@ const verifyEmail = async (Email) => {
   }
 };
 
+const updateUserAccount = async (Account) => {
+  try {
+    await sql.connect(config);
+    const result = await sql.query(`UPDATE User_Account 
+    SET Full_name = '${Account.Full_name}', Phone_number = ${Account.Phone_number}, Pronouns = '${Account.Pronouns}'
+    WHERE Email = '${Account.Email}'`);
+    return result.recordset;
+  } catch (err) {
+    throw err;
+  }
+};
+
 const changePassword = async (Email,newPassword) => {
   try {
     await sql.connect(config);
-    console.dir(`UPDATE User_Account SET Pswd = '${newPassword}' WHERE Email = '${Email}'`);
     await sql.query(`UPDATE User_Account SET Pswd = '${newPassword}' WHERE Email = '${Email}'`);
     return "True";
   } catch (err) {
@@ -126,6 +165,18 @@ const getUserIdByEmail = async (Email) => {
    }
  };
 
+const verifyLogin = async (email, pswd) => {
+  try {
+    await sql.connect(config);
+    const result = await sql.query(`SELECT User_id FROM User_Account WHERE Email = '${email}' AND Pswd = '${pswd}'`);
+    return result.rowsAffected[0];
+  } catch (err) {
+    console.log('Error in verifyLogin', err);
+    throw err;
+  }
+};
+
+
 module.exports = {
   addAccount,
   verifyEmail,
@@ -133,8 +184,12 @@ module.exports = {
   addOrganizerAccount,
   addCatererAccount,
   getAccounts,
+  getAccountType,
   getUserId,
+  getUserAccount,
   getAccountByName, 
   getUserIdByEmail,
-  noDupEmails
+  noDupEmails,
+  updateUserAccount,
+  verifyLogin
 }
