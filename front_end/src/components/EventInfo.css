@@ -1,0 +1,64 @@
+.event-container {
+    display: flex;
+}
+
+.event-date {
+    text-align: center;
+    line-height: 0.6;
+}
+
+.event-details {
+    padding-left: 50px;
+    width: 700px;
+}
+
+.side-by-side {
+    display: flex;
+}
+
+.left-email {
+    width: 50%;
+}
+
+.event-photo {
+    width: 440px;
+    height: 440px;
+    object-fit: cover;
+    border-radius: 10%;
+    margin-left: 50px;
+    margin-top: 25%
+}
+
+.event-details h1 {
+    color: #4391B1;
+    font-weight: 800;
+    margin-top: 120px;
+}
+
+.event-details h2 {
+    color: #8A8080;
+    font-size: medium;
+    font-weight: 450;
+}
+
+.event-details h3 {
+    font-size: larger;
+    font-weight: 500;
+    margin-top: -10px;
+}
+
+.buy-ticket {
+    background-color: #E98123;
+    color: white;
+    width: 500px;
+    padding: 15px;
+    font-size: 20px;
+    font-weight: 500;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+  
+  .buy-ticket:hover {
+    background-color: #db6a08;
+  }
