@@ -109,7 +109,7 @@ export const EventCreationForm = () => {
 
   var venueList = [];
   var catererList = [];
-  var catererIDList = [];
+
 
     const getVenues = async () => {
         console.log("Getting all venues")
@@ -121,7 +121,7 @@ export const EventCreationForm = () => {
             }
 
         });
-        if(venueList.length == 0){
+
           console.log("in get venues1");
           const data = await result.json();  
           console.log("in get venues2");
@@ -130,7 +130,6 @@ export const EventCreationForm = () => {
             console.log("Appending " + JSON.stringify(data[i]));
             console.log("Length: " + length);
           }
-        }
     }
 
     getVenues().then(res => {
@@ -138,6 +137,7 @@ export const EventCreationForm = () => {
         for (var j = 0; j < venueList.length; j++) {
             console.log("Venue: " + JSON.parse(JSON.stringify(venueList[j]))["Venue_name"]);
         }
+        
         var select = document.getElementById("selectVenue");
         for(var i = 0; i < venueList.length; i++) {
             var opt = JSON.parse(JSON.stringify(venueList[i]))["Venue_name"];
@@ -158,7 +158,6 @@ export const EventCreationForm = () => {
           }
 
       });
-      catererList = [];
       console.log("in get caterers1");
       const data = await result.json();  
       console.log("in get caterers2");
@@ -174,9 +173,10 @@ export const EventCreationForm = () => {
       for (var j = 0; j < catererList.length; j++) {
           console.log("Caterer: " + JSON.parse(JSON.stringify(catererList[j]))["Cuisine"]);
       }
+      var select;
       var select = document.getElementById("selectCaterer");
       for(var i = 0; i < catererList.length; i++) {
-          var opt = JSON.parse(JSON.stringify(catererList[i]))["Caterer_id"];
+          var opt = JSON.parse(JSON.stringify(catererList[i]))["Cuisine"];
           var el = document.createElement("option");
           el.textContent = opt;
           el.value = JSON.parse(JSON.stringify(catererList[i]))["Caterer_id"];
