@@ -154,6 +154,22 @@ const getUserIdByEmail = async (Email) => {
    }
  };
 
+const verifyLogin = async (email, pswd) => {
+  try {
+    await sql.connect(config);
+    console.log('Verifying login for Email', email); //addded
+    const result = await sql.query(
+    `SELECT User_id FROM User_Account 
+    WHERE Email = '${email}' AND Pswd = '${pswd}'`);
+    console.log('Login verification result', result);
+    return result.recordset;
+  } catch (err) {
+    console.log('Error in verifyLogin', err);
+    throw err;
+  }
+};
+
+
 module.exports = {
   addAccount,
   verifyEmail,
@@ -166,5 +182,6 @@ module.exports = {
   getAccountByName, 
   getUserIdByEmail,
   noDupEmails,
-  updateUserAccount
+  updateUserAccount,
+  verifyLogin
 }
