@@ -34,7 +34,6 @@ const getAccountType = async (Email) => {
     await sql.connect(config)
     const result = await sql.query(`SELECT Account_type FROM User_Account WHERE Email = '${Email}'`); 
     const data = result.recordset[0]['Account_type'];
-    console.log(data);
     return data;
   } catch (err) {
       console.error(err);

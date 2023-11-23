@@ -1,5 +1,5 @@
 // pages/LoginPage.js
-import React, { useState } from 'react';
+import React, { useState , useEffect } from 'react';
 import { useHistory } from 'react-router-dom'
 import './LoginPage.css';
 
@@ -8,7 +8,6 @@ import bg from '../assets/logo200.png';
 
 export const LoginPage = () => {
   const [loginInfo, setLoginInfo] = useState({username: '', password: ''});
-  const [accountType, setAccountType] = useState({type: ''});
   const history = useHistory();
 
   const setInput = (e) => {
@@ -19,26 +18,6 @@ export const LoginPage = () => {
     }));
     return;
   };
-  
-  const getAccountType = async () => {
-    let response = await fetch('/api/account/getaccounttype', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify({
-        email: loginInfo.username
-      })
-    });
-
-    const data = await response.text();
-    setAccountType(prevState => ({
-      ...prevState,
-      type: data
-    }));
-    return;
-  }
 
   const verifyLogin = async () => {
     let response = await fetch('/api/account/verifylogin', {
@@ -54,11 +33,25 @@ export const LoginPage = () => {
     });
 
     const data = await response.text();
+
     if (data==='True') {
-      getAccountType();
-      history.push('/', { isLoggedIn: 'true', username: loginInfo.username, accountType: accountType.type });
+      let response2 = await fetch('/api/account/getaccounttype', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          email: loginInfo.username
+        })
+      });
+  
+      const data2 = await response2.text();
+      history.push('/', { isLoggedIn: 'true', username: loginInfo.username, accountType: data2 });
+
     } else if (data==='False') {
       alert(`Invalid/Incorrect email or password.`);
+      
     } else {
       alert('An error has occurred.')
     }
