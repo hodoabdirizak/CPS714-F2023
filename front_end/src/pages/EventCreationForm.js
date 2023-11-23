@@ -17,7 +17,12 @@ export const EventCreationForm = () => {
     return value;
   };
   const handleChange = (e) => {
-    setEventLocation(e.target.value);
+    if(e.target.value == 0){
+      seteventFormat("Virtual");
+    }else{
+      seteventFormat("In-person");
+      setEventLocation(e.target.value);
+    }
   };
 
   const getEventType = () => {
@@ -39,12 +44,18 @@ export const EventCreationForm = () => {
   //Functions for multi-select  
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
+    if(event.target.value === 'no'){
+      setAdmissionPrice(0);
+    }
   };
   const handleOptionChange1 = (event) => {
     setSelectedOption1(event.target.value);
   };
   const handleOptionChange2 = (event) => {
     setSelectedOption2(event.target.value);
+    if(event.target.value === 'no'){
+      setAgeRestriction(0);
+    }
   };
 
   //Variables Obtained from the form
@@ -63,6 +74,7 @@ export const EventCreationForm = () => {
   const [selectedOption1, setSelectedOption1] = useState('');
   const [catering, setCatering] = useState(getCatering);
   const [additionalNotes, setAdditionalNotes] = useState('');
+  const [eventFormat, seteventFormat] = useState('');
 
   const history = useHistory();
 
@@ -89,7 +101,8 @@ export const EventCreationForm = () => {
         selectedOption1,
         catering,
         additionalNotes,
-        userID
+        userID,
+        eventFormat
       });
     history.go(0);
   };
@@ -108,8 +121,9 @@ export const EventCreationForm = () => {
             }
 
         });
-        const data = await result.json();
-        console.log(data[0]);
+        console.log("in get venues1");
+        const data = await result.json(); //breaks here 
+        console.log("in get venues2");
         for (var i = 0; i < data.length; i++) {
             var length = venueList.push(data[i]);
             console.log("Appending " + JSON.stringify(data[i]));
@@ -155,6 +169,7 @@ export const EventCreationForm = () => {
               <div>
                 <select value={eventLocation} onChange={handleChange}>
                 <option value= "" hidden>Select the location</option>
+                <option value= '0' >Virtually</option>
                 <option value= '1' >Spongebob's Pineapple</option>
                 <option value= '2' >Bikini Bottom Hospital</option>
                 <option value= '3' >Texas</option>
@@ -205,10 +220,12 @@ export const EventCreationForm = () => {
             <div>
               <select value={eventType} onChange={handleChange1}>
                 <option value="" hidden>Type of Event</option>
-                <option value="EvenType 1">Wedding</option>
-                <option value="EvenType 2">Funeral</option>
-                <option value="EvenType 3">Class</option>
-                <option value="EvenType 4">Party</option>
+                <option value="Conference">Conference</option>
+                <option value="Corporate">Corporate</option>
+                <option value="Cultural">Cultural</option>
+                <option value="Networking">Networking</option>
+                <option value="Sports">Sports</option>
+                <option value="Educational">Educational</option>
               </select>
               <br></br>
             </div>

@@ -100,11 +100,16 @@ const eventController = {
         await dbOperationEvent.createEvent(req.body);
         const result = await dbOperationEvent.getEventByName(req.body.Event_name);
 
-        //adding to relation table event hosting
-        console.log('hosting ' + JSON.parse(JSON.stringify(result.recordset[0]))['Event_id']);
-        await dbOperationEventHosting.createEventHosting(JSON.parse(JSON.stringify(result.recordset[0]))['Event_id'], req.body.VenueId);
-        console.log('event'+ JSON.parse(JSON.stringify(result.recordset[0]))['Event_id']);
-        await dbOperationOrganizerEvents.createOrganizerEvent(JSON.parse(JSON.stringify(result.recordset[0]))['Event_id'], req.body.OrganizerId);
+        //stop if event is virtual
+        if(req.body.eventFormat == "Virtual"){
+            console.log('1event'+ JSON.parse(JSON.stringify(result.recordset[0]))['Event_id']);
+            await dbOperationOrganizerEvents.createOrganizerEvent(JSON.parse(JSON.stringify(result.recordset[0]))['Event_id'], req.body.OrganizerId);
+        }else{
+            console.log('hosting ' + JSON.parse(JSON.stringify(result.recordset[0]))['Event_id']);
+            await dbOperationEventHosting.createEventHosting(JSON.parse(JSON.stringify(result.recordset[0]))['Event_id'], req.body.VenueId);
+            console.log('2event'+ JSON.parse(JSON.stringify(result.recordset[0]))['Event_id']);
+            await dbOperationOrganizerEvents.createOrganizerEvent(JSON.parse(JSON.stringify(result.recordset[0]))['Event_id'], req.body.OrganizerId);
+        }
         console.dir(result);
         res.send(result.recordset);
     },

@@ -2,7 +2,7 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:3000",
+  "proxy": "http://localhost:5000",
   "dependencies": {
     "@aldabil/react-scheduler": "^2.7.26",
     "@fortawesome/fontawesome-svg-core": "^6.4.2",

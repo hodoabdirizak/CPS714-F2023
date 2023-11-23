@@ -34,7 +34,8 @@ export const EventCreationConfirmation = () => {
 			ageRestriction,
         	selectedOption1,
         	catering,
-        	additionalNotes
+        	additionalNotes,
+			eventFormat
 	} = location.state;
 
 	const history = useHistory();
@@ -58,8 +59,8 @@ export const EventCreationConfirmation = () => {
 				Event_type: eventType,
 				Event_start_date: eventDate,
 				Event_end_date: eventDate,
-				Event_start_time: '',
-				Event_end_time: '',
+				Event_start_time: startTime,
+				Event_end_time: endTime,
 				Event_description: eventDescription,
 				Capacity: numberOfGuests,
 				Minimum_age: ageRestriction,
@@ -69,6 +70,7 @@ export const EventCreationConfirmation = () => {
 				VenueId: eventLocation,
 				OrganizerId: '1',
 				cateringid: catering,
+				eventFormat,
 				
 			})
 		})

@@ -27,7 +27,7 @@ const getEventByName = async (Event_Name) => {
 const createEvent = async (event) => {
   try {
     await sql.connect(config);
-    const result = await sql.query(`INSERT INTO Event_table (Event_name, Event_type, Event_start_date, Event_end_date, Event_start_time,Event_end_time, Event_description, Capacity, Minimum_age, Approved, Ticket_cost, Event_location) VALUES('${event.Event_name}', '${event.Event_type}', '${event.Event_start_date}', '${event.Event_end_date}', '${event.Event_start_time}', '${event.Event_end_time}', '${event.Event_description}', '${event.Capacity}', '${event.Minimum_age}', '${event.Approved}', '${event.Ticket_cost}', '${event.location}')`);
+    const result = await sql.query(`INSERT INTO Event_table (Event_name, Event_type, Event_start_date, Event_end_date, Event_start_time,Event_end_time, Event_description, Capacity, Minimum_age, Approved, Ticket_cost,Event_format) VALUES('${event.Event_name}', '${event.Event_type}', '${event.Event_start_date}', '${event.Event_end_date}', '${event.Event_start_time}', '${event.Event_end_time}', '${event.Event_description}', '${event.Capacity}', '${event.Minimum_age}', '${event.Approved}', '${event.Ticket_cost}', '${event.eventFormat}')`);
     return result.recordset;
   } catch (err) {
     throw err;
