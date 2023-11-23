@@ -28,13 +28,17 @@ export const CalendarPage = () => {
                 id: userID
             })
         })
-        console.log(result);
-        return result;
+        const eventIDs = await result.json();
+        console.log("Calendar "+ eventIDs);
+        for (var i in eventIDs) {
+            getEventInfo(eventIDs[i]);
+        }
+            
     }
 
     const getEventInfo = async (eventID) => {
         console.log("Getting event " + eventID);
-        await fetch('/api/event/getEventInfo', {
+        const result = await fetch('/api/event/getEventInfo', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -44,60 +48,22 @@ export const CalendarPage = () => {
                 id: eventID
             })
         })
+        const event = JSON.parse(JSON.stringify(await result.json()));
+        var temp = {
+            event_id: eventID,
+            title: event[0]["Event_name"],
+            start: new Date(event[0]["Event_start_date"] + " " + event[0]["Event_start_time"]),
+            end: new Date(event[0]["Event_end_date"] + " " + event[0]["Event_end_time"]),
+            color: "teal",
+            editable: false,
+            deletable: false,
+            draggable: false
+        };
+        events.push(temp);
     }
 
     var events = [];
-    const eventIDs = getUserEvents().then(req => {
-        console.log(eventIDs);
-        for (var i in eventIDs) {
-            var event = getEventInfo(eventIDs[i]);
-            var temp = {
-                event_id: eventIDs[i],
-                title: event["Event_name"],
-                start: new Date(event["Event_start_date"] + " " + event["Event_start+time"]),
-                end: new Date("2023/10/31 10:30"),
-                color: "teal",
-                editable: false,
-                deletable: false,
-                draggable: false
-            };
-            console.log(temp);
-            events.push(temp);
-        }
-})
-
-    events = [
-        {
-            event_id: 1,
-            title: "Harmony Fest",
-            start: new Date("2023/10/31 09:30"),
-            end: new Date("2023/10/31 10:30"),
-            color: "teal",
-            editable: false,
-            deletable: false,
-            draggable: false
-        },
-        {
-            event_id: 2,
-            title: "Networking Events",
-            start: new Date("2023/11/15 09:30"),
-            end: new Date("2023/11/15 11:30"),
-            color: "teal",
-            editable: false,
-            deletable: false,
-            draggable: false
-        },
-        {
-            event_id: 4,
-            title: "TechInsight Summit",
-            start: new Date("2024/01/20 09:30"),
-            end: new Date("2024/01/20 11:30"),
-            color: "teal",
-            editable: false,
-            deletable: false,
-            draggable: false
-        },
-    ];
+    var eventIDs = getUserEvents();
   
 
   const translations = {
