@@ -5,7 +5,7 @@ const express       = require('express'),
       cors          = require('cors');
 
 // Define port
-const API_PORT = process.env.PORT || 5000;
+const API_PORT = process.env.PORT || 3000;
 const app = express();
 console.log(app);
 
