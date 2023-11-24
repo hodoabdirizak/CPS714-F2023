@@ -248,7 +248,7 @@ export const SignUpPage = () => {
               backgroundColor: 'gray',
               borderRadius: '15px',
               fontSize: '1.1rem',    // Increase the font size
-              width: '40%',          // Set the width to 50% of its container
+              width: '43%',          // Set the width to 50% of its container
               padding: '10px 20px'  // Add padding to control the button size
             }}
             >Return to Home Page
