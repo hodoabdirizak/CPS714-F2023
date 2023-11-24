@@ -14,15 +14,23 @@ export const PurchaseTicketPage = props => {
     console.log(state)
     //const queryParams = new URLSearchParams(location.search);
     //const numOfTickets = queryParams.get('quantity');
-    const {
-        userID = 0,
-        eventID = 0,
-        userOwnedTickets = 0,
-        numOfTickets = 1,
-        eventDate = "December 10th, 2023",
-        eventName = "Graduation Ceremony",
-        eventVenue = "Madison Square Garden"
-    } = JSON.stringify(state);
+
+    const userID = location.state?.userID | 1;
+    const eventID = location.state?.eventID | 0;
+    const userOwnedTickets = location.state?.userOwnedTickets | 0;
+    const numOfTickets = location.state?.numOfTickets | 1;
+    const eventDate = location.state?.eventDate || "December 10th, 2023";
+    const eventName = location.state?.eventName || "Graduation Ceremony";
+    const eventVenue = location.state?.eventVenue || "Madison Square Garden" ;
+    //const {
+    //    userID = 0,
+    //    eventID = 0,
+    //    userOwnedTickets = 0,
+    //    numOfTickets = 1,
+    //    eventDate = "December 10th, 2023",
+    //    eventName = "Graduation Ceremony",
+    //    eventVenue = "Madison Square Garden"
+    //} = JSON.stringify(state);
     console.log(userID + ", " + eventID + ", " + userOwnedTickets);
 
     const updateTickets = async () => {
