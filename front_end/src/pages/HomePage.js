@@ -13,27 +13,27 @@ export const HomePage = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const isLoggedIn = location?.state?.isLoggedIn;
-    const accountType = location?.state?.accountType;
+  const accountType = location?.state?.accountType;
   const username = location?.state?.username || "";
 
-    const getUserID = async () => {
-        console.log("Getting ID for user " + username);
-        const result = await fetch('/api/account/getuseridbyemail', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify({
-                id: username
-            })
-        })
-    }
-    var userID = 1;
-    if (username !== "") {
-      userID = getUserID();
-    }
-    console.log("User ID: " + userID);
+    // const getUserID = async () => {
+    //     console.log("Getting ID for user " + username);
+    //     const result = await fetch('/api/account/getuseridbyemail', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             'Accept': 'application/json'
+    //         },
+    //         body: JSON.stringify({
+    //             id: username
+    //         })
+    //     })
+    // }
+    // var userID = 1;
+    // if (username !== "") {
+    //   userID = getUserID();
+    // }
+    // console.log("User ID: " + userID);
 
   /* dummy data 
   need to retrieve this data from backend */
@@ -109,7 +109,7 @@ export const HomePage = () => {
       <div className='content'>
         <h1>Socials, conferences, corporate events, workshops and <span style={{ color: '#8C6ACB' }}>more</span>.</h1>
         <h2>Trending events in <span style={{ color: '#696969' }}>Toronto</span></h2>
-        <div className="event-cards">
+        {/* <div className="event-cards">
           {events.map((event) => (
             <Link
               key={event.id}
@@ -119,7 +119,7 @@ export const HomePage = () => {
               <EventCard event={event} />
             </Link>
           ))}
-        </div>
+        </div> */}
       </div>
     </div>
   );
