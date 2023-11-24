@@ -2,20 +2,31 @@
 
 import React  from 'react';
 import logo from '../assets/logo.png';
+import { useHistory } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faUser } from '@fortawesome/free-solid-svg-icons'
 import './Navbar.css';
 
 function Navbar({ isLoggedIn, username, accountType }) {
-  let url = '';
-  console.log('hellooo',accountType);
-  if (accountType === "Attendee"){
-    url = '/profile-attendee'
-  } else if (accountType === "Organizer") {
-    url = '/profile-organizer'
-  } else {
-    url = '/profile-caterer'
-  }
+  const history = useHistory();
+
+  const goToProfile = (e) => {
+    e.preventDefault();
+    let url = '';
+
+    if (accountType === 'Attendee') {
+      url = '/profile-attendee';
+    } else if (accountType === 'Organizer') {
+      url = '/profile-organizer';
+    } else {
+      url = '/profile-caterer';
+    }
+
+    history.push({
+      pathname: url,
+      state: { isLoggedIn: true, username: username },
+    });
+  };
 
   return (
     <div className="navbar">
@@ -42,19 +53,18 @@ function Navbar({ isLoggedIn, username, accountType }) {
           instead of Sign In */}
           { isLoggedIn 
             ? <li className="profile-item">
-            <a href={url}>
+            <a href='/' onClick={goToProfile}>
               <div className="profile-icon">
                 <FontAwesomeIcon icon={faUser} size="lg" style={{ color: "#1e0900" }} />
               </div>
               {username}
             </a>
-          </li>
-          : <li><a href="/login">Sign In</a></li>
+            </li>
+            : <li><a href="/login">Sign In</a></li>
           }
       </ul>
     </div>
   );
 }
   
-
 export default Navbar;

@@ -1,14 +1,18 @@
 import React, { useState , useEffect } from 'react';
+import Modal from 'react-modal';
 import './SignupPage.css';
+import DeleteAccount from '../components/DeleteAccount';
 import logo from '../assets/logo.png';
 import bg from '../assets/logo200.png';
 import { useHistory } from 'react-router-dom';
 import { useLocation } from "react-router-dom";
 
+Modal.setAppElement('#root'); // or 'body' or another appropriate selector
+
 export const ProfileAttendee = () => {
   const location = useLocation();
-  // const email = location?.state?.username;
-  const email = "hanaan.amin@torontomu.ca"
+  const email = location?.state?.username;
+  const history = useHistory();
   const [newUserAccount, setUserAccount] = useState({Email: email, Full_name: '', 
                                                     Phone_number: '', Pronouns: ''});
 
@@ -43,12 +47,13 @@ export const ProfileAttendee = () => {
 
     const data = await response.text();
     const items = data.split(" ");
-    setUserAccount(prevState => ({
-      ...prevState,
-      Full_name: `${items[0]} ${items[1]}`,
-      Phone_number: `${items[2]}`,
-      Pronouns: `${items[3]}`
-    }));
+    const arrayLength = items.length;
+      setUserAccount(prevState => ({
+        ...prevState,
+        Full_name: `${items.slice(0, arrayLength - 2).join(" ")}`,
+        Phone_number: `${items.slice(arrayLength - 2,arrayLength - 1)}`,
+        Pronouns: `${items.slice(arrayLength - 1,arrayLength)}`
+      }));
     return;
   }
 
@@ -65,10 +70,31 @@ export const ProfileAttendee = () => {
     });
 
     const data = await response.text();
-    if (data==='Success') {
+    if (data==='True') {
       alert(`Account information has been updated.`);
     } else {
       alert('An error has occurred. We were unable to update your account information.')
+    }
+  }
+
+  const deleteUserAccount = async () => {
+    let response = await fetch('/api/account/deleteaccountattendee', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        email: email
+      })
+    });
+
+    const data = await response.text();
+    console.log(data);
+    if (data==='True') {
+      history.push('/', {});
+    } else {
+      alert('An error has occurred. We were unable to delete your account Try again later.')
     }
   }
 
@@ -78,15 +104,47 @@ export const ProfileAttendee = () => {
 
   const handleProfileUpdate = (e) => {
     console.log('-----------------');
-    // e.preventDefault();
+    e.preventDefault();
     updateUserAccount();
+  };
+
+  const goBack = (e) => {
+    history.push('/', { isLoggedIn: 'true', username: email, accountType: "Attendee" });
+  };
+
+  const [isModalOpen, setModalOpen] = useState(false);
+  const openModal = (e) => {
+    setModalOpen(true);
+  };
+  const closeModal = (e) => {
+    setModalOpen(false);
+  };
+  const handleDeleteAccount = () => {
+    deleteUserAccount();
+    closeModal();
   };
 
   return (
     <div style={{ backgroundImage: `url(${bg})` }}>
       <div className="login-container" style={{ backgroundColor: `white` }}>
-        <img src={logo} alt="Logo" />
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <button
+          type="button"
+          onClick={() => goBack()}
+          style={{
+            backgroundColor: 'gray',
+            borderRadius: '15px',
+            fontSize: '1rem',    // Increase the font size
+            width: '25%',          // Set the width to 50% of its container
+            padding: '10px 20px'  // Add padding to control the button size
+          }}
+          >Return to Home Page
+        </button>
         <h1>Edit Profile</h1>
+        <h2>{email}</h2>
         <form onSubmit={handleProfileUpdate}>
           <div className="form-group-item">
             <input
@@ -112,32 +170,20 @@ export const ProfileAttendee = () => {
               className="input-style-5"
             />
           </div>
-          <div className="form-group">
-            <div className="form-group-item">
-              <input
-                type="text"
-                id="pronouns"
-                name="Pronouns"
-                placeholder="Pronouns"
-                value={newUserAccount.Pronouns}
-                onChange={setInput}
-                required
-                className="input-style-5"
-              />
-            </div>
+          <div className="form-group-item">
+            <input
+              type="text"
+              id="pronouns"
+              name="Pronouns"
+              placeholder="Pronouns"
+              value={newUserAccount.Pronouns}
+              onChange={setInput}
+              required
+              className="input-style-5"
+            />
           </div>
           <br></br>
-          <button
-            style={{
-              backgroundColor: 'gray',
-              borderRadius: '15px',
-              fontSize: '1.2rem',    // Increase the font size
-              width: '50%',          // Set the width to 50% of its container
-              padding: '10px 20px',  // Add padding to control the button size
-            }}
-          >Cancel</button>
           <button 
-            onClick={() => handleProfileUpdate()}
             type="submit" 
             style={{
               backgroundColor: '#E98123',
@@ -146,7 +192,23 @@ export const ProfileAttendee = () => {
               width: '50%',          // Set the width to 50% of its container
               padding: '10px 20px',  // Add padding to control the button size
             }}
-          >Update</button>
+          >Edit Profile</button>
+          <button 
+            onClick={() => openModal()}
+            type="button"
+            style={{
+              backgroundColor: 'red',
+              borderRadius: '15px',
+              fontSize: '1.2rem',    // Increase the font size
+              width: '60%',          // Set the width to 50% of its container
+              padding: '10px 20px',  // Add padding to control the button size
+            }}
+          >Delete Account</button>
+          <DeleteAccount
+            isOpen={isModalOpen}
+            onClose={closeModal}
+            onConfirm={handleDeleteAccount}
+          />
           <br></br>
           <br></br>
           <br></br>

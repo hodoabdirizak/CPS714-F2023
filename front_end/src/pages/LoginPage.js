@@ -51,7 +51,7 @@ export const LoginPage = () => {
 
     } else if (data==='False') {
       alert(`Invalid/Incorrect email or password.`);
-      
+
     } else {
       alert('An error has occurred.')
     }
@@ -67,7 +67,7 @@ export const LoginPage = () => {
       <div style={{ backgroundImage: `url(${bg})` }}>
         <div className="login-container" style={{ backgroundColor: `white` }}>
         <img src={logo} alt="Logo" />
-        <h1>Event Viewer Login</h1>
+        <h1>Login</h1>
         <form onSubmit={handleLogin}>
           <div className="form-group">
             <input
