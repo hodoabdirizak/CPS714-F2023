@@ -20,7 +20,7 @@ const getUserAccount = async (Email) => {
     const data = result.recordset[0];
     console.log(data);
     if (data) {
-      return `${data['Full_name']} ${data['Phone_number']} ${data['Pronouns']}`;
+      return `${data['Full_name']}|${data['Phone_number']}|${data['Pronouns']}`;
     }
     return 'False';
   } catch (err) {
@@ -168,12 +168,22 @@ const getUserIdByEmail = async (Email) => {
 const verifyLogin = async (email, pswd) => {
   try {
     await sql.connect(config);
-    const result = await sql.query(`SELECT User_id FROM User_Account WHERE Email = '${email}' AND Pswd = '${pswd}'`);
-    return result.rowsAffected[0];
+    const result = await sql.query(`SELECT User_id FROM User_Account WHERE Email = '${email}' AND Pswd = '${pswd}'`);    return result.rowsAffected[0];
   } catch (err) {
     console.log('Error in verifyLogin', err);
     throw err;
   }
+};
+
+const deleteAccountAttendee = async (Email) => {
+  try {
+  await sql.connect(config);
+  const result = await sql.query(`DELETE FROM User_Account WHERE Email='${Email}'`);
+  return result.rowsAffected[0];
+} catch (err) {
+    console.error(err);
+  throw err;
+}
 };
 
 
@@ -191,5 +201,6 @@ module.exports = {
   getUserIdByEmail,
   noDupEmails,
   updateUserAccount,
-  verifyLogin
+  verifyLogin,
+  deleteAccountAttendee
 }

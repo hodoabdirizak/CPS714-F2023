@@ -70,6 +70,8 @@ export const ForgotPassword = () => {
   return (
     <div style={{ backgroundImage: `url(${bg})` }}>
       <div className="login-container" style={{ backgroundColor: `white` }}>
+        <br></br>
+        <br></br>
         <img src={logo} alt="Logo" />
         <h1>Password Reset</h1>
         <form onSubmit={handlePasswordReset}>
@@ -109,8 +111,8 @@ export const ForgotPassword = () => {
             />
           </div>
           <br></br>
+          <br></br>
           <button 
-            // onClick={() => handleSignUp()}
             type="submit" 
             style={{
               backgroundColor: '#E98123',
@@ -126,10 +128,22 @@ export const ForgotPassword = () => {
           <br></br>
           <br></br>
           <br></br>
+          <br></br>          
           <br></br>
           <br></br>
           <br></br>
-          <br></br>
+          <button
+            type="button"
+            onClick={() => history.push('/', {})}
+            style={{
+              backgroundColor: 'gray',
+              borderRadius: '15px',
+              fontSize: '1.1rem',    // Increase the font size
+              width: '80%',          // Set the width to 50% of its container
+              padding: '10px 20px'  // Add padding to control the button size
+            }}
+            >Return to Home Page
+          </button>
           <br></br>
           <br></br>
         </form>
