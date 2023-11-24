@@ -20,7 +20,7 @@ const getUserAccount = async (Email) => {
     const data = result.recordset[0];
     console.log(data);
     if (data) {
-      return `${data['Full_name']} ${data['Phone_number']} ${data['Pronouns']}`;
+      return `${data['Full_name']}|${data['Phone_number']}|${data['Pronouns']}`;
     }
     return 'False';
   } catch (err) {

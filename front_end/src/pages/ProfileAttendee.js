@@ -46,13 +46,12 @@ export const ProfileAttendee = () => {
     });
 
     const data = await response.text();
-    const items = data.split(" ");
-    const arrayLength = items.length;
+    const items = data.split("|");
       setUserAccount(prevState => ({
         ...prevState,
-        Full_name: `${items.slice(0, arrayLength - 2).join(" ")}`,
-        Phone_number: `${items.slice(arrayLength - 2,arrayLength - 1)}`,
-        Pronouns: `${items.slice(arrayLength - 1,arrayLength)}`
+        Full_name: `${items[0]}`,
+        Phone_number: `${items[1]}`,
+        Pronouns: `${items[2]}`
       }));
     return;
   }
