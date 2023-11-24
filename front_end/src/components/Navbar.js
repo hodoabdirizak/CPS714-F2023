@@ -4,9 +4,11 @@ import React  from 'react';
 import logo from '../assets/logo.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faUser } from '@fortawesome/free-solid-svg-icons'
+import { useDispatch } from 'react-redux';
 import './Navbar.css';
 
-function Navbar({ isLoggedIn, username, accountType }) {
+function Navbar({ isLoggedIn, username, accountType, userID }) {
+  const dispatch = useDispatch();
   let url = '';
   console.log('hellooo',accountType);
   if (accountType === "Attendee"){
@@ -15,7 +17,7 @@ function Navbar({ isLoggedIn, username, accountType }) {
     url = '/profile-organizer'
   } else {
     url = '/profile-caterer'
-  }
+    }
 
   return (
     <div className="navbar">
@@ -37,7 +39,7 @@ function Navbar({ isLoggedIn, username, accountType }) {
           <li><a href="/">Find Events</a></li>
           <li><a href="/">FAQ</a></li>
           <li><a href="/">My Events</a></li>
-          <li><a href="/calendar">My Calendar</a></li>
+              <li><a to={`/calendar`} onClick={() => dispatch({ type: 'SET_EVENT', payload: { username, isLoggedIn, accountType } })} href="/calendar">My Calendar</a></li>
           {/* If user is logged in, they will have the Profile navbar item
           instead of Sign In */}
           { isLoggedIn 

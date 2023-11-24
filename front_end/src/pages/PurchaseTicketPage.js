@@ -21,7 +21,11 @@ export const PurchaseTicketPage = props => {
     const numOfTickets = location.state?.numOfTickets | 1;
     const eventDate = location.state?.eventDate || "December 10th, 2023";
     const eventName = location.state?.eventName || "Graduation Ceremony";
-    const eventVenue = location.state?.eventVenue || "Madison Square Garden" ;
+    const eventVenue = location.state?.eventVenue || "Madison Square Garden";
+    const isLoggedIn = location?.state?.isLoggedIn;
+    const accountType = location?.state?.accountType;
+    const username = location?.state?.username || "";
+    console.log("Username " + username);
     //const {
     //    userID = 0,
     //    eventID = 0,
@@ -59,7 +63,13 @@ export const PurchaseTicketPage = props => {
         e.preventDefault();
         console.log("Handling Submission");
         updateTickets();
-        history.push(`/purchase-success`);
+        history.push(`/purchase-success`,
+            {
+                isLoggedIn: isLoggedIn,
+                accountType: accountType,
+                username: username
+            }
+            );
         history.go(0);
     };
 

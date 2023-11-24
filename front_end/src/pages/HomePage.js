@@ -13,9 +13,9 @@ export const HomePage = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const isLoggedIn = location?.state?.isLoggedIn;
-    const accountType = location?.state?.accountType;
+  const accountType = location?.state?.accountType;
   const username = location?.state?.username || "";
-
+    var userID = 1;
     const getUserID = async () => {
         console.log("Getting ID for user " + username);
         const result = await fetch('/api/account/getuseridbyemail', {
@@ -25,15 +25,20 @@ export const HomePage = () => {
                 'Accept': 'application/json'
             },
             body: JSON.stringify({
-                id: username
+                email: username
             })
         })
+        var data = await result.json();
+        console.log(data);
+        return data;
     }
-    var userID = 1;
+    
     if (username !== "") {
-      userID = getUserID();
+        getUserID().then((res) => {
+            userID = res;
+        });
     }
-    console.log("User ID: " + userID);
+    console.log(userID);
 
   /* dummy data 
   need to retrieve this data from backend */
@@ -114,7 +119,7 @@ export const HomePage = () => {
             <Link
               key={event.id}
               to={`/event/${event.id}`}
-                  onClick={() => dispatch({ type: 'SET_EVENT', payload: { event, userID} })}
+                  onClick={() => dispatch({ type: 'SET_EVENT', payload: { event, userID, username, isLoggedIn, accountType} })}
             >
               <EventCard event={event} />
             </Link>

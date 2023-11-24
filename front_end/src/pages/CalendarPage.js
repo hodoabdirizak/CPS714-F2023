@@ -6,15 +6,40 @@ import { useLocation } from "react-router-dom";
 import Navbar from '../components/Navbar'; 
 import './CalendarPage.css';
 import { Scheduler } from "@aldabil/react-scheduler";
+import { useSelector } from 'react-redux';
 
 export const CalendarPage = () => {
 
   /*const events = */
 
-  const location = useLocation();
-   const isLoggedIn = location?.state?.params;
+    const location = useLocation();
+    const isLoggedIn = location.state?.isLoggedIn || false;
+    const accountType = location.state?.accountType;
+    const username = location.state?.username|| "";
+    var userID = 1;
+    const getUserID = async () => {
+        console.log("Getting ID for user " + username);
+        const result = await fetch('/api/account/getuseridbyemail', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                email: username
+            })
+        })
+        var data = await result.json();
+        console.log(data);
+        return data;
+    }
 
-    const userID = location.state?.userID || 1;
+    if (username !== "") {
+        getUserID().then((res) => {
+            userID = res;
+        });
+    }
+    console.log(userID);
 
     const getUserEvents = async () => {
         console.log("Getting events for user " + userID);

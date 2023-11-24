@@ -17,6 +17,11 @@ export const BookingPage = () => {
     const eventName = event.title || "Generic Event";
     const eventVenue = event.venue || "Generic Venue";
     const eventDate = event.date || "Generic Date";
+    const isLoggedIn = location?.state?.isLoggedIn;
+    const accountType = location?.state?.accountType;
+    const username = location?.state?.username || "";
+    console.log("Username " + username);
+
 
     //Determine remaining tickets for the event
 
@@ -97,7 +102,10 @@ export const BookingPage = () => {
                     numOfTickets: numOfTickets,
                     eventDate: eventDate,
                     eventName: eventName,
-                    eventVenue: eventVenue
+                    eventVenue: eventVenue,
+                    isLoggedIn: isLoggedIn,
+                    accountType: accountType,
+                    username: username
                 }
             );
             history.go(0);

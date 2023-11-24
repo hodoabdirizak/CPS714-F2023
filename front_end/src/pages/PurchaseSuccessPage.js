@@ -9,11 +9,14 @@ import './PurchaseSuccessPage.css';
 
 export const PurchaseSuccessPage = () => {
     const location = useLocation();
-    const isLoggedIn = location?.state?.params;
+    const isLoggedIn = location?.state?.isLoggedIn;
+    const accountType = location?.state?.accountType;
+    const username = location?.state?.username || "";
+    console.log("Username " + username);
     var orderNumber = '123GRZRMQ';
     return (
         <div className="ticket-success-container">
-            <Navbar isLoggedIn={isLoggedIn} />
+            <Navbar isLoggedIn={isLoggedIn} username={username} accountType={accountType} />
             <div className="thank-you-container">
                 <div className="thank-you-text">THANK YOU FOR YOUR PURCHASE!</div>
                 <div className="checkmark-container">
