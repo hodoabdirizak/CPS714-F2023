@@ -7,7 +7,7 @@ import bg from '../assets/logo200.png';
 import { useHistory } from 'react-router-dom';
 import { useLocation } from "react-router-dom";
 
-Modal.setAppElement('#root'); // or 'body' or another appropriate selector
+Modal.setAppElement('#root'); 
 
 export const ProfileAttendee = () => {
   const location = useLocation();
