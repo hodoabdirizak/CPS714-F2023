@@ -1,7 +1,5 @@
-// pages/HomePage.js
-
-import React from 'react'
-import { useLocation } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import Navbar from '../components/Navbar';
@@ -15,34 +13,35 @@ export const HomePage = () => {
   const isLoggedIn = location?.state?.isLoggedIn;
   const accountType = location?.state?.accountType;
   const username = location?.state?.username || "";
-    var userID = 1;
-    const getUserID = async () => {
-        console.log("Getting ID for user " + username);
-        const result = await fetch('/api/account/getuseridbyemail', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify({
-                email: username
-            })
-        })
-        var data = await result.json();
-        console.log(data);
-        return data;
-    }
-    
+  var userID = 1;
+
+  const getUserID = async () => {
+    console.log("Getting ID for user " + username);
+    const result = await fetch('/api/account/getuseridbyemail', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        email: username
+      })
+    });
+    var data = await result.json();
+    console.log(data);
+    return data;
+  }
+
+  useEffect(() => {
     if (username !== "") {
-        getUserID().then((res) => {
-            userID = res;
-        });
+      getUserID().then((res) => {
+        userID = res;
+      });
     }
     console.log(userID);
+  }, [username]);
 
-  /* dummy data 
-  need to retrieve this data from backend */
-  const events = [
+  const [events, setEvents] = useState([
     {
       id: 1,
       title: 'Harmony Fest',
@@ -103,29 +102,72 @@ export const HomePage = () => {
       address: '789 Tech Boulevard, Toronto',
       imageUrl: 'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&q=60&w=800&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGV2ZW50fGVufDB8fDB8fHww',
     },
-  ];
+  ]);
+
+  const [showPopUp, setShowPopUp] = useState(false);
+  const [currentEvent, setCurrentEvent] = useState(null);
+
+  useEffect(() => {
+    const currentDate = new Date();
+
+    const recentlyFinishedEvents = events.filter((event) => {
+      const eventDateTime = new Date(event.date + ' ' + event.time.split(' - ')[0]);
+      return currentDate > eventDateTime && !event.feedbackFormDisplayed;
+    });
+
+    if (recentlyFinishedEvents.length > 0) {
+      recentlyFinishedEvents.forEach((recentEvent) => {
+        setEvents((prevEvents) =>
+          prevEvents.map((prevEvent) =>
+            prevEvent.id === recentEvent.id
+              ? { ...prevEvent, feedbackFormDisplayed: true }
+              : prevEvent
+          )
+        );
+      });
+
+      setShowPopUp(true);
+      setCurrentEvent(recentlyFinishedEvents[0]);
+    }
+  }, [events]);
+
+  const handleClosePopUp = () => {
+    setShowPopUp(false);
+  };
 
   return (
     <div className='home-page-container'>
-      <Navbar isLoggedIn={isLoggedIn} username={username} accountType={accountType}/>
+      <Navbar isLoggedIn={isLoggedIn} username={username} accountType={accountType} />
       <div className='background-image'>
         <img src={CoverPhoto} alt='' />
       </div>
       <div className='content'>
         <h1>Socials, conferences, corporate events, workshops and <span style={{ color: '#8C6ACB' }}>more</span>.</h1>
         <h2>Trending events in <span style={{ color: '#696969' }}>Toronto</span></h2>
-        {/* <div className="event-cards">
+        <div className="event-cards">
           {events.map((event) => (
             <Link
               key={event.id}
               to={`/event/${event.id}`}
-                  onClick={() => dispatch({ type: 'SET_EVENT', payload: { event, userID, username, isLoggedIn, accountType} })}
+              onClick={() => dispatch({ type: 'SET_EVENT', payload: { event, userID, username, isLoggedIn, accountType } })}
             >
               <EventCard event={event} />
             </Link>
           ))}
-        </div> */}
+        </div>
       </div>
+
+      {showPopUp && (
+        <div className='popup-overlay'>
+          <div className='popup'>
+            <div className='popup-content'>
+              <h3>{currentEvent.title}</h3>
+              <p>{currentEvent.event_desc}</p>
+              <button onClick={handleClosePopUp}>Close</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
