@@ -57,9 +57,8 @@ app.post('/api/eventAttendee/getUserEvents', controllers.eventAttendeeController
 
 
 // Caterer routes
-// app.get('/api/caterer/', controllers.catererController);
-// app.post('/api/caterer/', controllers.catererController);
-// app.post('/api/caterer/', controllers.catererController);
+app.post('/api/caterer/getcatereraccount', controllers.catererController.getCatererAccount);
+app.post('/api/caterer/deleteaccountcaterer', controllers.catererController.deleteAccountCaterer);
 
 
 app.listen(API_PORT, () => console.log(`Listening on port ${API_PORT}`));

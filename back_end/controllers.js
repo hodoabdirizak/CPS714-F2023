@@ -1,4 +1,5 @@
 const dbOperationUserAccount = require('./SQLServerFiles/dbOperationUserAccount');
+const dbOperationCaterer = require('./SQLServerFiles/dbOperationCaterer');
 const dbOperationEvent = require('./SQLServerFiles/dbOperationEvent');
 const dbOperationEventAttendees = require('./SQLServerFiles/dbOperationEventAttendees');
 
@@ -156,7 +157,26 @@ const venueController = {
 };
 
 const catererController = {
-
+  getCatererAccount: async(req,res) => {
+    console.log('Called /api/caterer/getcatereraccount');
+    const result = await dbOperationCaterer.getCatererAccount(req.body.email);
+    console.dir(result);
+    res.send(result);
+  },
+  deleteAccountCaterer: async (req, res) => {
+    try {
+      console.log('Called /api/caterer/deleteaccountcaterer');
+      const result = await dbOperationCaterer.deleteAccountCaterer(req.body.email);
+      console.dir(result);
+      if (result > 0) {
+        res.send('True');
+      } else {
+        res.send('False');
+      }   
+    } catch (err) {
+      console.log(err);
+    }
+  }
 };
 
 
