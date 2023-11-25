@@ -2,7 +2,10 @@ const dbOperationUserAccount = require('./SQLServerFiles/dbOperationUserAccount'
 const dbOperationCaterer = require('./SQLServerFiles/dbOperationCaterer');
 const dbOperationEvent = require('./SQLServerFiles/dbOperationEvent');
 const dbOperationEventAttendees = require('./SQLServerFiles/dbOperationEventAttendees');
-const dbOperationOrganizer = require('./SQLServerFiles/dbOperationOrganizer');
+const dbOperationVenues = require('./SQLServerFiles/dbOperationVenues');
+const dbOperationEventHosting = require('./SQLServerFiles/dbOperationEventHosting');
+const dbOperationOrganizerEvents = require('./SQLServerFiles/dbOperationOrganizerEvents');
+const dbOperationCaterers = require('./SQLServerFiles/dbOperationCaterer');
 
 
 const userAccountController = {
@@ -140,18 +143,50 @@ const organizerController = {
 
 
 const eventController = {
-  getCapacity: async (req, res) => {
-    console.log('Called /api/event/getCapacity');
-    const result = await dbOperationEvent.getCapacity(req.body.id);
-    console.dir(result);
-    res.send(result.recordset);
-  },
-  getEventInfo: async (req, res) => {
-    console.log('Called /api/event/getEventInfo');
-    const result = await dbOperationEvent.getEventInfo(req.body.id);
-    console.dir(result);
-    res.send(result.recordset);
-  },
+    getEventByName: async (req, res) => {
+        console.log('Called /api/event/getEventByName');
+        const result = await dbOperationEvent.getEventByName(req.body.name);
+        console.dir(result);
+        res.send(result.recordset);
+    },
+    getEvents: async (req, res) => {
+        console.log('Called /api/event/getEvents');
+        const result = await dbOperationEvent.getEvents(req.body.name);
+        console.dir(result);
+        res.send(result.recordset);
+    },
+    createEvent: async (req, res) => {
+        console.log('Called /api/event/createEvent');
+        console.dir(req.body);
+        //create and return event
+        await dbOperationEvent.createEvent(req.body);
+        const result = await dbOperationEvent.getEventByName(req.body.Event_name);
+
+        //stop if event is virtual
+        if(req.body.eventFormat == "Virtual"){
+            console.log('1event'+ JSON.parse(JSON.stringify(result.recordset[0]))['Event_id']);
+            await dbOperationOrganizerEvents.createOrganizerEvent(JSON.parse(JSON.stringify(result.recordset[0]))['Event_id'], req.body.OrganizerId);
+        }else{
+            console.log('hosting ' + JSON.parse(JSON.stringify(result.recordset[0]))['Event_id']);
+            await dbOperationEventHosting.createEventHosting(JSON.parse(JSON.stringify(result.recordset[0]))['Event_id'], req.body.VenueId);
+            console.log('2event'+ JSON.parse(JSON.stringify(result.recordset[0]))['Event_id']);
+            await dbOperationOrganizerEvents.createOrganizerEvent(JSON.parse(JSON.stringify(result.recordset[0]))['Event_id'], req.body.OrganizerId);
+        }
+        console.dir(result);
+        res.send(result.recordset);
+    },
+    getCapacity: async (req, res) => {
+        console.log('Called /api/event/getCapacity');
+        const result = await dbOperationEvent.getCapacity(req.body.id);
+        console.dir(result);
+        res.send(result.recordset);
+    },
+    getEventInfo: async (req, res) => {
+        console.log('Called /api/event/getEventInfo');
+        const result = await dbOperationEvent.getEventInfo(req.body.id);
+        console.dir(result);
+        res.send(result.recordset);
+    },
 };
 
 const eventAttendeeController = {
@@ -182,10 +217,23 @@ const eventAttendeeController = {
 };
 
 const venueController = {
-
+    getVenues: async (req, res) => {
+        console.log('Called /api/venue/getVenues');
+        const result = await dbOperationVenues.getVenues(req.body);
+        console.dir(result);
+        res.send(result);
+    }
 };
 
+
 const catererController = {
+    getCaterers: async(req,res) => {
+        console.log('Called /api/caterer/getCaterers');
+        const result = await dbOperationCaterers.getCaterers(req.body);
+        console.dir(result);
+        res.send(result);
+    }
+
   getCatererAccount: async(req,res) => {
     console.log('Called /api/caterer/getcatereraccount');
     const result = await dbOperationCaterer.getCatererAccount(req.body.email);

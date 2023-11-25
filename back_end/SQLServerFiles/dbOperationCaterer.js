@@ -55,11 +55,20 @@ const deleteAccountCaterer = async (email) => {
   }
 };
 
+const getCaterers = async () => {
+  try {
+    await sql.connect(config);
+    const result = await sql.query(`SELECT * FROM Caterer`);
+    return result.recordset;
+  } catch (err) {
+    throw err;
+  }
+};
+
 module.exports = {
-  getCatererAccount,
-  deleteAccountCaterer,
-  updateCatererAccount
-  // createCaterer,
-  // getCaterersByCuisine,
-  // updateCaterer,
+  createCaterer,
+  getCaterersByCuisine,
+  updateCaterer,
+  getCaterers,
+
 };

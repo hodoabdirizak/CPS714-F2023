@@ -66,7 +66,8 @@ export const CalendarPage = () => {
     }
 
     var events = [];
-    getUserEvents();
+    var eventIDs = getUserEvents();
+
   
 
   const translations = {
