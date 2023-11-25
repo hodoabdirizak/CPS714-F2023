@@ -114,7 +114,7 @@ export const HomePage = () => {
       <div className='content'>
         <h1>Socials, conferences, corporate events, workshops and <span style={{ color: '#8C6ACB' }}>more</span>.</h1>
         <h2>Trending events in <span style={{ color: '#696969' }}>Toronto</span></h2>
-        {/* <div className="event-cards">
+        <div className="event-cards">
           {events.map((event) => (
             <Link
               key={event.id}
@@ -124,7 +124,7 @@ export const HomePage = () => {
               <EventCard event={event} />
             </Link>
           ))}
-        </div> */}
+        </div>
       </div>
     </div>
   );
