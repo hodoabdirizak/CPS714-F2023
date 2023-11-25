@@ -204,7 +204,6 @@ export const SignUpPage = () => {
                 placeholder="Pronouns"
                 value={newUserAccount.Pronouns}
                 onChange={setInput}
-                required
                 className="input-style-5"
               />
             </div>
