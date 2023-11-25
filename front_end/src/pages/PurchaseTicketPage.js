@@ -26,15 +26,7 @@ export const PurchaseTicketPage = props => {
     const accountType = location?.state?.accountType;
     const username = location?.state?.username || "";
     console.log("Username " + username);
-    //const {
-    //    userID = 0,
-    //    eventID = 0,
-    //    userOwnedTickets = 0,
-    //    numOfTickets = 1,
-    //    eventDate = "December 10th, 2023",
-    //    eventName = "Graduation Ceremony",
-    //    eventVenue = "Madison Square Garden"
-    //} = JSON.stringify(state);
+
     console.log(userID + ", " + eventID + ", " + userOwnedTickets);
 
     const updateTickets = async () => {

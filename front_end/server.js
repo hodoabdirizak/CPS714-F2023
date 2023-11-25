@@ -16,6 +16,7 @@ app.use(cors());
 
 
 // ROUTES
+app.get("/")
 
 // User_Account routes
 app.get('/api/account/getaccounts', controllers.userAccountController.getAccounts);
@@ -40,7 +41,11 @@ app.post('/api/organizer/deleteaccountorganizer', controllers.organizerControlle
 
 // Event routes
 // app.get('/api/event/', controllers.eventController);
+
+app.post('/api/event/createEvent', controllers.eventController.createEvent);
+
 app.post('/api/event/getEventInfo', controllers.eventController.getEventInfo);
+
 app.post('/api/event/getCapacity', controllers.eventController.getCapacity);
 
 
@@ -52,12 +57,13 @@ app.post('/api/eventAttendee/getUserEvents', controllers.eventAttendeeController
 
 
 // Venue routes
-// app.get('/api/venue/', controllers.venueController);
+app.get('/api/venue/getVenues', controllers.venueController.getVenues);
 // app.post('/api/venue/', controllers.venueController);
 // app.post('/api/venue/', controllers.venueController);
 
 
 // Caterer routes
+app.get('/api/caterer/getCaterers', controllers.catererController.getCaterers);
 app.post('/api/caterer/getcatereraccount', controllers.catererController.getCatererAccount);
 app.post('/api/caterer/updateuseraccount', controllers.catererController.updateCatererAccount);
 app.post('/api/caterer/deleteaccountcaterer', controllers.catererController.deleteAccountCaterer);

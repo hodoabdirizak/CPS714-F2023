@@ -11,10 +11,24 @@ const getEvents = async () => {
   }
 };
 
+const getEventByName = async (Event_Name) => {
+    try {
+        console.log("Getting Event")
+        await sql.connect(config);
+        const result = await sql.query(`SELECT * FROM Event_Table WHERE Event_name='${Event_Name}'`);
+        console.log(result);
+        return result;
+    } catch (err) {
+        console.error(err);
+        throw err;
+    }
+};
+
 const createEvent = async (event) => {
   try {
     await sql.connect(config);
-    const result = await sql.query(`INSERT INTO Event_table (Event_id, Event_name, Event_type, Event_start_date, Event_end_date, Event_start_time, Event_end_time, Event_description, Capacity, Minimum_age, Approved, Ticket_cost) VALUES('${event.Event_id}', '${event.Event_name}', '${event.Event_type}', '${event.Event_start_date}', '${event.Event_end_date}', '${event.Event_start_time}', '${event.Event_description}', '${event.Capacity}', '${event.Minimum_age}', '${event.Approved}', '${event.Ticket_cost}')`);
+    const result = await sql.query(`INSERT INTO Event_table (Event_name, Event_type, Event_start_date, Event_end_date, Event_start_time,Event_end_time, Event_description, Capacity, Minimum_age, Approved, Ticket_cost,Event_format) VALUES('${event.Event_name}', '${event.Event_type}', '${event.Event_start_date}', '${event.Event_end_date}', '${event.Event_start_time}', '${event.Event_end_time}', '${event.Event_description}', '${event.Capacity}', '${event.Minimum_age}', '${event.Approved}', '${event.Ticket_cost}', '${event.eventFormat}')`);
+    console.log(result);
     return result.recordset;
   } catch (err) {
     throw err;
@@ -58,7 +72,10 @@ const getEventInfo = async (eventID) => {
 module.exports = {
     getEvents,
     getCapacity,
-  createEvent,
+
+    createEvent,
     updateEvent,
+    getEventByName,
+
     getEventInfo
 };
