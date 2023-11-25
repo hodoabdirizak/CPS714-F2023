@@ -115,9 +115,6 @@ export const LoginPage = () => {
           <br></br>
           <br></br>
           <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
           <button
             type="button"
             onClick={() => history.push('/', {})}
