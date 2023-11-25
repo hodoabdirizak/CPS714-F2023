@@ -1,7 +1,6 @@
 // pages/HomePage.js
 
 import React from 'react'
-import { useState } from 'react'
 import { useLocation } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -45,10 +44,9 @@ export const HomePage = () => {
         });
     }
     console.log(userID);
+  }, [username]);
 
-  /* dummy data 
-  need to retrieve this data from backend */
-  const events = [
+  const [events, setEvents] = useState([
     {
       id: 1,
       title: 'Harmony Fest',
@@ -109,28 +107,59 @@ export const HomePage = () => {
       address: '789 Tech Boulevard, Toronto',
       imageUrl: 'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&q=60&w=800&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGV2ZW50fGVufDB8fDB8fHww',
     },
-  ];
+  ]);
+
+  const [showPopUp, setShowPopUp] = useState(false);
+  const [currentEvent, setCurrentEvent] = useState(null);
+
+  useEffect(() => {
+    const currentDate = new Date();
+
+    const recentlyFinishedEvents = events.filter((event) => {
+      const eventDateTime = new Date(event.date + ' ' + event.time.split(' - ')[0]);
+      return currentDate > eventDateTime && !event.feedbackFormDisplayed;
+    });
+
+    if (recentlyFinishedEvents.length > 0) {
+      recentlyFinishedEvents.forEach((recentEvent) => {
+        setEvents((prevEvents) =>
+          prevEvents.map((prevEvent) =>
+            prevEvent.id === recentEvent.id
+              ? { ...prevEvent, feedbackFormDisplayed: true }
+              : prevEvent
+          )
+        );
+      });
+
+      setShowPopUp(true);
+      setCurrentEvent(recentlyFinishedEvents[0]);
+    }
+  }, [events]);
+
+  const handleClosePopUp = () => {
+    setShowPopUp(false);
+  };
 
   return (
     <div className='home-page-container'>
-          <Navbar isLoggedIn={isLoggedIn} username={username} accountType={accountType} userID={userID} />
+      <Navbar isLoggedIn={isLoggedIn} username={username} accountType={accountType}/>
       <div className='background-image'>
         <img src={CoverPhoto} alt='' />
       </div>
       <div className='content'>
         <h1>Socials, conferences, corporate events, workshops and <span style={{ color: '#8C6ACB' }}>more</span>.</h1>
         <h2>Trending events in <span style={{ color: '#696969' }}>Toronto</span></h2>
-        { <div className="event-cards">
+        {/* <div className="event-cards">
           {events.map((event) => (
             <Link
               key={event.id}
               to={`/event/${event.id}`}
-                  onClick={() => dispatch({ type: 'SET_EVENT', payload: { event, userID, username, isLoggedIn, accountType} })}
+              onClick={() => dispatch({ type: 'SET_EVENT', payload: { event, userID, username, isLoggedIn, accountType } })}
             >
               <EventCard event={event} />
             </Link>
           ))}
-        </div> }
+        </div> */}
       </div>
     </div>
   );
