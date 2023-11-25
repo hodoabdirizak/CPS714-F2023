@@ -14,8 +14,13 @@ export const HomePage = () => {
   const location = useLocation();
   const isLoggedIn = location?.state?.isLoggedIn;
   const accountType = location?.state?.accountType;
-  const username = location?.state?.username || "";
-    var userID = 1;
+    const username = location?.state?.username || "";
+    const hasID = location?.state?.userID || 0;
+    const [userID, setUserID] = useState(0);
+
+    if (hasID !== 0 && userID === 0) {
+        setUserID(hasID);
+    }
     const getUserID = async () => {
         console.log("Getting ID for user " + username);
         const result = await fetch('/api/account/getuseridbyemail', {
@@ -33,16 +38,15 @@ export const HomePage = () => {
         return data;
     }
     
-    if (username !== "") {
+    if (username !== "" && userID === 0 && hasID === 0) {
         getUserID().then((res) => {
-            userID = res;
+            setUserID(res);
         });
     }
     console.log(userID);
+  }, [username]);
 
-  /* dummy data 
-  need to retrieve this data from backend */
-  const events = [
+  const [events, setEvents] = useState([
     {
       id: 1,
       title: 'Harmony Fest',
@@ -103,7 +107,38 @@ export const HomePage = () => {
       address: '789 Tech Boulevard, Toronto',
       imageUrl: 'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&q=60&w=800&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGV2ZW50fGVufDB8fDB8fHww',
     },
-  ];
+  ]);
+
+  const [showPopUp, setShowPopUp] = useState(false);
+  const [currentEvent, setCurrentEvent] = useState(null);
+
+  useEffect(() => {
+    const currentDate = new Date();
+
+    const recentlyFinishedEvents = events.filter((event) => {
+      const eventDateTime = new Date(event.date + ' ' + event.time.split(' - ')[0]);
+      return currentDate > eventDateTime && !event.feedbackFormDisplayed;
+    });
+
+    if (recentlyFinishedEvents.length > 0) {
+      recentlyFinishedEvents.forEach((recentEvent) => {
+        setEvents((prevEvents) =>
+          prevEvents.map((prevEvent) =>
+            prevEvent.id === recentEvent.id
+              ? { ...prevEvent, feedbackFormDisplayed: true }
+              : prevEvent
+          )
+        );
+      });
+
+      setShowPopUp(true);
+      setCurrentEvent(recentlyFinishedEvents[0]);
+    }
+  }, [events]);
+
+  const handleClosePopUp = () => {
+    setShowPopUp(false);
+  };
 
   return (
     <div className='home-page-container'>
@@ -119,7 +154,7 @@ export const HomePage = () => {
             <Link
               key={event.id}
               to={`/event/${event.id}`}
-                  onClick={() => dispatch({ type: 'SET_EVENT', payload: { event, userID, username, isLoggedIn, accountType} })}
+              onClick={() => dispatch({ type: 'SET_EVENT', payload: { event, userID, username, isLoggedIn, accountType } })}
             >
               <EventCard event={event} />
             </Link>

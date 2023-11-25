@@ -67,7 +67,8 @@ export const PurchaseTicketPage = props => {
             {
                 isLoggedIn: isLoggedIn,
                 accountType: accountType,
-                username: username
+                username: username,
+                userID: userID
             }
             );
         history.go(0);
