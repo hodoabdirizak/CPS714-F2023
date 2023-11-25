@@ -50,23 +50,95 @@ export const EventCreationForm = () => {
   };
   const handleOptionChange1 = (event) => {
     setSelectedOption1(event.target.value);
-  };
+    };
 
+    var [venueList, setVenueList] = useState([]);
+    var [catererList, setCatererList] = useState([]);
+
+    var [retrievedVenue, setRetrievedVenue] = useState(false);
+    var [retrievedCaterer, setRetrievedCaterer] = useState(false);
+
+    const getVenues = async () => {
+        console.log("Getting all venues")
+        const result = await fetch('/api/venue/getVenues', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+
+        });
+        let temp = venueList;
+        console.log("in get venues1");
+        const data = JSON.parse(JSON.stringify(await result.json()));
+        console.log("in get venues2");
+        if (temp.length < data.length) {
+            for (var i = 0; i < data.length; i++) {
+                var element =
+                {
+                    Venue_id: data[i]["Venue_id"],
+                    Venue_name: data[i]["Venue_name"]
+                }
+                temp.push(element);
+                //console.log("Appending " + JSON.stringify(data[i]));
+                //console.log("Length: " + length);
+            }
+         //   console.log(temp);
+            setVenueList(temp);
+        }
+       // console.log(venueList);
+       
+    };
+    const getCaterers = async () => {
+        console.log("Getting all caterers")
+        const result = await fetch('/api/caterer/getcaterers', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+
+        });
+        let temp = catererList;
+        console.log("in get caterers1");
+        const data = JSON.parse(JSON.stringify(await result.json()));
+        console.log(data);
+        console.log("in get caterers2");
+        if (temp.length < data.length) {
+            for (var i = 0; i < data.length; i++) {
+                var element =
+                {
+                    Caterer_id: data[i]["Caterer_id"],
+                    Cuisine: data[i]["Cuisine"]
+                }
+                var length = temp.push(element);
+                //console.log("Appending " + JSON.stringify(data[i]));
+                //console.log("Length: " + length);
+            }
+            setCatererList(temp);
+        }
+        console.log(catererList);
+    };
 
   const getdropdown1 = () =>{
       getVenues().then(res => {
+          
           console.log("Displaying Venues");
           for (var j = 0; j < venueList.length; j++) {
               console.log("Venue: " + JSON.parse(JSON.stringify(venueList[j]))["Venue_name"]);
           }
+
           
           var select = document.getElementById("selectVenue");
-          for(var i = 0; i < venueList.length; i++) {
-              var opt = JSON.parse(JSON.stringify(venueList[i]))["Venue_name"];
-              var el = document.createElement("option");
-              el.textContent = opt;
-              el.value = parseInt(JSON.parse(JSON.stringify(venueList[i]))["Venue_id"]);
-              select.appendChild(el);
+          console.log(select.childElementCount);
+          if (select.childElementCount < venueList.length) {
+              for (var i = 0; i < venueList.length; i++) {
+                  var opt = JSON.parse(JSON.stringify(venueList[i]))["Venue_name"];
+                  var el = document.createElement("option");
+                  el.textContent = opt;
+                  el.value = parseInt(JSON.parse(JSON.stringify(venueList[i]))["Venue_id"]);
+                  select.appendChild(el);
+              }
           }
           
       });
@@ -81,13 +153,15 @@ export const EventCreationForm = () => {
           console.log("Caterer: " + JSON.parse(JSON.stringify(catererList[j]))["Cuisine"]);
       }
       var select = document.getElementById("selectCaterer");
-      for(var i = 0; i < catererList.length; i++) {
-          var opt = JSON.parse(JSON.stringify(catererList[i]))["Cuisine"];
-          var el = document.createElement("option");
-          el.textContent = opt;
-          el.value = parseInt(JSON.parse(JSON.stringify(catererList[i]))["Caterer_id"]);
-          select.appendChild(el);
-      }
+        if (select.childElementCount < catererList.length) {
+            for (var i = 0; i < catererList.length; i++) {
+                var opt = JSON.parse(JSON.stringify(catererList[i]))["Cuisine"];
+                var el = document.createElement("option");
+                el.textContent = opt;
+                el.value = parseInt(JSON.parse(JSON.stringify(catererList[i]))["Caterer_id"]);
+                select.appendChild(el);
+            }
+        }
   });
   }
 
@@ -136,48 +210,18 @@ export const EventCreationForm = () => {
     history.go(0);
   };
 
-  var venueList = [];
-  var catererList = [];
 
-  const getVenues = async () => {
-    console.log("Getting all venues")
-    const result = await fetch('/api/venue/getVenues', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        }
 
-    });
-      
-      console.log("in get venues1");
-      const data = await result.json();  
-      console.log("in get venues2");
-      for (var i = 0; i < data.length; i++) {
-        var length = venueList.push(data[i]);
-        console.log("Appending " + JSON.stringify(data[i]));
-        console.log("Length: " + length);
-      }
-};
-const getCaterers = async () => {
-  console.log("Getting all caterers")
-  const result = await fetch('/api/caterer/getcaterers', {
-      method: 'GET',
-      headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-      }
+    if (venueList.length === 0 && !retrievedVenue) {
+        setRetrievedVenue(true);
+        getdropdown1();
+    }
+    if (catererList.length === 0 && !retrievedCaterer) {
+        setRetrievedCaterer(true);
+        getdropdown2();
+    }
 
-  });
-  console.log("in get caterers1");
-  const data = await result.json();  
-  console.log("in get caterers2");
-  for (var i = 0; i < data.length; i++) {
-      var length = catererList.push(data[i]);
-      console.log("Appending " + JSON.stringify(data[i]));
-      console.log("Length: " + length);
-  }
-};
+
 
   return (
     <div className='event-creation-bg'>
@@ -208,7 +252,7 @@ const getCaterers = async () => {
             </div>
             <div className="form-group"> 
               <div>
-                <select id="selectVenue" value={eventLocation} onChange={handleChange} onClick={getdropdown1}>
+                <select id="selectVenue" value={eventLocation} onChange={handleChange} /*onClick={getdropdown1}*/>
                 <option value= "" hidden>Select the location</option>
                 </select>
               </div>
@@ -328,7 +372,7 @@ const getCaterers = async () => {
             </div>
             <div>
               <label>If yes, what catering services do you require?</label>
-              <select id="selectCaterer" value={catering} onChange={handleChange2} onClick={getdropdown2}>
+              <select id="selectCaterer" value={catering} onChange={handleChange2} /*onClick={getdropdown2}*/>
                 <option value="" hidden>Type of Catering Services</option>
               </select>
               <br></br>

@@ -14,10 +14,11 @@ export const HomePage = () => {
   const accountType = location?.state?.accountType;
   const username = location?.state?.username || "";
   const hasID = location?.state?.userID || 0;
-  const [userID, setUserID] = useState(0);
+    const [userID, setUserID] = useState(0);
 
   if (hasID !== 0 && userID === 0) {
       setUserID(hasID);
+      console.log("hasID " +userID);
   }  
 
   const getUserID = async () => {
@@ -32,7 +33,8 @@ export const HomePage = () => {
         email: username
       })
     });
-    var data = await result.json();
+      var data = await result.json();
+      setUserID(data);
     console.log(data);
     return data;
   }
@@ -40,6 +42,7 @@ export const HomePage = () => {
   if (username !== "" && userID === 0 && hasID === 0) {
     getUserID().then((res) => {
         setUserID(res);
+        console.log("got id "+res);
     });
   }
 
@@ -168,7 +171,7 @@ export const HomePage = () => {
 
   return (
     <div className='home-page-container'>
-      <Navbar isLoggedIn={isLoggedIn} username={username} accountType={accountType} />
+          <Navbar isLoggedIn={isLoggedIn} username={username} accountType={accountType} userID={userID} />
       <div className='background-image'>
         <img src={CoverPhoto} alt='' />
       </div>
