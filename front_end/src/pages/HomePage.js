@@ -4,6 +4,7 @@ import React from 'react'
 import { useLocation } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { useEffect, useState } from "react";
 import Navbar from '../components/Navbar';
 import CoverPhoto from '../assets/images/CoverPhoto.jpeg';
 import EventCard from '../components/EventCard';
@@ -14,37 +15,36 @@ export const HomePage = () => {
   const location = useLocation();
   const isLoggedIn = location?.state?.isLoggedIn;
   const accountType = location?.state?.accountType;
-    const username = location?.state?.username || "";
-    const hasID = location?.state?.userID || 0;
-    const [userID, setUserID] = useState(0);
+  const username = location?.state?.username || "";
+  const hasID = location?.state?.userID || 0;
+  const [userID, setUserID] = useState(0);
 
-    if (hasID !== 0 && userID === 0) {
-        setUserID(hasID);
-    }
-    const getUserID = async () => {
-        console.log("Getting ID for user " + username);
-        const result = await fetch('/api/account/getuseridbyemail', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify({
-                email: username
-            })
-        })
-        var data = await result.json();
-        console.log(data);
-        return data;
-    }
-    
-    if (username !== "" && userID === 0 && hasID === 0) {
-        getUserID().then((res) => {
-            setUserID(res);
-        });
-    }
-    console.log(userID);
-  }, [username]);
+  if (hasID !== 0 && userID === 0) {
+      setUserID(hasID);
+  }
+  const getUserID = async () => {
+      console.log("Getting ID for user " + username);
+      const result = await fetch('/api/account/getuseridbyemail', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+              email: username
+          })
+      })
+      var data = await result.json();
+      console.log(data);
+      return data;
+  };
+  
+  if (username !== "" && userID === 0 && hasID === 0) {
+      getUserID().then((res) => {
+          setUserID(res);
+      });
+  }
+  console.log(userID);
 
   const [events, setEvents] = useState([
     {
