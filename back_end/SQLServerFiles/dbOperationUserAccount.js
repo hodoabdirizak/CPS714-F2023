@@ -192,6 +192,22 @@ const deleteAccountAttendee = async (Email) => {
 }
 };
 
+const sendVerificationCode = async (email) => {
+  try {
+    // Generate a random verification code
+    const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
+
+    // Store the verification code in the database
+    await sql.query(`UPDATE User_Account SET VerificationCode = '${verificationCode}' WHERE Email = '${email}'`);
+
+    // Return the generated verification code
+    return verificationCode;
+  } catch (error) {
+    console.error('Error in sending verification code:', error);
+    throw error;
+  }
+};
+
 
 module.exports = {
   addAccount,
@@ -208,5 +224,6 @@ module.exports = {
   noDupEmails,
   updateUserAccount,
   verifyLogin,
-  deleteAccountAttendee
+  deleteAccountAttendee,
+  sendVerificationCode
 }

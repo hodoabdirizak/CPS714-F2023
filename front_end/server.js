@@ -2,17 +2,36 @@
 
 const express       = require('express'),
       controllers   = require('../back_end/controllers'),
-      cors          = require('cors');
+      cors          = require('cors'),
+      session       = require('express-session'),
+      crypto        = require('crypto');
 
 // Define port
 const API_PORT = process.env.PORT || 5000;
 const app = express();
 console.log(app);
 
-let client, session;
+
+let client;
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(cors());
+
+
+// Generate a random secret key
+const generateRandomKey = () => {
+  return crypto.randomBytes(32).toString('hex');
+};
+
+// Use the generated secret key for express-session
+const sessionSecret = generateRandomKey();
+
+// Add session middleware
+app.use(session({
+    secret: sessionSecret, // Change this to a secret key
+    resave: false,
+    saveUninitialized: true,
+  }));
 
 
 // ROUTES
@@ -30,6 +49,7 @@ app.post('/api/account/changepassword', controllers.userAccountController.change
 app.post('/api/account/verifylogin', controllers.userAccountController.verifyLogin);
 app.post('/api/account/getaccounttype', controllers.userAccountController.getAccountType);
 app.post('/api/account/deleteaccountattendee', controllers.userAccountController.deleteAccountAttendee);
+app.post('/api/account/sendverificationcode', controllers.userAccountController.sendVerificationCode);
 
 
 // Organizer routes

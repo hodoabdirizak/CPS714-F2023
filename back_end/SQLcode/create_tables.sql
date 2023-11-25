@@ -7,7 +7,8 @@ CREATE TABLE User_Account (
 	Pronouns VARCHAR(10), 
 	Account_type VARCHAR(10) NOT NULL, /* Options: "attendee", "organizer", "approver" */
 	Pswd VARCHAR(20) NOT NULL,
-	Account_verified VARCHAR(3)
+	Account_verified VARCHAR(3),
+	VerificationCode VARCHAR(255) DEFAULT NULL
 );
 
 /* Represents the Organizer entity - each organizer is associated with a user_id*/
