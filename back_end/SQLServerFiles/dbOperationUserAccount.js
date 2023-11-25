@@ -81,17 +81,22 @@ const changePassword = async (Email,newPassword) => {
 const addAccount = async (Account) => {
   try {
     await sql.connect(config);
-    const result = await sql.query(`INSERT INTO User_Account VALUES
-    ('${Account.Email}',
-    '${Account.Full_name}', 
-    ${Account.Phone_number},
-    '${Account.Pronouns}',
-    '${Account.Account_type}',
-    '${Account.Pswd}',
-    'No')`);
+    const result = await sql.query(`INSERT INTO User_Account 
+                                    (Email, Full_name, Phone_number, Pronouns, Account_type, Pswd, Account_verified) 
+                                    VALUES
+                                    ('${Account.Email}',
+                                    '${Account.Full_name}', 
+                                    ${Account.Phone_number},
+                                    '${Account.Pronouns}',
+                                    '${Account.Account_type}',
+                                    '${Account.Pswd}',
+                                    'No')`);
+    console.log('yaaar',result.recordset[0]['number']);
     return result.recordset;
-  } catch (err) {
-    throw err;
+  } 
+  catch (err) {
+    const errorNumber = err.number || (err.info && err.info.number);
+    return errorNumber;
   }
 };
 
@@ -110,10 +115,11 @@ const addOrganizerAccount = async (UserId) => {
     try {
         await sql.connect(config);
         console.dir('dbOp');
-        await sql.query(`INSERT INTO Organizer (User_id) VALUES(${parseInt(UserId) + 1})`);
+        console.dir(UserId);
+        await sql.query(`INSERT INTO Organizer (User_id) VALUES(${UserId})`);
+        
     } catch (err) {
         const errorNumber = err.number || (err.info && err.info.number);
-        throw err;
         return errorNumber;
     }
 };
@@ -122,7 +128,7 @@ const addCatererAccount = async (UserId) => {
   try {
     await sql.connect(config);
     console.dir('dbOp');
-    await sql.query(`INSERT INTO Caterer (User_id) VALUES(${parseInt(UserId)+1})`); 
+    await sql.query(`INSERT INTO Caterer (User_id) VALUES(${UserId})`); 
   } catch (err) {
     const errorNumber = err.number || (err.info && err.info.number);
     return errorNumber;
