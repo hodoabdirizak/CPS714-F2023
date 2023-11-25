@@ -84,7 +84,7 @@ export const ProfileCaterer = () => {
   }
 
   const updateUserAccount = async () => {
-    let response = await fetch('/api/account/updateuseraccount', {
+    let response = await fetch('/api/caterer/updateuseraccount', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -259,13 +259,6 @@ export const ProfileCaterer = () => {
             onClose={closeModal}
             onConfirm={handleDeleteAccount}
           />
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
           <br></br>
           <br></br>
           <br></br>

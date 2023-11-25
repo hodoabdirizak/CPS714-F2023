@@ -176,6 +176,16 @@ const catererController = {
     } catch (err) {
       console.log(err);
     }
+  },
+  updateCatererAccount: async(req,res) => {
+    console.log('Called /api/caterer/updateuseraccount');
+    const result = await dbOperationCaterer.updateCatererAccount(req.body);  
+    console.dir(result);
+    if (result > 0) {
+      res.send('True');
+    } else {
+      res.send('False');
+    }  
   }
 };
 

@@ -19,6 +19,25 @@ const getCatererAccount = async (email) => {
   }
 };
 
+const updateCatererAccount = async (Account) => {
+  try {
+    await sql.connect(config);
+    const result = await sql.query(`UPDATE User_Account 
+                                    SET Full_name = '${Account.Full_name}', Phone_number = ${Account.Phone_number}
+                                    WHERE Email = '${Account.Email}';
+                                    UPDATE Caterer
+                                    SET Full_address = '${Account.Full_address}', Cuisine = '${Account.Cuisine}', Price_per_attendee = ${Account.Price_per_attendee}
+                                    WHERE User_id IN (
+                                      SELECT User_Account.User_id
+                                      FROM User_Account
+                                      WHERE User_Account.Email = '${Account.Email}'
+                                    );`);
+    return result.rowsAffected[0];
+  } catch (err) {
+    throw err;
+  }
+};
+
 const deleteAccountCaterer = async (email) => {
   try {
   await sql.connect(config);
@@ -73,7 +92,8 @@ const deleteAccountCaterer = async (email) => {
 
 module.exports = {
   getCatererAccount,
-  deleteAccountCaterer
+  deleteAccountCaterer,
+  updateCatererAccount
   // createCaterer,
   // getCaterersByCuisine,
   // updateCaterer,
