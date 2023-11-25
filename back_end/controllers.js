@@ -232,7 +232,7 @@ const catererController = {
         const result = await dbOperationCaterers.getCaterers(req.body);
         console.dir(result);
         res.send(result);
-    }
+    },
 
   getCatererAccount: async(req,res) => {
     console.log('Called /api/caterer/getcatereraccount');
