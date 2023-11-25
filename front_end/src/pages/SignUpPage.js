@@ -51,11 +51,6 @@ export const SignUpPage = () => {
     return;
   }
 
-  const getUserIdByEmail = async () => {
-
-    console.log()
-  }
-
   const addOrganizerAccount = async (new_user_id) => {
     let response = await fetch('/api/account/addorganizeraccount', {
       method: 'POST',
