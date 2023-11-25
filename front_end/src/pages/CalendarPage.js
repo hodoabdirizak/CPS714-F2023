@@ -6,18 +6,19 @@ import { useLocation } from "react-router-dom";
 import Navbar from '../components/Navbar'; 
 import './CalendarPage.css';
 import { Scheduler } from "@aldabil/react-scheduler";
-import { useSelector } from 'react-redux';
+import  { useState } from 'react';
 
 export const CalendarPage = () => {
 
   /*const events = */
 
     const location = useLocation();
-    const isLoggedIn = location.state?.isLoggedIn || false;
+    const isLoggedIn = location.state?.isLoggedIn;
     const accountType = location.state?.accountType;
     const username = location.state?.username || "";
     const userID = location.state?.userID || 0;
     console.log(username + " " + accountType + " " + isLoggedIn + " " + userID);
+    var [events,setEvents] = useState([]);
 
     const getUserEvents = async () => {
         console.log("Getting events for user " + userID);
@@ -62,11 +63,12 @@ export const CalendarPage = () => {
             deletable: false,
             draggable: false
         };
-        events.push(temp);
+        let tempArr = events;
+        setEvents(tempArr.concat(temp));
     }
 
-    var events = [];
-    var eventIDs = getUserEvents();
+    if(events.length === 0 && userID !== 0)
+        getUserEvents();
 
   
 

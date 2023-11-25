@@ -35,7 +35,7 @@ function Navbar({ isLoggedIn, username, accountType, userID }) {
 
         history.push({
             pathname: url,
-            state: { isLoggedIn: true, username: username, accountType: accountType, userID: userID },
+            state: { isLoggedIn: isLoggedIn, username: username, accountType: accountType, userID: userID },
         });
     };
 
@@ -45,7 +45,7 @@ function Navbar({ isLoggedIn, username, accountType, userID }) {
 
         history.push({
             pathname: url,
-            state: { isLoggedIn: true, username: username, accountType: accountType, userID: userID },
+            state: { isLoggedIn: isLoggedIn, username: username, accountType: accountType, userID: userID },
         });
     };
 
