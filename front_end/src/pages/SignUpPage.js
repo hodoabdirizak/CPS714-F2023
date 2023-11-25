@@ -156,7 +156,6 @@ export const SignUpPage = () => {
     <div style={{ backgroundImage: `url(${bg})` }}>
       <div className="login-container" style={{ backgroundColor: `white` }}>
       <br></br>
-      <br></br>
         <img src={logo} alt="Logo" />
         <h1>Sign Up</h1>
         <form onSubmit={handleSignUp}>
@@ -244,13 +243,11 @@ export const SignUpPage = () => {
             style={{
               backgroundColor: '#E98123',
               borderRadius: '15px',
-              fontSize: '1.2rem',    // Increase the font size
-              width: '35%',          // Set the width to 50% of its container
+              fontSize: '1rem',    // Increase the font size
+              width: '33%',          // Set the width to 50% of its container
               padding: '10px 20px',  // Add padding to control the button size
             }}
           >Create Account</button>
-          <br></br>
-          <br></br>
           <br></br>
           <br></br>
           <button
@@ -259,8 +256,8 @@ export const SignUpPage = () => {
             style={{
               backgroundColor: 'gray',
               borderRadius: '15px',
-              fontSize: '1.1rem',    // Increase the font size
-              width: '43%',          // Set the width to 50% of its container
+              fontSize: '0.9rem',    // Increase the font size
+              width: '38%',          // Set the width to 50% of its container
               padding: '10px 20px'  // Add padding to control the button size
             }}
             >Return to Home Page

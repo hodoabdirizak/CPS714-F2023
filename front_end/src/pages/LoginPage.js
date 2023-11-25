@@ -67,7 +67,6 @@ export const LoginPage = () => {
       <div style={{ backgroundImage: `url(${bg})` }}>
         <div className="login-container" style={{ backgroundColor: `white` }}>
         <br></br>
-        <br></br>
         <img src={logo} alt="Logo" />
         <h1>Login</h1>
         <form onSubmit={handleLogin}>
@@ -115,13 +114,14 @@ export const LoginPage = () => {
           <br></br>
           <br></br>
           <br></br>
+          <br></br>
           <button
             type="button"
             onClick={() => history.push('/', {})}
             style={{
               backgroundColor: 'gray',
               borderRadius: '15px',
-              fontSize: '1.1rem',    // Increase the font size
+              fontSize: '1rem',    // Increase the font size
               width: '90%',          // Set the width to 50% of its container
               padding: '10px 20px'  // Add padding to control the button size
             }}
