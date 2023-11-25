@@ -33,15 +33,16 @@ app.post('/api/account/deleteaccountattendee', controllers.userAccountController
 
 
 // Organizer routes
-// app.get('/api/organizer/', controllers.organizerController);
-// app.post('/api/organizer/', controllers.organizerController);
-// app.post('/api/organizer/', controllers.organizerController);
+app.post('/api/organizer/getorganizeraccount', controllers.organizerController.getOrganizerAccount);
+app.post('/api/organizer/updateuseraccount', controllers.organizerController.updateOrganizerAccount);
+app.post('/api/organizer/deleteaccountorganizer', controllers.organizerController.deleteAccountOrganizer);
 
 
 // Event routes
 // app.get('/api/event/', controllers.eventController);
 app.post('/api/event/getEventInfo', controllers.eventController.getEventInfo);
 app.post('/api/event/getCapacity', controllers.eventController.getCapacity);
+
 
 //Event Attendee routs
 app.post('/api/eventAttendee/getAttendeeQuantity', controllers.eventAttendeeController.getAttendeeQuantity);
@@ -58,8 +59,7 @@ app.post('/api/eventAttendee/getUserEvents', controllers.eventAttendeeController
 
 // Caterer routes
 app.post('/api/caterer/getcatereraccount', controllers.catererController.getCatererAccount);
-app.post('/api/caterer/deleteaccountcaterer', controllers.catererController.deleteAccountCaterer);
 app.post('/api/caterer/updateuseraccount', controllers.catererController.updateCatererAccount);
-
+app.post('/api/caterer/deleteaccountcaterer', controllers.catererController.deleteAccountCaterer);
 
 app.listen(API_PORT, () => console.log(`Listening on port ${API_PORT}`));

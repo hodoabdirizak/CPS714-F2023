@@ -2,6 +2,8 @@ const dbOperationUserAccount = require('./SQLServerFiles/dbOperationUserAccount'
 const dbOperationCaterer = require('./SQLServerFiles/dbOperationCaterer');
 const dbOperationEvent = require('./SQLServerFiles/dbOperationEvent');
 const dbOperationEventAttendees = require('./SQLServerFiles/dbOperationEventAttendees');
+const dbOperationOrganizer = require('./SQLServerFiles/dbOperationOrganizer');
+
 
 const userAccountController = {
   createUserAccount: async(req,res) => {
@@ -106,7 +108,36 @@ const userAccountController = {
 
 
 const organizerController = {
-
+  getOrganizerAccount: async(req,res) => {
+    console.log('Called /api/organizer/getorganizeraccount');
+    const result = await dbOperationOrganizer.getOrganizerAccount(req.body.email);
+    console.dir(result);
+    res.send(result);
+  },
+  deleteAccountOrganizer: async (req, res) => {
+    try {
+      console.log('Called /api/organizer/deleteaccountorganizer');
+      const result = await dbOperationOrganizer.deleteAccountOrganizer(req.body.email);
+      console.dir(result);
+      if (result > 0) {
+        res.send('True');
+      } else {
+        res.send('False');
+      }   
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  updateOrganizerAccount: async(req,res) => {
+    console.log('Called /api/organizer/updateuseraccount');
+    const result = await dbOperationOrganizer.updateOrganizerAccount(req.body);  
+    console.dir(result);
+    if (result > 0) {
+      res.send('True');
+    } else {
+      res.send('False');
+    }  
+  }
 };
 
 

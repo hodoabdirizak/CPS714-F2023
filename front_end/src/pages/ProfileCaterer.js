@@ -76,9 +76,9 @@ export const ProfileCaterer = () => {
     const arrayLength = items.length;
       setUserAccount(prevState => ({
         ...prevState,
-        Full_address: `${items[0]}`,
-        Cuisine: `${items[1]}`,
-        Price_per_attendee: `${items[2]}`
+        Full_address: `${items[0] === 'null' ? '' : items[0]}`,
+        Cuisine: `${items[1] === 'null' ? '' : items[1]}`,
+        Price_per_attendee: `${items[2] === 'null}' ? '' : items[2]}`
       }));
     return;
   }

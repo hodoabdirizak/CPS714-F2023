@@ -37,6 +37,9 @@ const Routes = () => {
                 <Route path="/profile-caterer">
                     <ProfileCaterer />
                 </Route>
+                <Route path="/profile-organizer">
+                    <ProfileOrganizer />
+                </Route>
                 <Route path="/backend-testing">
                     <BackEndTesting />
                 </Route>
