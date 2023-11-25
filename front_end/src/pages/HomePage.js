@@ -1,6 +1,7 @@
 // pages/HomePage.js
 
 import React from 'react'
+import { useState } from 'react'
 import { useLocation } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -14,8 +15,13 @@ export const HomePage = () => {
   const location = useLocation();
   const isLoggedIn = location?.state?.isLoggedIn;
   const accountType = location?.state?.accountType;
-  const username = location?.state?.username || "";
-    var userID = 1;
+    const username = location?.state?.username || "";
+    const hasID = location?.state?.userID || 0;
+    const [userID, setUserID] = useState(0);
+
+    if (hasID !== 0 && userID === 0) {
+        setUserID(hasID);
+    }
     const getUserID = async () => {
         console.log("Getting ID for user " + username);
         const result = await fetch('/api/account/getuseridbyemail', {
@@ -33,9 +39,9 @@ export const HomePage = () => {
         return data;
     }
     
-    if (username !== "") {
+    if (username !== "" && userID === 0 && hasID === 0) {
         getUserID().then((res) => {
-            userID = res;
+            setUserID(res);
         });
     }
     console.log(userID);
@@ -107,14 +113,14 @@ export const HomePage = () => {
 
   return (
     <div className='home-page-container'>
-      <Navbar isLoggedIn={isLoggedIn} username={username} accountType={accountType}/>
+          <Navbar isLoggedIn={isLoggedIn} username={username} accountType={accountType} userID={userID} />
       <div className='background-image'>
         <img src={CoverPhoto} alt='' />
       </div>
       <div className='content'>
         <h1>Socials, conferences, corporate events, workshops and <span style={{ color: '#8C6ACB' }}>more</span>.</h1>
         <h2>Trending events in <span style={{ color: '#696969' }}>Toronto</span></h2>
-        {/* <div className="event-cards">
+        { <div className="event-cards">
           {events.map((event) => (
             <Link
               key={event.id}
@@ -124,7 +130,7 @@ export const HomePage = () => {
               <EventCard event={event} />
             </Link>
           ))}
-        </div> */}
+        </div> }
       </div>
     </div>
   );

@@ -15,31 +15,9 @@ export const CalendarPage = () => {
     const location = useLocation();
     const isLoggedIn = location.state?.isLoggedIn || false;
     const accountType = location.state?.accountType;
-    const username = location.state?.username|| "";
-    var userID = 1;
-    const getUserID = async () => {
-        console.log("Getting ID for user " + username);
-        const result = await fetch('/api/account/getuseridbyemail', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify({
-                email: username
-            })
-        })
-        var data = await result.json();
-        console.log(data);
-        return data;
-    }
-
-    if (username !== "") {
-        getUserID().then((res) => {
-            userID = res;
-        });
-    }
-    console.log(userID);
+    const username = location.state?.username || "";
+    const userID = location.state?.userID || 0;
+    console.log(username + " " + accountType + " " + isLoggedIn + " " + userID);
 
     const getUserEvents = async () => {
         console.log("Getting events for user " + userID);
@@ -102,7 +80,7 @@ export const CalendarPage = () => {
 
   return (
   <div className='home-page-container'>
-    <Navbar isLoggedIn={isLoggedIn} />
+          <Navbar isLoggedIn={isLoggedIn} username={username} userID={userID} accountType={accountType} />
     <div className='calendar-section' style={{ width: '90%' }}>
       <div style={{ paddingTop: "12vh", paddingLeft: "7vw", fontSize: "40px", fontWeight: "bold", marginBottom: "0%", color: "#696969" }}>
         My Calendar

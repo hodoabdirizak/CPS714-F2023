@@ -8,7 +8,7 @@ import { faSearch, faUser } from '@fortawesome/free-solid-svg-icons'
 import { useDispatch } from 'react-redux';
 import './Navbar.css';
 
-function Navbar({ isLoggedIn, username, accountType }) {
+function Navbar({ isLoggedIn, username, accountType, userID }) {
   const history = useHistory();
 
   const goToProfile = (e) => {
@@ -27,13 +27,33 @@ function Navbar({ isLoggedIn, username, accountType }) {
       pathname: url,
       state: { isLoggedIn: true, username: username },
     });
-  };
+    };
+
+    const gotoCalendar = (e) => {
+        e.preventDefault();
+        let url = "/calendar"
+
+        history.push({
+            pathname: url,
+            state: { isLoggedIn: true, username: username, accountType: accountType, userID: userID },
+        });
+    };
+
+    const goHome = (e) => {
+        e.preventDefault();
+        let url = "/"
+
+        history.push({
+            pathname: url,
+            state: { isLoggedIn: true, username: username, accountType: accountType, userID: userID },
+        });
+    };
 
   return (
     <div className="navbar">
       <div className="left-section">
         <div className="logo">
-        <a href="/">
+                  <a onClick={goHome} href="/">
           <img src={logo} alt="Logo" />
           </a>
         </div>
@@ -46,10 +66,10 @@ function Navbar({ isLoggedIn, username, accountType }) {
         </div>
       </div>
       <ul className="nav-items">
-          <li><a href="/">Find Events</a></li>
-          <li><a href="/">FAQ</a></li>
-          <li><a href="/">My Events</a></li>
-              <li><a href="/calendar">My Calendar</a></li>
+              <li><a onClick={goHome} href="/">Find Events</a></li>
+              <li><a onClick={goHome} href="/">FAQ</a></li>
+              <li><a onClick={goHome}  href="/">My Events</a></li>
+              <li><a onClick={gotoCalendar} href="/calendar">My Calendar</a></li>
           {/* If user is logged in, they will have the Profile navbar item
           instead of Sign In */}
           { isLoggedIn 
