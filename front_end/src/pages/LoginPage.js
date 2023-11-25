@@ -51,7 +51,7 @@ export const LoginPage = () => {
 
     } else if (data==='False') {
       alert(`Invalid/Incorrect email or password.`);
-      
+
     } else {
       alert('An error has occurred.')
     }
@@ -66,8 +66,10 @@ export const LoginPage = () => {
     return (
       <div style={{ backgroundImage: `url(${bg})` }}>
         <div className="login-container" style={{ backgroundColor: `white` }}>
+        <br></br>
+        <br></br>
         <img src={logo} alt="Logo" />
-        <h1>Event Viewer Login</h1>
+        <h1>Login</h1>
         <form onSubmit={handleLogin}>
           <div className="form-group">
             <input
@@ -108,20 +110,29 @@ export const LoginPage = () => {
         <div>
       	  <h5>Forgot your password? <a href = "/forgot-password">Click Here!</a></h5>
           <h5>Don't have an account? <a href = "/signup">Register Now!</a></h5>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <button
+            type="button"
+            onClick={() => history.push('/', {})}
+            style={{
+              backgroundColor: 'gray',
+              borderRadius: '15px',
+              fontSize: '1.1rem',    // Increase the font size
+              width: '90%',          // Set the width to 50% of its container
+              padding: '10px 20px'  // Add padding to control the button size
+            }}
+            >Return to Home Page
+          </button>
         </div>
 	<div>
 	  <br></br>
-	  <br></br>
-	  <br></br>
-	  <br></br>
-	  <br></br>
-	  <br></br>
-	  <br></br>
-	  <br></br>
-	  <br></br>
-    <br></br>
-	  <br></br>
-    <br></br>
   	</div>
       </div>
     </div>

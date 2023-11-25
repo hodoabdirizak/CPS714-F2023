@@ -10,11 +10,17 @@ import './EventInfo.css';
 const EventInfo = () => {
     const event = useSelector((state) => state.event.event);
     const userID = useSelector((state) => state.event.userID);
+
     const history = useHistory();
     const { id } = useParams();
-    var eventsAttending = [];
     var conflicts = [];
     console.log('Event ID:', id);
+
+    const isLoggedIn = useSelector((state) => state.event.isLoggedIn);
+    const accountType = useSelector((state) => state.event.accountType);
+    const username = useSelector((state) => state.event.username) || "";
+
+    console.log(username + " : " + userID)
 
     const getUserEvents = async () => {
         console.log("Getting events for user " + userID);
@@ -95,7 +101,10 @@ const EventInfo = () => {
             pathname: '/booking',
             state: {
                 event: event,
-                userID: userID
+                userID: userID,
+                isLoggedIn: isLoggedIn,
+                accountType: accountType,
+                username: username
             }
         });
         history.go(0);
@@ -104,7 +113,7 @@ const EventInfo = () => {
 
     return (
         <div>
-            <Navbar></Navbar>
+            <Navbar isLoggedIn={isLoggedIn} username={username} accountType={accountType}></Navbar>
             <div className="event-container">
                 <div className='event-date'>
                     <img src={event.imageUrl} alt={event.title} className="event-photo" />

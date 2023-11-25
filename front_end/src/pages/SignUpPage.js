@@ -8,7 +8,6 @@ import { useHistory } from 'react-router-dom';
 export const SignUpPage = () => {
   const [newUserAccount, setUserAccount] = useState({Email: '', Full_name: '', 
                                                   Phone_number: '', Pronouns: '', Account_type: '', Pswd: ''});
-  const [userId, setUserId] = useState({User_id: 0});
   const history = useHistory();
   const options = [
     { 
@@ -53,48 +52,50 @@ export const SignUpPage = () => {
   }
 
   const getUserIdByEmail = async () => {
-    let response = await fetch('/api/account/getuseridbyemail', {
+
+    console.log()
+  }
+
+  const addOrganizerAccount = async (new_user_id) => {
+    let response = await fetch('/api/account/addorganizeraccount', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       },
       body: JSON.stringify({
-        email: newUserAccount.Email
+        userId: new_user_id
       })
     });
 
     const data = await response.text();
-    setUserId(prevState => ({
-      ...prevState,
-      User_id: data 
-    }));
+
+    if (data==='2627') {
+      alert(`An account for this email already exists.`);
+    } else {
+      alert(`Organizer account has been created successfully.`);
+    }
   }
 
-  const addOrganizerAccount = async () => {
-    await fetch('/api/account/addorganizeraccount', {
+  const addCatererAccount = async (new_user_id) => {
+    let response = await fetch('/api/account/addcatereraccount', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       },
       body: JSON.stringify({
-        userId: userId.User_id
+        userId: new_user_id
       })
     });
-  }
 
-  const addCatererAccount = async () => {
-    await fetch('/api/account/addcatereraccount', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify({
-        userId: userId.User_id
-      })
-    });
+    const data = await response.text();
+
+    if (data==='2627') {
+      alert(`An account for this email already exists.`);
+    } else {
+      alert(`Organizer account has been created successfully.`);
+    }
   }
 
   const addAccount = async () => {
@@ -115,18 +116,37 @@ export const SignUpPage = () => {
       alert(`An account for this email already exists.`);
     } else if (data==='') {
       if (newUserAccount.Account_type==='Organizer') {
-        getUserIdByEmail();
-        addOrganizerAccount();
-        alert(`Organizer account has been created successfully.`);
+        let response = await fetch('/api/account/getuseridbyemail', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            email: newUserAccount.Email
+          })
+        });
+        const new_user_id = await response.text();
+        addOrganizerAccount(new_user_id);
       } else if (newUserAccount.Account_type==='Caterer') {
-        getUserIdByEmail();
-        addCatererAccount();
+        let response = await fetch('/api/account/getuseridbyemail', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            email: newUserAccount.Email
+          })
+        });
+        const new_user_id = await response.text();
+        addCatererAccount(new_user_id);
         alert(`Caterer account has been created successfully.`);
       } else {
         alert(`User account has been created successfully.`);
       }
-      history.push('/login',{params:'true'});
-      history.go(0);
+      // history.push('/login',{params:'true'});
+      // history.go(0);
     } else {
       alert('An error has occurred. We were unable to create your account.')
     }
@@ -142,6 +162,8 @@ export const SignUpPage = () => {
   return (
     <div style={{ backgroundImage: `url(${bg})` }}>
       <div className="login-container" style={{ backgroundColor: `white` }}>
+      <br></br>
+      <br></br>
         <img src={logo} alt="Logo" />
         <h1>Sign Up</h1>
         <form onSubmit={handleSignUp}>
@@ -202,7 +224,6 @@ export const SignUpPage = () => {
                 placeholder="Pronouns"
                 value={newUserAccount.Pronouns}
                 onChange={setInput}
-                required
                 className="input-style-5"
               />
             </div>
@@ -224,7 +245,6 @@ export const SignUpPage = () => {
               />
             </div>
           </div>
-          <br></br>
           <button 
             // onClick={() => handleSignUp()}
             type="submit" 
@@ -232,7 +252,7 @@ export const SignUpPage = () => {
               backgroundColor: '#E98123',
               borderRadius: '15px',
               fontSize: '1.2rem',    // Increase the font size
-              width: '50%',          // Set the width to 50% of its container
+              width: '35%',          // Set the width to 50% of its container
               padding: '10px 20px',  // Add padding to control the button size
             }}
           >Create Account</button>
@@ -240,7 +260,20 @@ export const SignUpPage = () => {
           <br></br>
           <br></br>
           <br></br>
+          <button
+            type="button"
+            onClick={() => history.push('/', {})}
+            style={{
+              backgroundColor: 'gray',
+              borderRadius: '15px',
+              fontSize: '1.1rem',    // Increase the font size
+              width: '43%',          // Set the width to 50% of its container
+              padding: '10px 20px'  // Add padding to control the button size
+            }}
+            >Return to Home Page
+          </button>
         </form>
+        <br></br>
       </div>
     </div>
   );
