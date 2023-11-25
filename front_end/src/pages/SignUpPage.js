@@ -136,12 +136,10 @@ export const SignUpPage = () => {
         });
         const new_user_id = await response.text();
         addCatererAccount(new_user_id);
-        alert(`Caterer account has been created successfully.`);
       } else {
-        alert(`User account has been created successfully.`);
       }
-      // history.push('/login',{params:'true'});
-      // history.go(0);
+      history.push('/login',{params:'true'});
+      history.go(0);
     } else {
       alert('An error has occurred. We were unable to create your account.')
     }
