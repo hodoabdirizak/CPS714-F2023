@@ -196,7 +196,7 @@ export const HomePage = () => {
           <div className='popup'>
             <div className='popup-content'>
               <h1>Hi There!</h1>
-              <h2 className="subtitle">You have recently attended the {currentEvent.title} event. We would love to know about your experience at this Event.</h2>
+              <h2 className="subtitle">You have recently attended the {currentEvent.title} event. We would love to know about your experience at this event.</h2>
               <p>How would you rate your overall experience?</p>
               <div className="radio-buttons">
                 {[1, 2, 3, 4, 5].map((value) => (
