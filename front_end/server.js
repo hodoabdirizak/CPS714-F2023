@@ -1,9 +1,9 @@
 // Run `nodemon server.js` in terminal to run the server
 
-const express       = require('express'),
-      controllers   = require('../back_end/controllers'),
-      emailCont     = require('../back_end/emailController'),
-      cors          = require('cors');
+const express             = require('express'),
+      controllers         = require('../back_end/controllers'),
+      emailController     = require('../back_end/emailController'),
+      cors                = require('cors');
     
 const API_PORT = process.env.PORT || 5000;
 const app = express();
