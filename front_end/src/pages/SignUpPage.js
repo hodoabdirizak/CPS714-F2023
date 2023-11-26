@@ -5,10 +5,15 @@ import logo from '../assets/logo.png';
 import bg from '../assets/logo200.png';
 import { useHistory } from 'react-router-dom';
 
+
 export const SignUpPage = () => {
-  const [newUserAccount, setUserAccount] = useState({Email: '', Full_name: '', 
-                                                  Phone_number: '', Pronouns: '', Account_type: '', Pswd: ''});
+  const [newUserAccount, setUserAccount] 
+    = useState({Email: '', Full_name: '', 
+                Phone_number: '', Pronouns: '', 
+                Account_type: '', Pswd: ''});
+
   const history = useHistory();
+
   const options = [
     { 
       value: "Attendee",
@@ -22,8 +27,8 @@ export const SignUpPage = () => {
       value: "Caterer",
       label: "Caterer"
     }
-  ];                                                  
-
+  ]; 
+  
   const setInput = (e) => {
     const {name, value} = e.target;
     if (name === 'Phone_number'){
@@ -93,6 +98,25 @@ export const SignUpPage = () => {
     }
   }
 
+  const verifyEmail = async () => {
+    try {
+      const response = await fetch('/api/email/verifyEmail', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          email: newUserAccount.Email,
+        }),
+      });
+      const data = await response.text();
+      console.log(data);
+      } catch (error) {
+      console.error('Error:', error);
+    }
+  } 
+
   const addAccount = async () => {
     let response = await fetch('/api/account/addaccount', {
       method: 'POST',
@@ -123,6 +147,7 @@ export const SignUpPage = () => {
         });
         const new_user_id = await response.text();
         addOrganizerAccount(new_user_id);
+        alert(`Check your email to verify your account.`);
       } else if (newUserAccount.Account_type==='Caterer') {
         let response = await fetch('/api/account/getuseridbyemail', {
           method: 'POST',
@@ -136,10 +161,9 @@ export const SignUpPage = () => {
         });
         const new_user_id = await response.text();
         addCatererAccount(new_user_id);
-      } else {
-      }
-      history.push('/login',{params:'true'});
-      history.go(0);
+      } 
+      verifyEmail();
+      alert('Follow the instructions sent to your email to verify your account.')
     } else {
       alert('An error has occurred. We were unable to create your account.')
     }
@@ -238,6 +262,17 @@ export const SignUpPage = () => {
             </div>
           </div>
           <button 
+            onClick={verifyEmail}
+            type="button" 
+            style={{
+              backgroundColor: 'red',
+              borderRadius: '15px',
+              fontSize: '1rem',    // Increase the font size
+              width: '35%',          // Set the width to 50% of its container
+              padding: '10px 20px',  // Add padding to control the button size
+            }}
+          >Test - Send Email</button>
+          <button 
             // onClick={() => handleSignUp()}
             type="submit" 
             style={{
@@ -248,6 +283,7 @@ export const SignUpPage = () => {
               padding: '10px 20px',  // Add padding to control the button size
             }}
           >Create Account</button>
+          <br></br>
           <br></br>
           <br></br>
           <button

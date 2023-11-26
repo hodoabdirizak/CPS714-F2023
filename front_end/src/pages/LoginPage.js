@@ -46,8 +46,28 @@ export const LoginPage = () => {
         })
       });
   
-      const data2 = await response2.text();
-      history.push('/', { isLoggedIn: 'true', username: loginInfo.username, accountType: data2 });
+      const accType = await response2.text();
+      history.push('/', { isLoggedIn: 'true', username: loginInfo.username, accountType: accType });
+      
+      // let response3 = await fetch('/api/account/verifylogin', {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //     'Accept': 'application/json'
+      //   },
+      //   body: JSON.stringify({
+      //     email: loginInfo.username, 
+      //     password: loginInfo.password
+      //   })
+      // });
+
+      // const accountVerified = await response3.text();
+      
+      // if (accountVerified==='False'){
+      //   alert('Please check your email to verify your account before proceeding.')
+      // } else {
+      //   history.push('/', { isLoggedIn: 'true', username: loginInfo.username, accountType: accType });
+      // }
 
     } else if (data==='False') {
       alert(`Invalid/Incorrect email or password.`);
@@ -109,6 +129,7 @@ export const LoginPage = () => {
         <div>
       	  <h5>Forgot your password? <a href = "/forgot-password">Click Here!</a></h5>
           <h5>Don't have an account? <a href = "/signup">Register Now!</a></h5>
+          <br></br>
           <br></br>
           <br></br>
           <br></br>

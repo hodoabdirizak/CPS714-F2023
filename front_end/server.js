@@ -16,7 +16,10 @@ app.use(cors());
 
 
 // ROUTES
-app.get("/")
+app.get("/");
+
+// Email routes
+app.post('/api/email/verifyEmail', controllers.emailController.verifyEmail);
 
 // User_Account routes
 app.get('/api/account/getaccounts', controllers.userAccountController.getAccounts);
