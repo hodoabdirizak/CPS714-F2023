@@ -4,6 +4,7 @@ import './SignupPage.css';
 import logo from '../assets/logo.png';
 import bg from '../assets/logo200.png';
 
+
 export const ForgotPassword = () => {
   const [userInfo, setUserInfo] = useState({Email: '',Pswd: ''});
   const history = useHistory();
@@ -15,6 +16,29 @@ export const ForgotPassword = () => {
       [name]: value
     }));
     return;
+  }
+
+  const sendVerificationCode = async () => {
+    try {
+      const response = await fetch('/api/account/sendverificationcode', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          email: userInfo.Email,
+        }),
+      });
+  
+      const data = await response.text();
+      alert(data); // You can replace this with a more user-friendly notification
+  
+      // Optionally, redirect the user to another page or update the UI
+    } catch (error) {
+      console.error('Error sending verification code:', error);
+      // Handle the error appropriately, e.g., show an error message to the user
+    }
   }
 
   const changePassword = async () => {
@@ -60,7 +84,8 @@ export const ForgotPassword = () => {
     }
   }
 
-  const handlePasswordReset = (e) => {
+
+  const handlePasswordReset = async (e) => {
     console.log('-----------------');
     e.preventDefault();
     console.log(userInfo);
@@ -74,6 +99,20 @@ export const ForgotPassword = () => {
         <br></br>
         <img src={logo} alt="Logo" />
         <h1>Password Reset</h1>
+        <button
+          type="button"
+          onClick={sendVerificationCode}
+          style={{
+            backgroundColor: '#E98123',
+            borderRadius: '10px',
+            fontSize: '1rem',
+            width: '40%',
+            padding: '8px 16px',
+            marginTop: '20px',
+        }}
+      >
+          Send Verification Code
+  </button>
         <form onSubmit={handlePasswordReset}>
           <div className="form-group-item">
             <input
@@ -114,6 +153,7 @@ export const ForgotPassword = () => {
           <br></br>
           <button 
             type="submit" 
+            onClick={handlePasswordReset}
             style={{
               backgroundColor: '#E98123',
               borderRadius: '15px',

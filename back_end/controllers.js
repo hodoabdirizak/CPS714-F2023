@@ -108,9 +108,8 @@ const userAccountController = {
     const { email } = req.body;
 
     try {
-      const verificationCode = await dbOperationUserAccount.sendVerificationCode(email);
+      await nodemailerConfig.sendVerificationEmail(req.body.email);
 
-      sendVerificationEmail(email, 'Verification Code', `Your verification code is: ${verificationCode}`);
       res.send('Verification code sent successfully.');
     } catch (error) {
       console.error('Error in sending verification code:', error);

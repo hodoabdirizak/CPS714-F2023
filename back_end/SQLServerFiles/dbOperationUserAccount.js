@@ -192,21 +192,31 @@ const deleteAccountAttendee = async (Email) => {
 }
 };
 
-const sendVerificationCode = async (email) => {
-  try {
-    // Generate a random verification code
-    const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
+// const sendVerificationCode = async (email) => {
+//   try {
+//     // Generate a random verification code
+//     const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
 
-    // Store the verification code in the database
-    await sql.query(`UPDATE User_Account SET VerificationCode = '${verificationCode}' WHERE Email = '${email}'`);
+//     // Store the verification code in the database
+//     await sql.query(`UPDATE User_Account SET VerificationCode = '${verificationCode}' WHERE Email = '${email}'`);
 
-    // Return the generated verification code
-    return verificationCode;
-  } catch (error) {
-    console.error('Error in sending verification code:', error);
-    throw error;
-  }
-};
+//     // Return the generated verification code
+//     return verificationCode;
+//   } catch (error) {
+//     console.error('Error in sending verification code:', error);
+//     throw error;
+//   }
+// };
+
+// const saveVerificationCodeInDatabase = async (email, verificationCode) => {
+//   try {
+//     await sql.connect(config);
+//     await sql.query(`UPDATE User_Account SET VerificationCode = '${verificationCode}' WHERE Email = '${email}'`);
+//   } catch (err) {
+//     console.error('Error saving verification code:', err);
+//     throw err;
+//   }
+// };
 
 
 module.exports = {
@@ -224,6 +234,6 @@ module.exports = {
   noDupEmails,
   updateUserAccount,
   verifyLogin,
-  deleteAccountAttendee,
-  sendVerificationCode
+  deleteAccountAttendee
+  //sendVerificationCode
 }
