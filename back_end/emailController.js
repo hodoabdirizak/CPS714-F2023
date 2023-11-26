@@ -1,5 +1,5 @@
 const dbOperationUserAccount = require('./SQLServerFiles/dbOperationUserAccount');
-const nodemailerConfig = require('nodeMailerConfig'); 
+const nodemailerConfig = require('./nodeMailerConfig'); 
 
 const emailSender = {
     sendVerificationCode: async (req,res) => {
