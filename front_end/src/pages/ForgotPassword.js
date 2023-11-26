@@ -20,7 +20,7 @@ export const ForgotPassword = () => {
 
   const sendVerificationCode = async () => {
     try {
-      const response = await fetch('/api/account/sendverificationcode', {
+      const response = await fetch('/api/email/sendverificationcode', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -3,7 +3,6 @@ const dbOperationCaterer = require('./SQLServerFiles/dbOperationCaterer');
 const dbOperationEvent = require('./SQLServerFiles/dbOperationEvent');
 const dbOperationEventAttendees = require('./SQLServerFiles/dbOperationEventAttendees');
 const dbOperationOrganizer = require('./SQLServerFiles/dbOperationOrganizer');
-const nodemailerConfig = require('./nodeMailerConfig'); 
 
 const userAccountController = {
   createUserAccount: async(req,res) => {
@@ -103,19 +102,6 @@ const userAccountController = {
     }
   },
 
-  sendVerificationCode: async (req, res) => {
-    console.log('Called /api/account/sendverificationcode');
-    const { email } = req.body;
-
-    try {
-      await nodemailerConfig.sendVerificationEmail(req.body.email);
-
-      res.send('Verification code sent successfully.');
-    } catch (error) {
-      console.error('Error in sending verification code:', error);
-      res.status(500).send('Internal Server Error');
-    }
-  },
 };
 
 

@@ -2,6 +2,7 @@
 
 const express       = require('express'),
       controllers   = require('../back_end/controllers'),
+      emailCont     = require('../back_end/emailController'),
       cors          = require('cors');
     
 const API_PORT = process.env.PORT || 5000;
@@ -29,7 +30,9 @@ app.post('/api/account/changepassword', controllers.userAccountController.change
 app.post('/api/account/verifylogin', controllers.userAccountController.verifyLogin);
 app.post('/api/account/getaccounttype', controllers.userAccountController.getAccountType);
 app.post('/api/account/deleteaccountattendee', controllers.userAccountController.deleteAccountAttendee);
-app.post('/api/account/sendverificationcode', controllers.userAccountController.sendVerificationCode);
+
+// email sender route
+app.post('/api/email/sendverificationcode', emailController.emailSender.sendVerificationCode);
 
 
 // Organizer routes
