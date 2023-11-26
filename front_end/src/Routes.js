@@ -10,6 +10,7 @@ import { EventCreationForm } from './pages/EventCreationForm';
 import { EventCreationConfirmation } from './pages/EventCreationConfirmation';
 import { CalendarPage } from './pages/CalendarPage';
 import EventInfo from './components/EventInfo';
+import { UsersEventPage } from './pages/UsersEventPage';
 
 const Routes = () => {
     return (
@@ -46,6 +47,9 @@ const Routes = () => {
                     <CalendarPage/>
                 </Route>
                 <Route path="/event/:id" component={EventInfo} />
+                <Route path="/myEvents">
+                    <UsersEventPage/>
+                </Route>
             </Switch>
         </Router>
     )
