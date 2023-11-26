@@ -17,3 +17,6 @@ const emailSender = {
       }
 };
 
+module.exports = {
+    emailSender
+};
