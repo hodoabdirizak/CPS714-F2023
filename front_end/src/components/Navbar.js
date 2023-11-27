@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faUser } from '@fortawesome/free-solid-svg-icons'
 import './Navbar.css';
+import { EventCreationForm } from '../pages/EventCreationForm';
 
 function Navbar({ isLoggedIn, username, accountType, userID }) {
   const history = useHistory();
@@ -55,8 +56,14 @@ function Navbar({ isLoggedIn, username, accountType, userID }) {
       history.push({
           pathname: url,
           state: { },
-      });
+      });  
   };
+  const createEvent = (e) => {
+    e.preventDefault();
+    // Redirect to the event creation page
+    history.push('/EventCreation'); // Update the path according to your route
+  };
+
 
   return (
     <div className="navbar">
@@ -79,8 +86,14 @@ function Navbar({ isLoggedIn, username, accountType, userID }) {
           <li><a onClick={goHome} href="/">FAQ</a></li>
           <li><a onClick={goHome}  href="/">My Events</a></li>
           <li><a onClick={gotoCalendar} href="/calendar">My Calendar</a></li>
+          
           {/* If user is logged in, they will have the Profile navbar item
           instead of Sign In */}
+          {isLoggedIn && accountType === 'Organizer' && (
+          <li>
+            <button onClick={createEvent}>Create Event</button>
+          </li>
+        )}
           { isLoggedIn 
             ? <li className="profile-item">
                   <a href='/' onClick={goToProfile}>
@@ -92,6 +105,7 @@ function Navbar({ isLoggedIn, username, accountType, userID }) {
               </li>
             : null
           } 
+
           { isLoggedIn 
             ? <li><a href='/' onClick={signOut}>Sign Out</a></li>         
             : <li><a href="/login">Sign In</a></li>
