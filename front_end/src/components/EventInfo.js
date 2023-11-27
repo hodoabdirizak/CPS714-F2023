@@ -1,5 +1,5 @@
 // EventInfo.js
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Navbar from '../components/Navbar';
@@ -19,6 +19,10 @@ const EventInfo = () => {
     const isLoggedIn = useSelector((state) => state.event.isLoggedIn);
     const accountType = useSelector((state) => state.event.accountType);
     const username = useSelector((state) => state.event.username) || "";
+    const [eventStartDate, seteventStartDate] = useState(0);
+    const [eventStartTime, seteventStartTime] = useState(0);
+    const [eventEndDate, seteventEndDate] = useState(0);
+    const [eventEndTime, seteventEndTime] = useState(0);
 
     console.log(username + " : " + userID)
 
@@ -67,6 +71,7 @@ const EventInfo = () => {
         isConflict(temp)
     }
 
+
     const isConflict = (temp) => {
         const startTime = event.time.split(" - ")[0];
         const endTime = event.time.split(" - ")[1];
@@ -87,7 +92,31 @@ const EventInfo = () => {
         console.log("Conflicts " + conflicts);
     }
 
+    const getDates = async (eventID) => {
+        console.log("Getting dates for event " + eventID);
+        const result = await fetch('/api/event/getEventInfo', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                id: eventID
+            })
+        })
+        const SQLevent = JSON.parse(JSON.stringify(await result.json()));
+        seteventStartDate(SQLevent[0]["Event_start_date"]);
+        seteventStartTime(SQLevent[0]["Event_start_time"]);
+        seteventEndDate(SQLevent[0]["Event_end_date"]);
+        seteventEndTime(SQLevent[0]["Event_end_time"]);
+        console.log(eventStartDate + " " + eventStartTime);
+    }
+
+    getDates(event.id);
     getUserEvents();
+    useEffect(() => {
+
+    }, []); 
 
     const handleBuy = () => {
         if (conflicts.length > 0) {
@@ -104,7 +133,11 @@ const EventInfo = () => {
                 userID: userID,
                 isLoggedIn: isLoggedIn,
                 accountType: accountType,
-                username: username
+                username: username,
+                startDate: eventStartDate,
+                startTime: eventStartTime,
+                endDate: eventEndDate,
+                endTime: eventEndTime,
             }
         });
         history.go(0);
