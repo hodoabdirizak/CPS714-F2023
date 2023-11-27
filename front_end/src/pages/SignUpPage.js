@@ -14,6 +14,11 @@ export const SignUpPage = () => {
 
   const history = useHistory();
 
+  const [isChecked, setIsChecked] = useState('');
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked);
+  }
+
   const options = [
     { 
       value: "Attendee",
@@ -261,6 +266,12 @@ export const SignUpPage = () => {
               />
             </div>
           </div>
+	  <div>
+	    <h3>By checking the box below you verify that you are 18 or older.</h3>
+	    <h3>This box MUST be checked.</h3>
+	      <input type="checkbox" checked={isChecked} onChange={handleCheckboxChange}/>
+  	    <h3></h3>
+	  </div>
           <button 
             onClick={verifyEmail}
             type="button" 
@@ -275,8 +286,9 @@ export const SignUpPage = () => {
           <button 
             // onClick={() => handleSignUp()}
             type="submit" 
+	    disabled={!isChecked}
             style={{
-              backgroundColor: '#E98123',
+              backgroundColor: isChecked ? '#E98123' : 'grey',
               borderRadius: '15px',
               fontSize: '1rem',    // Increase the font size
               width: '33%',          // Set the width to 50% of its container
