@@ -73,26 +73,29 @@ const remindEmail = async (recipientEmail, name, desc, startDate, startTime, end
         subject: 'Event Reminder!',
         html: modifiedEmailBody,
     };
-
-    const currDate = new Date();
-    const compDate = new Date(startDate + " " + startTime);
-    console.log("curr: " + currDate);
-    console.log("compDate: " + compDate);
-    var diff = compDate.getTime() - currDate.getTime();
-    diff = diff / (1000 * 60 * 60 * 24);
-    console.log("Days differ: "+diff);
-    if (diff > 1) {
-        console.log("scheduled a send");
-        compDate.setDate(compDate.getDate() - 1);
-        console.log('Attempting to send to', mailOptions.to);
-        console.log("Sending it at " + compDate.toDateString() +" " + compDate.toTimeString());
-        await schedule.scheduleJob(compDate, () => { transporter.sendMail(mailOptions) });
-        return ("Email scheduled");
-    }
-    else {
-        console.log('Attempting to send to', mailOptions.to);
-        await transporter.sendMail(mailOptions);
-        return ("Email sent successfully");
+    try {
+        const currDate = new Date();
+        const compDate = new Date(startDate + " " + startTime);
+        console.log("curr: " + currDate);
+        console.log("compDate: " + compDate);
+        var diff = compDate.getTime() - currDate.getTime();
+        diff = diff / (1000 * 60 * 60 * 24);
+        console.log("Days differ: " + diff);
+        if (diff > 1) {
+            console.log("scheduled a send");
+            compDate.setDate(compDate.getDate() - 1);
+            console.log('Attempting to send to', mailOptions.to);
+            console.log("Sending it at " + compDate.toDateString() + " " + compDate.toTimeString());
+            await schedule.scheduleJob(compDate, () => { transporter.sendMail(mailOptions) });
+            return ("Email scheduled");
+        }
+        else {
+            console.log('Attempting to send to', mailOptions.to);
+            await transporter.sendMail(mailOptions);
+            return ("Email sent successfully");
+        }
+    } catch (e) {
+        console.dir("Error sending email: ", e);
     }
 };
 

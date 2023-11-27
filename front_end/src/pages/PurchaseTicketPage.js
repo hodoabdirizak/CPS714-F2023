@@ -81,15 +81,15 @@ export const PurchaseTicketPage = props => {
         console.log("Handling Submission");
         updateTickets();
         sendEmail();
-        //history.push(`/purchase-success`,
-        //    {
-        //        isLoggedIn: isLoggedIn,
-        //        accountType: accountType,
-        //        username: username,
-        //        userID: userID
-        //    }
-        //    );
-        //history.go(0);
+        history.push(`/purchase-success`,
+            {
+                isLoggedIn: isLoggedIn,
+                accountType: accountType,
+                username: username,
+                userID: userID
+            }
+            );
+        history.go(0);
     };
 
     return (
