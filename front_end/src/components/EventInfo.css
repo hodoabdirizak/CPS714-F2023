@@ -1,53 +1,54 @@
+/* EventInfo.css */
 .event-container {
     display: flex;
-}
-
-.event-date {
+  }
+  
+  .event-date {
     text-align: center;
     line-height: 0.6;
-}
-
-.event-details {
+  }
+  
+  .event-details {
     padding-left: 50px;
     width: 700px;
-}
-
-.side-by-side {
+  }
+  
+  .side-by-side {
     display: flex;
-}
-
-.left-email {
+  }
+  
+  .left-email {
     width: 50%;
-}
-
-.event-photo {
+  }
+  
+  .event-photo {
     width: 440px;
     height: 440px;
     object-fit: cover;
     border-radius: 10%;
     margin-left: 50px;
-    margin-top: 25%
-}
-
-.event-details h1 {
+    margin-top: 25%;
+  }
+  
+  .event-details h1 {
     color: #4391B1;
     font-weight: 800;
     margin-top: 120px;
-}
-
-.event-details h2 {
+  }
+  
+  .event-details h2 {
     color: #8A8080;
     font-size: medium;
     font-weight: 450;
-}
-
-.event-details h3 {
+  }
+  
+  .event-details h3 {
     font-size: larger;
     font-weight: 500;
     margin-top: -10px;
-}
-
-.buy-ticket {
+  }
+  
+  .buy-ticket {
     background-color: #E98123;
     color: white;
     width: 500px;
@@ -62,3 +63,70 @@
   .buy-ticket:hover {
     background-color: #db6a08;
   }
+  
+  .popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 120%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .popup {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 6%;
+  }
+  
+  .popup-content {
+    text-align: center;
+  }
+  
+  .popup h1 {
+    color: #4391B1;
+  }
+  
+  .popup .subtitle {
+    color: #8A8080;
+    font-size: medium;
+    font-weight: 450;
+  }
+  
+  .popup p {
+    margin: 10px 0;
+  }
+  
+  .radio-buttons {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .radio-buttons input {
+    margin: 0 5px;
+  }
+  
+  .buttons-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+  }
+  
+  .buttons-container button {
+    width: 100px;
+    padding: 10px;
+    background-color: #E98123;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  
+  .buttons-container button:hover {
+    background-color: #db6a08;
+  }
+  

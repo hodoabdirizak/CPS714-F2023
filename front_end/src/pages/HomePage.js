@@ -190,33 +190,6 @@ export const HomePage = () => {
           ))}
         </div>
       </div>
-
-      {showPopUp && (
-        <div className='popup-overlay'>
-          <div className='popup'>
-            <div className='popup-content'>
-              <h1>Hi There!</h1>
-              <h2 className="subtitle">You have recently attended the {currentEvent.title} event. We would love to know about your experience at this event.</h2>
-              <p>How would you rate your overall experience?</p>
-              <div className="radio-buttons">
-                {[1, 2, 3, 4, 5].map((value) => (
-                  <React.Fragment key={value}>
-                    <input type="radio" id={`rating${value}`} name="rating" value={value} checked={rating === `${value}`} onChange={handleRatingChange} />
-                    <label htmlFor={`rating${value}`}>{value}</label>
-                  </React.Fragment>
-                ))}
-              </div>
-              <input type="text" placeholder="Additional comments" value={additionalComments} onChange={handleCommentsChange} />
-              <p>Is there anything we could do to make your next experience with EventEasy better?</p>
-              <input type="text" placeholder="Improvements suggestions" value={improvements} onChange={handleImprovementsChange} />
-              <div className="buttons-container">
-                <button onClick={handleSubmit}>Submit</button>
-                <button onClick={handleClosePopUp}>Remind Me Later</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
