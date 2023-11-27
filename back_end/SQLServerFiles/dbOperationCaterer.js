@@ -66,9 +66,9 @@ const getCaterers = async () => {
 };
 
 module.exports = {
-  createCaterer,
-  getCaterersByCuisine,
-  updateCaterer,
+  //createCaterer,
+  //getCaterersByCuisine,
+  //updateCaterer,
   getCaterers,
 
 };

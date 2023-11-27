@@ -14,6 +14,7 @@ import EventInfo from './components/EventInfo';
 import { ProfileAttendee } from './pages/ProfileAttendee';
 import { ProfileCaterer } from './pages/ProfileCaterer';
 import { ProfileOrganizer } from './pages/ProfileOrganizer';
+import {EventUpdateForm} from './pages/EventUpdateForm';
 
 const Routes = () => {
     return (
@@ -57,6 +58,9 @@ const Routes = () => {
                 </Route>
                 <Route path="/eventCreationConfirmation">
                     <EventCreationConfirmation />
+                </Route>
+                <Route path="/eventUpdateForm">
+                    <EventUpdateForm/>
                 </Route>
                 <Route path="/calendar">
                     <CalendarPage/>

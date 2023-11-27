@@ -187,6 +187,19 @@ const eventController = {
         console.dir(result);
         res.send(result.recordset);
     },
+    updateEvent: async (req, res) => {
+        console.log('Called /api/event/updateEvent');
+        const result = await dbOperationEvent.updateEvent(req.body.Event_id,req.body);
+        console.dir(result);
+        res.send(result.recordset);
+    },
+    deleteEvent: async (req, res) => {
+        console.log('Called /api/event/deleteEvent');
+        console.log(req.body);
+        const result = await dbOperationEvent.deleteEvent(req.body.Event_id);
+        console.dir(result);
+        res.send(result);
+    },
 };
 
 const eventAttendeeController = {
@@ -232,7 +245,7 @@ const catererController = {
         const result = await dbOperationCaterers.getCaterers(req.body);
         console.dir(result);
         res.send(result);
-    }
+    },
 
   getCatererAccount: async(req,res) => {
     console.log('Called /api/caterer/getcatereraccount');
