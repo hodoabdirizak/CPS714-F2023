@@ -4,6 +4,7 @@ const dbOperationEvent = require('./SQLServerFiles/dbOperationEvent');
 const dbOperationEventAttendees = require('./SQLServerFiles/dbOperationEventAttendees');
 const dbOperationVenues = require('./SQLServerFiles/dbOperationVenues');
 const dbOperationEventHosting = require('./SQLServerFiles/dbOperationEventHosting');
+const dbOperationOrganizer = require('./SQLServerFiles/dbOperationOrganizer');
 const dbOperationOrganizerEvents = require('./SQLServerFiles/dbOperationOrganizerEvents');
 const dbOperationCaterers = require('./SQLServerFiles/dbOperationCaterer');
 const nodemailerConfig = require('./nodeMailerConfig');
@@ -104,9 +105,28 @@ const userAccountController = {
     } else {
       res.send('False');
     }
+  },
+  isAccountVerified: async (req, res) => {
+    console.log('Called /api/account/isaccountverified');
+    const result = await dbOperationUserAccount.isAccountVerified(req.body.email);
+    if (result == 'No') {
+      console.log("Account hasn't been verified");
+      res.send('False');
+    } else {
+      res.send('True');
+    }
+  },
+  verifyAccount: async (req, res) => {
+    console.log('Called /api/account/updateaccountverificationstatus');
+    const result = await dbOperationUserAccount.verifyAccount(req.body.email);
+    if (result > 0) {
+      console.log("Account has been verified");
+      res.send('True');
+    } else {
+      res.send('False');
+    }
   }
-};
-
+}
 
 const organizerController = {
   getOrganizerAccount: async(req,res) => {
@@ -291,7 +311,14 @@ const emailController = {
       res.status(500).send('Internal Server Error');
     }
   },
+  verifyAccount: async (req, res) => {
+    console.log('Called /api/loginverify');
+    const email = req.query.email;
+    console.log(`${email} was recieved from the URL. type: ${typeof email}`);
+    res.send(email.toString());
+  }
 }
+
 module.exports = {
     userAccountController,
     organizerController,

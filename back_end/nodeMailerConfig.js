@@ -23,14 +23,14 @@ const sendVerificationEmail = async (recipientEmail) => {
 };
 
 // Sign up
-const verifyEmail = async (recipientEmail, userId) => {
+const verifyEmail = async (recipientEmail) => {
   const filePath = path.join(__dirname, 'email_templates', 'verifyAccountEmailBody.html');
   const emailBody = fs.readFileSync(filePath, 'utf-8');
   const $ = cheerio.load(emailBody);
 
   const linkElement = $('#link');
   if (linkElement.length > 0) {
-    linkElement.replaceWith(`<a id="link" href="http://localhost:3000/login?email=${recipientEmail}" class="verification-button">Verify Account</a>`);
+    linkElement.replaceWith(`<a id="link" href="http://localhost:3000/loginverify?email=${recipientEmail}" class="verification-button">Verify Account</a>`);
   } else {
     console.error('Element with id "link" not found in the HTML content.');
   }
@@ -38,7 +38,7 @@ const verifyEmail = async (recipientEmail, userId) => {
 
   const mailOptions = {
     from: 'eventeasy714@gmail.com', 
-    to: 'eventeasy714@gmail.com',
+    to: recipientEmail,
     subject: 'Verify Your Account to Get Started!',
     html: modifiedEmailBody,
   };

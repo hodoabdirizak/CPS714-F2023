@@ -18,8 +18,11 @@ app.use(cors());
 // ROUTES
 app.get("/");
 
+
 // Email routes
 app.post('/api/email/verifyEmail', controllers.emailController.verifyEmail);
+app.get('/api/loginverify', controllers.emailController.verifyAccount);
+
 
 // User_Account routes
 app.get('/api/account/getaccounts', controllers.userAccountController.getAccounts);
@@ -34,6 +37,8 @@ app.post('/api/account/changepassword', controllers.userAccountController.change
 app.post('/api/account/verifylogin', controllers.userAccountController.verifyLogin);
 app.post('/api/account/getaccounttype', controllers.userAccountController.getAccountType);
 app.post('/api/account/deleteaccountattendee', controllers.userAccountController.deleteAccountAttendee);
+app.post('/api/account/isaccountverified', controllers.userAccountController.isAccountVerified);
+app.post('/api/account/updateaccountverificationstatus', controllers.userAccountController.verifyAccount);
 
 
 // Organizer routes

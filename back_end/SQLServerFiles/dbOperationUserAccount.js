@@ -39,7 +39,7 @@ const getAccountType = async (Email) => {
       console.error(err);
       throw err;
   }
-}
+};
 
 const verifyEmail = async (Email) => {
   try {
@@ -161,14 +161,14 @@ const getUserIdByEmail = async (Email) => {
 };
 
  const noDupEmails = async (Email) => {
-   try {
-     await sql.connect(config)
-     const result = await sql.query(`SELECT User_Id FROM User_Account WHERE Email='${Email}'`); 
-     const queryResults = result.recordset;
-     return queryResults;
-   } catch (err) {
-     throw err;
-   }
+  try {
+    await sql.connect(config)
+    const result = await sql.query(`SELECT User_Id FROM User_Account WHERE Email='${Email}'`); 
+    const queryResults = result.recordset;
+    return queryResults;
+  } catch (err) {
+    throw err;
+  }
  };
 
 const verifyLogin = async (email, pswd) => {
@@ -186,12 +186,33 @@ const deleteAccountAttendee = async (Email) => {
   await sql.connect(config);
   const result = await sql.query(`DELETE FROM User_Account WHERE Email='${Email}'`);
   return result.rowsAffected[0];
-} catch (err) {
+  } catch (err) {
     console.error(err);
-  throw err;
-}
+    throw err;
+  }
 };
 
+const isAccountVerified = async (Email) => {
+  try {
+  await sql.connect(config);
+  const result = await sql.query(`SELECT Account_verified FROM User_Account WHERE Email = '${Email}'`);
+  return result.recordset[0]['Account_verified'];
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+};
+
+const verifyAccount = async (Email) => {
+  try {
+  await sql.connect(config);
+  const result = await sql.query(`UPDATE User_Account SET Account_verified = 'Yes' WHERE Email = '${Email}'`);
+  return result.rowsAffected[0];
+  } catch (err) {
+    console.error(err);
+    throw err;
+  }
+};
 
 module.exports = {
   addAccount,
@@ -208,5 +229,7 @@ module.exports = {
   noDupEmails,
   updateUserAccount,
   verifyLogin,
-  deleteAccountAttendee
+  deleteAccountAttendee,
+  isAccountVerified, 
+  verifyAccount
 }

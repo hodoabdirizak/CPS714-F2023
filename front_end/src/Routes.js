@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { HomePage } from './pages/HomePage';
 import { LoginPage } from './pages/LoginPage';
+import { LoginPageVerifiedEmail } from './pages/LoginPageVerifiedEmail';
 import { SignUpPage } from './pages/SignUpPage';
 import { ForgotPassword } from './pages/ForgotPassword';
 import { BackEndTesting } from './pages/BackEndTesting';
@@ -24,6 +25,9 @@ const Routes = () => {
                 </Route>
                 <Route path="/login">
                     <LoginPage />
+                </Route>
+                <Route path="/loginverify">
+                    <LoginPageVerifiedEmail />
                 </Route>
                 <Route path="/signup">
                     <SignUpPage />

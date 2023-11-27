@@ -47,27 +47,25 @@ export const LoginPage = () => {
       });
   
       const accType = await response2.text();
-      history.push('/', { isLoggedIn: 'true', username: loginInfo.username, accountType: accType });
       
-      // let response3 = await fetch('/api/account/verifylogin', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //     'Accept': 'application/json'
-      //   },
-      //   body: JSON.stringify({
-      //     email: loginInfo.username, 
-      //     password: loginInfo.password
-      //   })
-      // });
+      let response3 = await fetch('/api/account/isaccountverified', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          email: loginInfo.username
+        })
+      });
 
-      // const accountVerified = await response3.text();
+      const accountVerified = await response3.text();
       
-      // if (accountVerified==='False'){
-      //   alert('Please check your email to verify your account before proceeding.')
-      // } else {
-      //   history.push('/', { isLoggedIn: 'true', username: loginInfo.username, accountType: accType });
-      // }
+      if (accountVerified==='False'){
+        alert('Please follow the instructions sent to your email to verify your account before proceeding.')
+      } else {
+        history.push('/', { isLoggedIn: 'true', username: loginInfo.username, accountType: accType });
+      }
 
     } else if (data==='False') {
       alert(`Invalid/Incorrect email or password.`);
