@@ -11,6 +11,24 @@ const getEvents = async () => {
   }
 };
 
+const getEventsWithVenues = async () => {
+  try {
+    await sql.connect(config);
+
+    const result = await sql.query(`
+      SELECT e.Event_id, e.Event_name, e.Event_start_date, e.Event_end_date, e.Event_start_time,
+      v.Venue_name, v.Venue_type, v.Venue_address
+      FROM Event_Table e
+      INNER JOIN Event_hosting eh ON e.Event_id = eh.Event_id
+      INNER JOIN Venue v ON eh.Venue_id = v.Venue_id
+    `);
+
+    return result.recordset;
+  } catch (error) {
+    throw error;
+  }
+};
+
 const getEventByName = async (Event_Name) => {
     try {
         console.log("Getting Event")
@@ -72,10 +90,9 @@ const getEventInfo = async (eventID) => {
 module.exports = {
     getEvents,
     getCapacity,
-
+    getEventsWithVenues,
     createEvent,
     updateEvent,
     getEventByName,
-
     getEventInfo
 };

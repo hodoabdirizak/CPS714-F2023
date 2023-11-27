@@ -175,6 +175,17 @@ const eventController = {
         console.dir(result);
         res.send(result.recordset);
     },
+    getEventsWithVenues: async (req, res) => {
+      try {
+        console.log('Called /api/event/eventsWithVenues');
+        const result = await dbOperationEvent.getEventsWithVenues(req.body); // Fetch events with venues
+        console.dir(result);
+        res.send(result.recordset);
+      } catch (error) {
+        console.error('Error fetching events with venues:', error);
+        res.status(500).send('Internal Server Error');
+      }
+    },
     createEvent: async (req, res) => {
         console.log('Called /api/event/createEvent');
         console.dir(req.body);

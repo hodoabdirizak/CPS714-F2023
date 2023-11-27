@@ -48,12 +48,10 @@ app.post('/api/organizer/deleteaccountorganizer', controllers.organizerControlle
 
 
 // Event routes
-// app.get('/api/event/', controllers.eventController);
-
+app.get('/api/event/', controllers.eventController);
 app.post('/api/event/createEvent', controllers.eventController.createEvent);
-
 app.post('/api/event/getEventInfo', controllers.eventController.getEventInfo);
-
+app.get('/api/event/getEventsWithVenues', controllers.eventController.getEventsWithVenues);
 app.post('/api/event/getCapacity', controllers.eventController.getCapacity);
 
 
