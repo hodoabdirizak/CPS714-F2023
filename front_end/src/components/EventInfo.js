@@ -1,5 +1,5 @@
 // EventInfo.js
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Navbar from '../components/Navbar';
@@ -7,7 +7,7 @@ import { useParams } from 'react-router-dom';
 import { areIntervalsOverlapping } from "date-fns";
 import './EventInfo.css';
 
-const EventInfo = () => {
+export const EventInfo = () => {
 
   const event = useSelector((state) => state.event.event);
   const userID = useSelector((state) => state.event.userID);
@@ -17,9 +17,13 @@ const EventInfo = () => {
   var conflicts = [];
   console.log('Event ID:', id);
 
-  const isLoggedIn = useSelector((state) => state.event.isLoggedIn);
-  const accountType = useSelector((state) => state.event.accountType);
-  const username = useSelector((state) => state.event.username) || "";
+    const isLoggedIn = useSelector((state) => state.event.isLoggedIn);
+    const accountType = useSelector((state) => state.event.accountType);
+    const username = useSelector((state) => state.event.username) || "";
+    const [eventStartDate, seteventStartDate] = useState(0);
+    const [eventStartTime, seteventStartTime] = useState(0);
+    const [eventEndDate, seteventEndDate] = useState(0);
+    const [eventEndTime, seteventEndTime] = useState(0);
 
   console.log(username + " : " + userID)
 
@@ -68,13 +72,16 @@ const EventInfo = () => {
     isConflict(temp)
   }
 
-  const isConflict = (temp) => {
-    const startTime = event.time.split(" - ")[0];
-    const endTime = event.time.split(" - ")[1];
-    const eventStart = (new Date(event.date + " " + startTime));
-    const eventEnd = new Date(event.date + " " + endTime);
-    console.log(eventStart + " " + eventEnd);
-    console.log(temp.start + " " + temp.end);
+
+    const isConflict = (temp) => {
+        const startTime = event.time.split(" - ")[0];
+        const endTime = event.time.split(" - ")[1];
+        const eventStart = (new Date(event.date + " " + startTime));
+        const eventEnd = new Date(event.date + " " + endTime);
+        console.log(eventStart + " " + eventEnd);
+        console.log(temp.start + " " + temp.end);
+        //temp.start = new Date(event.date + " 19:00");
+        //temp.end = new Date(event.date + " 21:00");
 
     if (!(eventStart > temp.end || eventEnd < temp.start)) {
       if (!(eventEnd < temp.start && eventStart < temp.start)) {
@@ -85,27 +92,55 @@ const EventInfo = () => {
     console.log("Conflicts " + conflicts);
   }
 
-  getUserEvents();
-
-  const handleBuy = () => {
-    if (conflicts.length > 0) {
-      if (!window.confirm("This event has time conflicts with the following events: \n" + conflicts + "\nDo you want to continue?")) {
-        return;
-      }
+    const getDates = async (eventID) => {
+        console.log("Getting dates for event " + eventID);
+        const result = await fetch('/api/event/getEventInfo', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                id: eventID
+            })
+        })
+        const SQLevent = JSON.parse(JSON.stringify(await result.json()));
+        seteventStartDate(SQLevent[0]["Event_start_date"]);
+        seteventStartTime(SQLevent[0]["Event_start_time"]);
+        seteventEndDate(SQLevent[0]["Event_end_date"]);
+        seteventEndTime(SQLevent[0]["Event_end_time"]);
+        console.log(eventStartDate + " " + eventStartTime);
     }
 
-    history.push({
-      pathname: '/booking',
-      state: {
-        event: event,
-        userID: userID,
-        isLoggedIn: isLoggedIn,
-        accountType: accountType,
-        username: username
-      }
-    });
-    history.go(0);
-  };
+    getDates(event.id);
+    getUserEvents();
+    useEffect(() => {
+
+    }, []); 
+
+    const handleBuy = () => {
+        if (conflicts.length > 0) {
+            if (!window.confirm("This event has time conflicts with the following events: \n" + conflicts + "\nDo you want to continue?")) {
+                return;
+            }
+        }
+
+        history.push({
+            pathname: '/booking',
+            state: {
+                event: event,
+                userID: userID,
+                isLoggedIn: isLoggedIn,
+                accountType: accountType,
+                username: username,
+                startDate: eventStartDate,
+                startTime: eventStartTime,
+                endDate: eventEndDate,
+                endTime: eventEndTime,
+            }
+        });
+        history.go(0);
+    }
 
   const [showFeedbackButton, setShowFeedbackButton] = useState(false);
 

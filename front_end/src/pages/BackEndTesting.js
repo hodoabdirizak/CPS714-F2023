@@ -117,7 +117,26 @@ export const BackEndTesting = () => {
           
       })
     })
-  }
+    }
+
+    const sendEmail = async () => {
+        await fetch('/api/email/remindEmail', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                name: newEvent.name,
+                startDate: newEvent.startDate,
+                endDate: newEvent.endDate,
+                startTime: newEvent.startTime,
+                endTime: newEvent.endTime,
+                desc: newEvent.desc,
+            })
+        })
+    }
+
 
   return (
     <div>
@@ -134,7 +153,7 @@ export const BackEndTesting = () => {
       <input type="number" name="cost" placeholder="Ticket Cost" onChange={setInput}></input>
       <button onClick={() => fetchEvents()}>Fetch Data About All Events</button>
           <button onClick={() => fetchEventData()}>Fetch Data About an Event</button>
-          <button onClick={() => addEvent()}>Add User Account</button>
+          <button onClick={() => sendEmail()}>Send Email</button>
     </div>
   );
 }

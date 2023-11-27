@@ -22,6 +22,7 @@ app.get("/");
 // Email routes
 app.post('/api/email/verifyEmail', controllers.emailController.verifyEmail);
 app.get('/api/loginverify', controllers.emailController.verifyAccount);
+app.post('/api/email/remindEmail', controllers.emailController.remindEmail);
 
 
 // User_Account routes

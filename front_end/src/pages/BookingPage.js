@@ -17,9 +17,14 @@ export const BookingPage = () => {
     const eventName = event.title || "Generic Event";
     const eventVenue = event.venue || "Generic Venue";
     const eventDate = event.date || "Generic Date";
+    const eventDesc = event.event_desc || "";
     const isLoggedIn = location?.state?.isLoggedIn;
     const accountType = location?.state?.accountType;
     const username = location?.state?.username || "";
+    const startDate = location.state?.startDate || "";
+    const startTime = location.state?.startTime || "";
+    const endDate = location.state?.endDate || "";
+    const endTime = location.state?.endTime || "";
     console.log("Username " + username);
 
 
@@ -88,13 +93,14 @@ export const BookingPage = () => {
         setUserOwnedTicket(userTickets);
         console.log(userOwnedTicket);
         //check if tickets are allowed
-        if (numOfTickets > remainingTicket)
+        if (numOfTickets > remainingTicket) {
             console.log("There are not enough tickets for your selection");
-        else if (userOwnedTicket + numOfTickets > 6)
-            console.log("Adding " + numOfTickets + " would exceed your limit of 6 tickets")
+            alert("There is not enough tickets for your selection \n Remaining Tickets: " + remainingTicket);
+        }
+        //else if (userOwnedTicket + numOfTickets > 6)
+        //    console.log("Adding " + numOfTickets + " would exceed your limit of 6 tickets")
         else {
             history.push(`/purchase-tickets`,
-
                 {
                     userID: userID,
                     eventID: eventID,
@@ -102,10 +108,15 @@ export const BookingPage = () => {
                     numOfTickets: numOfTickets,
                     eventDate: eventDate,
                     eventName: eventName,
+                    eventDesc: eventDesc,
                     eventVenue: eventVenue,
                     isLoggedIn: isLoggedIn,
                     accountType: accountType,
-                    username: username
+                    username: username,
+                    startDate: startDate,
+                    startTime: startTime,
+                    endDate: endDate,
+                    endTime: endTime
                 }
             );
             history.go(0);
