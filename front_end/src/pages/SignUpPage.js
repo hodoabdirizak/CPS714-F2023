@@ -17,10 +17,46 @@ export const SignUpPage = () => {
     setSelectedOption(event.target.value); // Update the selected option when a radio button is clicked
   };
 
+<<<<<<< Updated upstream
   const handleLogin = (e) => {
     e.preventDefault();
     if (firstName === 'Admin' && password === 'Admin') {
       alert('Successful Login');
+=======
+    if (data==='2627') {
+      alert(`An account for this email already exists.`);
+    } else if (data==='') {
+      if (newUserAccount.Account_type==='Organizer') {
+        let response = await fetch('/api/account/getuseridbyemail', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            email: newUserAccount.Email
+          })
+        });
+        const new_user_id = await response.text();
+        addOrganizerAccount(new_user_id);
+      } else if (newUserAccount.Account_type==='Caterer') {
+        let response = await fetch('/api/account/getuseridbyemail', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            email: newUserAccount.Email
+          })
+        });
+        const new_user_id = await response.text();
+        addCatererAccount(new_user_id);
+      } else {
+      }
+      history.push('/login',{params:'true'});
+      history.go(0);
+>>>>>>> Stashed changes
     } else {
       alert('Invalid/Incorrect Username or Password');
     }

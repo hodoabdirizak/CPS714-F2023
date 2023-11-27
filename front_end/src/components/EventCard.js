@@ -2,24 +2,31 @@ import React from 'react';
 import { Link } from 'react-router-dom'; 
 import './EventCard.css';
 
-function EventCard({ event }) {
+const EventCard = ({ event }) => {
 
-    /* need to get from database */
 
-    const { title, date, venue, imageUrl, id } = event;
+    const { 
+        Event_id,
+        Event_name,
+        Event_start_date,
+        Venue_name, 
+        imageUrl
+    } = event;
+
 
     return (
-    <Link to={`/event/${id}`} className="event-card">
-        <img src={imageUrl} alt={title} className="event-image"/>
-        <div className='card-content'>
-            <h3 className='event-title'>{title}</h3>
+        <Link to={`/event/${Event_id}`} className="event-card">
+          <img src={imageUrl} alt={Event_name} className="event-image" />
+          <div className='card-content'>
+            <h3 className='event-title'>{Event_name}</h3>
             <div className='event-info'>
-                <p>{date}</p>
-                <p>{venue}</p>
+              <p>{Event_start_date}</p>
+              <p>{Venue_name}</p>
+              {/* Display other necessary event information */}
             </div>
-        </div>
-    </Link>
-  );
+          </div>
+        </Link>
+      );
 }
 
 export default EventCard;
