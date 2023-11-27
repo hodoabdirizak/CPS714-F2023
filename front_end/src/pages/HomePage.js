@@ -68,7 +68,7 @@ export const HomePage = () => {
           address: event.Venue_address,
           //imageUrl: generateRandomImageUrl(),
         }));
-        setEvents(data); // Set the 'events' state with the fetched data
+        setEvents(updatedEvents); // Set the 'events' state with the fetched data
       } catch (error) {
         console.error('Error fetching events:', error);
         // Handle errors if necessary
