@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faUser } from '@fortawesome/free-solid-svg-icons'
 import './Navbar.css';
-import { EventCreationForm } from '../pages/EventCreationForm';
+//import { EventCreationForm } from '../pages/EventCreationForm';
 
 function Navbar({ isLoggedIn, username, accountType, userID }) {
   const history = useHistory();
@@ -82,6 +82,7 @@ function Navbar({ isLoggedIn, username, accountType, userID }) {
         </div>
       </div>
       <ul className="nav-items">
+      <button onClick={createEvent} className="button">Create Event</button>
           <li><a onClick={goHome} href="/">Find Events</a></li>
           <li><a onClick={goHome} href="/">FAQ</a></li>
           <li><a onClick={goHome}  href="/">My Events</a></li>
@@ -91,7 +92,7 @@ function Navbar({ isLoggedIn, username, accountType, userID }) {
           instead of Sign In */}
           {isLoggedIn && accountType === 'Organizer' && (
           <li>
-            <button onClick={createEvent}>Create Event</button>
+            <button onClick={createEvent} className="button">Create Event</button>
           </li>
         )}
           { isLoggedIn 

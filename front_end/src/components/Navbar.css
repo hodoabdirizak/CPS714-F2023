@@ -77,3 +77,21 @@
     justify-content: center;
     align-items: center;
   }
+  .button {
+    background-color: transparent;
+    color: white;
+    border: 2px solid #000000;
+    padding: 8px; /* Adjust the padding to change the button size */
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    border-radius: 8px; /* Adjust border-radius to make it square */
+    width: 4rem; /* Set a fixed width for the button */
+    height: 4rem;
+    margin-right: 70px;
+  }
+  
+  /* Update button styles for hover effect */
+  .button:hover {
+    background-color: black; /* Solid black background */
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  }
