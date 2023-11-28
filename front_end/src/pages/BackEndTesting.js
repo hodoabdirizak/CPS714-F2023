@@ -1,80 +1,159 @@
 import React, { useState } from 'react';
 
 export const BackEndTesting = () => {
-  const [returnedData, setReturnedData] = useState(['Some data']);
-  const [newUserAccount, setUserAccount] = useState({User_id: 0, Email: '', Full_name: '', 
-                                                  Phone_number: 0, Pronouns: '', Account_type: ''});
+  // const [returnedData, setReturnedData] = useState(['Some data']);
+  // const [newUserAccount, setUserAccount] = useState({User_id: 0, Email: '', Full_name: '', 
+  //                                                 Phone_number: 0, Pronouns: '', Account_type: ''});
+
+  const [newEvent, setEvent] = useState({ name: '', type: '',
+                                                      startDate: 0, endDate: '', startTime: '',endTime: '', desc:'',
+                                                      capacity: 1, MinimumAge: 0, approved: 'True', cost: 0 ,location: '' });
 
   const setInput = (e) => {
     const {name, value} = e.target;
     console.log(name, value);
-    if (name === 'User_id' || name === 'Phone_number'){
-      console.log('Convert to number type')
-      setUserAccount(prevState => ({
+    if (name === 'Capacity' || name === 'MinimumAge'){
+        console.log('Convert to number type')
+        setEvent(prevState => ({
         ...prevState,
         [name]: parseInt(value)
       }));
       return;
     }
     // Return value as-is
-    setUserAccount(prevState => ({
+    setEvent(prevState => ({
       ...prevState,
       [name]: value
     }));
     return;
   }
 
-    const fetchAccounts = async () => {
-      console.log("Getting all accounts")
-    await fetch('/api/account/getaccounts', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      }
-    })
+  // const fetchAccounts = async () => {
+  //     console.log("Getting all accounts")
+  //   await fetch('/api/account/getaccounts', {
+  //     method: 'GET',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'Accept': 'application/json'
+  //     }
+  //   })
+  // }
+
+
+  // const fetchAccountData = async () => {
+  //   await fetch('/api/account/getaccountbyname', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'Accept': 'application/json'
+  //     },
+  //     body: JSON.stringify({
+  //       name: newUserAccount.Full_name
+  //     })
+  //   })
+  // }
+
+  const fetchEvents = async () => {
+      console.log("Getting all events")
+      await fetch('/api/event/getEvents', {
+          method: 'GET',
+          headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+          }
+      })
   }
 
 
-  const fetchAccountData = async () => {
-    await fetch('/api/account/getaccountbyname', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify({
-        name: newUserAccount.Full_name
-      })
+  const fetchEventData = async () => {
+    console.log("newEvent: " + newEvent.name);
+    console.log("Getting event: " + newEvent.name);
+    await fetch('/api/event/getEventbyName', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+            name: newEvent.name
+        })
     })
   }
 
   
-  const addAccount = async () => {
-    await fetch('/api/account/addaccount', {
+  // const addAccount = async () => {
+  //   await fetch('/api/account/addaccount', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'Accept': 'application/json'
+  //     },
+  //     body: JSON.stringify({
+  //       ...newUserAccount
+  //     })
+  //   })
+  // }
+
+  const addEvent = async () => {
+    await fetch('/api/event/createevent', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
       },
       body: JSON.stringify({
-        ...newUserAccount
+          Event_name: newEvent.name,
+          Event_type: newEvent.type,
+          Event_start_date: newEvent.startDate,
+          Event_end_date: newEvent.endDate,
+          Event_start_time: newEvent.startTime,
+          Event_end_time: newEvent.endTime,
+          Event_description: newEvent.desc,
+          Capacity: newEvent.capacity,
+          Minimum_age: newEvent.MinimumAge,
+          Approved: newEvent.approved,
+          Ticket_cost: newEvent.cost,
+          Event_location: newEvent.location
+          
       })
     })
-  }
+    }
+
+    const sendEmail = async () => {
+        await fetch('/api/email/remindEmail', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                name: newEvent.name,
+                startDate: newEvent.startDate,
+                endDate: newEvent.endDate,
+                startTime: newEvent.startTime,
+                endTime: newEvent.endTime,
+                desc: newEvent.desc,
+            })
+        })
+    }
+
 
   return (
     <div>
       <h1>Back-end Testing page</h1>
-      <input type="number" name="User_id" placeholder="User_id" onChange={setInput}></input>
-      <input name="Email" placeholder="Email" onChange={setInput}></input>
-      <input name="Full_name" placeholder="Full_name" onChange={setInput}></input>
-      <input type="number" name="Phone_number" placeholder="Phone_number" onChange={setInput}></input>
-      <input name="Pronouns" placeholder="Pronouns" onChange={setInput}></input>
-      <input name="Account_type" placeholder="Account_type" onChange={setInput}></input>
-      <button onClick={() => fetchAccounts()}>Fetch Data About All Users</button>
-      <button onClick={() => fetchAccountData()}>Fetch Data About A User</button>
-      <button onClick={() => addAccount()}>Add User Account</button>
+      <input name="name" placeholder="name" onChange={setInput}></input>
+      <input name="type" placeholder="Type" onChange={setInput}></input>
+      <input type="Date" name="startDate" placeholder="Start Date" onChange={setInput}></input>
+      <input type="Date" name="endDate" placeholder="End Date" onChange={setInput}></input>
+      <input type="time" name="startTime" placeholder="Start Time" onChange={setInput}></input>
+      <input type="time" name="endTime" placeholder="End Time" onChange={setInput}></input>
+      <input name="desc" placeholder="Description" onChange={setInput}></input>
+      <input type="number" name="capacity" placeholder="Capacity" onChange={setInput}></input>
+      <input type="number" name="MinimumAge" placeholder="Minimum Age" onChange={setInput}></input>
+      <input type="number" name="cost" placeholder="Ticket Cost" onChange={setInput}></input>
+      <button onClick={() => fetchEvents()}>Fetch Data About All Events</button>
+          <button onClick={() => fetchEventData()}>Fetch Data About an Event</button>
+          <button onClick={() => sendEmail()}>Send Email</button>
     </div>
   );
 }

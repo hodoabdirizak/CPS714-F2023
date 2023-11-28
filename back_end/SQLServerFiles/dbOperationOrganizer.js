@@ -1,42 +1,62 @@
 const config = require('./dbConfig');
 const sql = require('mssql');
 
-const getOrganizers = async () => {
+const getOrganizerAccount = async (email) => {
+  try {
+    await sql.connect(config)
+    const result = await sql.query(`SELECT o.Organizer_Description, o.Organizer_Website
+                                    FROM User_Account AS ua, Organizer AS o
+                                    WHERE ua.Email = '${email}' AND o.User_id = ua.User_id;`); 
+    const data = result.recordset[0];
+    console.log(data);
+    if (data) {
+      return `${data['Organizer_Description']}|${data['Organizer_Website']}`;
+    }
+    return 'False';
+  } catch (err) {
+      console.error(err);
+      throw err;
+  }
+};
+
+const updateOrganizerAccount = async (Account) => {
   try {
     await sql.connect(config);
-    const result = await sql.query('SELECT * FROM Organizer');
-    return result.recordset;
+    const result = await sql.query(`UPDATE User_Account 
+                                    SET Full_name = '${Account.Full_name}', Phone_number = ${Account.Phone_number}
+                                    WHERE Email = '${Account.Email}';
+                                    UPDATE Organizer
+                                    SET Organizer_Description = '${Account.Description}', Organizer_Website = '${Account.Website}'
+                                    WHERE User_id IN (
+                                      SELECT User_Account.User_id
+                                      FROM User_Account
+                                      WHERE User_Account.Email = '${Account.Email}'
+                                    );`);
+    return result.rowsAffected[0];
   } catch (err) {
     throw err;
   }
 };
 
-const createOrganizer = async (organizer) => {
+const deleteAccountOrganizer = async (email) => {
   try {
-    await sql.connect(config);
-    const result = await sql.query(
-      `INSERT INTO Organizer (User_id, Organizer_name, Organizer_description, Organizer_website) VALUES (${organizer.User_id}, '${organizer.Organizer_name}', '${organizer.Organizer_description}', '${organizer.Organizer_website}')`
-    );
-    return result.recordset;
+  await sql.connect(config);
+  const result = await sql.query(`DELETE FROM Organizer
+                                  WHERE User_id IN (
+                                    SELECT User_Account.User_id
+                                    FROM User_Account
+                                    WHERE User_Account.email = '${email}');
+                                  DELETE FROM User_Account WHERE Email = '${email}';`);
+  console.log(result);
+  return result.rowsAffected[0];
   } catch (err) {
-    throw err;
-  }
-};
-
-const updateOrganizer = async (organizerId, updatedOrganizer) => {
-  try {
-    await sql.connect(config);
-    const result = await sql.query(
-      `UPDATE Organizer SET Organizer_name = '${updatedOrganizer.Organizer_name}', Organizer_description = '${updatedOrganizer.Organizer_description}', Organizer_website = '${updatedOrganizer.Organizer_website}' WHERE User_id = ${updatedOrganizer.User_id} AND Organizer_id = ${organizerId}`
-    );
-    return result.recordset;
-  } catch (err) {
+    console.error(err);
     throw err;
   }
 };
 
 module.exports = {
-  getOrganizers,
-  createOrganizer,
-  updateOrganizer,
+  getOrganizerAccount,
+  updateOrganizerAccount,
+  deleteAccountOrganizer
 };

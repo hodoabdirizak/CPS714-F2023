@@ -21,25 +21,60 @@ export const EventCreationConfirmation = () => {
 
 	const location = useLocation();
 	const { eventName,
-		eventDate,
-		eventLocation,
-		numberOfGuests,
-		eventDescription,
-		eventType,
-		selectedOption,
-		admissionPrice,
-		selectedOption1,
-		catering,
-		additionalNotes
+        	eventDate,
+        	eventLocation,
+        	numberOfGuests,
+			startTime,
+			endTime,
+        	eventDescription,
+        	eventType,
+        	selectedOption,
+        	admissionPrice,
+			ageRestriction,
+
+        	catering,
+        	additionalNotes,
+			eventFormat,
+			userID
 	} = location.state;
 
 	const history = useHistory();
 	const handleSubmit = (e) => {
 		e.preventDefault();
+		addEvent();
 		alert("Event Created Succesfully.");
-		//Insert statement to database
 		history.push('/');
 		history.go(0);
+
+	}
+	
+	const addEvent = async () => {
+		await fetch('/api/event/createEvent', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				'Accept': 'application/json'
+			},
+			body: JSON.stringify({
+				Event_name: eventName,
+				Event_type: eventType,
+				Event_start_date: eventDate,
+				Event_end_date: eventDate,
+				Event_start_time: startTime,
+				Event_end_time: endTime,
+				Event_description: eventDescription,
+				Capacity: numberOfGuests,
+				Minimum_age: 0,
+				Approved: 'True',
+				Ticket_cost: admissionPrice,
+				Event_location: ' ',
+				VenueId: eventLocation,
+				OrganizerId: userID,
+				cateringid: catering,
+				eventFormat
+				
+			})
+		})
 	}
 
 	return (
@@ -61,6 +96,7 @@ export const EventCreationConfirmation = () => {
 									<p>Event Date: {eventDate}</p>
 									<p>Event Location: {eventLocation}</p>
 									<p>Number of Guests: {numberOfGuests}</p>
+									<p>Event Start and End times: {startTime} to {endTime}</p>
 									<p>Event Description: {eventDescription}</p>
 									<p>Event Type: {eventType}</p>
 									<p>Cost per person: ${admissionPrice}</p>
@@ -109,9 +145,9 @@ export const EventCreationConfirmation = () => {
 										<div className='form-group' style={{ display: 'flex', justifyContent: 'center' }}>
 											<div className='form-group-item'>
 												<input
-													type="date"
+													type="text"
 													value={expiryDate}
-													placeholder="Event Date (yyyy-mm-dd)"
+													placeholder="MMYY"
 													onChange={(e) => setExpiryDate(e.target.value)}
 													required
 												/>
@@ -126,7 +162,7 @@ export const EventCreationConfirmation = () => {
 												/>
 											</div>
 										</div>
-										<button type="submit">Create Event</button>
+										<button type="submit" onClick={(e) => handleSubmit}>Create Event</button>
 									</div>
 								</form>
 							</td>

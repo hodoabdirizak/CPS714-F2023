@@ -3,11 +3,21 @@ import Select from "react-dropdown-select";
 import './SignupPage.css';
 import logo from '../assets/logo.png';
 import bg from '../assets/logo200.png';
+import { useHistory } from 'react-router-dom';
+
 
 export const SignUpPage = () => {
-  const [newUserAccount, setUserAccount] = useState({Email: '', Full_name: '', 
-                                                  Phone_number: '', Pronouns: '', Account_type: '', Pswd: ''});
-  const [userId, setUserId] = useState({User_id: 0});
+  const [newUserAccount, setUserAccount] 
+    = useState({Email: '', Full_name: '', 
+                Phone_number: '', Pronouns: '', 
+                Account_type: '', Pswd: ''});
+
+  const history = useHistory();
+
+  const [isChecked, setIsChecked] = useState('');
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked);
+  }
 
   const options = [
     { 
@@ -22,8 +32,8 @@ export const SignUpPage = () => {
       value: "Caterer",
       label: "Caterer"
     }
-  ];                                                  
-
+  ]; 
+  
   const setInput = (e) => {
     const {name, value} = e.target;
     if (name === 'Phone_number'){
@@ -51,50 +61,66 @@ export const SignUpPage = () => {
     return;
   }
 
-  const getUserIdByEmail = async () => {
-    let response = await fetch('/api/account/getuseridbyemail', {
+  const addOrganizerAccount = async (new_user_id) => {
+    let response = await fetch('/api/account/addorganizeraccount', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       },
       body: JSON.stringify({
-        email: newUserAccount.Email
+        userId: new_user_id
       })
     });
 
     const data = await response.text();
-    setUserId(prevState => ({
-      ...prevState,
-      User_id: data 
-    }));
+
+    if (data==='2627') {
+      alert(`An account for this email already exists.`);
+    } else {
+      alert(`Organizer account has been created successfully.`);
+    }
   }
 
-  const addOrganizerAccount = async () => {
-    await fetch('/api/account/addorganizeraccount', {
+  const addCatererAccount = async (new_user_id) => {
+    let response = await fetch('/api/account/addcatereraccount', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       },
       body: JSON.stringify({
-        userId: userId.User_id
+        userId: new_user_id
       })
     });
+
+    const data = await response.text();
+
+    if (data==='2627') {
+      alert(`An account for this email already exists.`);
+    } else {
+      alert(`Organizer account has been created successfully.`);
+    }
   }
 
-  const addCatererAccount = async () => {
-    await fetch('/api/account/addcatereraccount', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify({
-        userId: userId.User_id
-      })
-    });
-  }
+  const verifyEmail = async () => {
+    try {
+      const response = await fetch('/api/email/verifyEmail', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          email: newUserAccount.Email,
+        }),
+      });
+      const data = await response.text();
+      console.log(data);
+      } catch (error) {
+      console.error('Error:', error);
+    }
+  } 
 
   const addAccount = async () => {
     let response = await fetch('/api/account/addaccount', {
@@ -114,17 +140,35 @@ export const SignUpPage = () => {
       alert(`An account for this email already exists.`);
     } else if (data==='') {
       if (newUserAccount.Account_type==='Organizer') {
-        getUserIdByEmail();
-        addOrganizerAccount();
-        alert(`Organizer account has been created successfully.`);
+        let response = await fetch('/api/account/getuseridbyemail', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            email: newUserAccount.Email
+          })
+        });
+        const new_user_id = await response.text();
+        addOrganizerAccount(new_user_id);
+        alert(`Check your email to verify your account.`);
       } else if (newUserAccount.Account_type==='Caterer') {
-        getUserIdByEmail();
-        addCatererAccount();
-        alert(`Caterer account has been created successfully.`);
-      } else {
-        alert(`User account has been created successfully.`);
-      }
-
+        let response = await fetch('/api/account/getuseridbyemail', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            email: newUserAccount.Email
+          })
+        });
+        const new_user_id = await response.text();
+        addCatererAccount(new_user_id);
+      } 
+      verifyEmail();
+      alert('Follow the instructions sent to your email to verify your account.')
     } else {
       alert('An error has occurred. We were unable to create your account.')
     }
@@ -140,6 +184,7 @@ export const SignUpPage = () => {
   return (
     <div style={{ backgroundImage: `url(${bg})` }}>
       <div className="login-container" style={{ backgroundColor: `white` }}>
+      <br></br>
         <img src={logo} alt="Logo" />
         <h1>Sign Up</h1>
         <form onSubmit={handleSignUp}>
@@ -200,7 +245,6 @@ export const SignUpPage = () => {
                 placeholder="Pronouns"
                 value={newUserAccount.Pronouns}
                 onChange={setInput}
-                required
                 className="input-style-5"
               />
             </div>
@@ -222,19 +266,52 @@ export const SignUpPage = () => {
               />
             </div>
           </div>
-          <br></br>
+	  <div>
+	    <h3>By checking the box below you verify that you are 18 or older.</h3>
+	    <h3>This box MUST be checked.</h3>
+	      <input type="checkbox" checked={isChecked} onChange={handleCheckboxChange}/>
+  	    <h3></h3>
+	  </div>
+          <button 
+            onClick={verifyEmail}
+            type="button" 
+            style={{
+              backgroundColor: 'red',
+              borderRadius: '15px',
+              fontSize: '1rem',    // Increase the font size
+              width: '35%',          // Set the width to 50% of its container
+              padding: '10px 20px',  // Add padding to control the button size
+            }}
+          >Test - Send Email</button>
           <button 
             // onClick={() => handleSignUp()}
             type="submit" 
+	    disabled={!isChecked}
             style={{
-              backgroundColor: '#E98123',
+              backgroundColor: isChecked ? '#E98123' : 'grey',
               borderRadius: '15px',
-              fontSize: '1.2rem',    // Increase the font size
-              width: '50%',          // Set the width to 50% of its container
+              fontSize: '1rem',    // Increase the font size
+              width: '33%',          // Set the width to 50% of its container
               padding: '10px 20px',  // Add padding to control the button size
             }}
           >Create Account</button>
+          <br></br>
+          <br></br>
+          <br></br>
+          <button
+            type="button"
+            onClick={() => history.push('/', {})}
+            style={{
+              backgroundColor: 'gray',
+              borderRadius: '15px',
+              fontSize: '0.9rem',    // Increase the font size
+              width: '38%',          // Set the width to 50% of its container
+              padding: '10px 20px'  // Add padding to control the button size
+            }}
+            >Return to Home Page
+          </button>
         </form>
+        <br></br>
       </div>
     </div>
   );

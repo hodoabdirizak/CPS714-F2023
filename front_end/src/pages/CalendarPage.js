@@ -1,3 +1,4 @@
+
 // pages/HomePage.js
 
 import React from 'react';
@@ -5,27 +6,71 @@ import { useLocation } from "react-router-dom";
 import Navbar from '../components/Navbar'; 
 import './CalendarPage.css';
 import { Scheduler } from "@aldabil/react-scheduler";
+import  { useState } from 'react';
 
 export const CalendarPage = () => {
-  /* dummy data 
-  need to retrieve this data from backend */
-  const events = [
-    {
-      event_id: 1,
-      title: "Event 1",
-      start: new Date("2023/11/2 09:30"),
-      end: new Date("2023/11/2 10:30"),
-    },
-    {
-      event_id: 2,
-      title: "Event 2",
-      start: new Date("2023/11/8 10:00"),
-      end: new Date("2023/11/8 11:00"),
-    },
-  ];
 
-  const location = useLocation();
-  const isLoggedIn = location?.state?.params;
+  /*const events = */
+
+    const location = useLocation();
+    const isLoggedIn = location.state?.isLoggedIn;
+    const accountType = location.state?.accountType;
+    const username = location.state?.username || "";
+    const userID = location.state?.userID || 0;
+    console.log(username + " " + accountType + " " + isLoggedIn + " " + userID);
+    var [events,setEvents] = useState([]);
+
+    const getUserEvents = async () => {
+        console.log("Getting events for user " + userID);
+        const result = await fetch('/api/eventAttendee/getUserEvents', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                id: userID
+            })
+        })
+        const eventIDs = await result.json();
+        console.log("Calendar "+ eventIDs);
+        for (var i in eventIDs) {
+            getEventInfo(eventIDs[i]);
+        }
+            
+    }
+
+    const getEventInfo = async (eventID) => {
+        console.log("Getting event " + eventID);
+        const result = await fetch('/api/event/getEventInfo', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                id: eventID
+            })
+        })
+        const event = JSON.parse(JSON.stringify(await result.json()));
+        var temp = {
+            event_id: eventID,
+            title: event[0]["Event_name"],
+            start: new Date(event[0]["Event_start_date"] + " " + event[0]["Event_start_time"]),
+            end: new Date(event[0]["Event_end_date"] + " " + event[0]["Event_end_time"]),
+            color: "teal",
+            editable: false,
+            deletable: false,
+            draggable: false
+        };
+        let tempArr = events;
+        setEvents(tempArr.concat(temp));
+    }
+
+    if(events.length === 0 && userID !== 0)
+        getUserEvents();
+
+  
 
   const translations = {
     navigation: {
@@ -38,7 +83,7 @@ export const CalendarPage = () => {
 
   return (
   <div className='home-page-container'>
-    <Navbar isLoggedIn={isLoggedIn} />
+          <Navbar isLoggedIn={isLoggedIn} username={username} userID={userID} accountType={accountType} />
     <div className='calendar-section' style={{ width: '90%' }}>
       <div style={{ paddingTop: "12vh", paddingLeft: "7vw", fontSize: "40px", fontWeight: "bold", marginBottom: "0%", color: "#696969" }}>
         My Calendar

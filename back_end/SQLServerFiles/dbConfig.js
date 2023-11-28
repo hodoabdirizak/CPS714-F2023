@@ -1,8 +1,8 @@
 const config = {
-    user: 'Eddy',
-    password: 'abc123',
-    database: 'EventEasy', //REPLACE if you named yours differently
-    server: 'EDDYS-LAPTOP\\SQLEXPRESS', //REPLACE
+    user: '714user',
+    password: 'ughhhhh',
+    database: 'EventEasy',
+    server: 'eventeasy2.cv70awf1gzpj.ca-central-1.rds.amazonaws.com',
     port: 1433, //REPLACE
     pool: {
         max: 10,

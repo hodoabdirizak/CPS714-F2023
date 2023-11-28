@@ -1,7 +1,5 @@
-// pages/HomePage.js
-
-import React from 'react'
-import { useLocation } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import Navbar from '../components/Navbar';
@@ -11,10 +9,44 @@ import './HomePage.css';
 
 export const HomePage = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
+  const isLoggedIn = location?.state?.isLoggedIn;
+  const accountType = location?.state?.accountType;
+  const username = location?.state?.username || "";
+  const hasID = location?.state?.userID || 0;
+    const [userID, setUserID] = useState(0);
 
-  /* dummy data 
-  need to retrieve this data from backend */
-  const events = [
+  if (hasID !== 0 && userID === 0) {
+      setUserID(hasID);
+      console.log("hasID " +userID);
+  }  
+
+  const getUserID = async () => {
+    console.log("Getting ID for user " + username);
+    const result = await fetch('/api/account/getuseridbyemail', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        email: username
+      })
+    });
+      var data = await result.json();
+      setUserID(data);
+    console.log(data);
+    return data;
+  }
+
+  if (username !== "" && userID === 0 && hasID === 0) {
+    getUserID().then((res) => {
+        setUserID(res);
+        console.log("got id "+res);
+    });
+  }
+
+  const [events, setEvents] = useState([
     {
       id: 1,
       title: 'Harmony Fest',
@@ -75,14 +107,71 @@ export const HomePage = () => {
       address: '789 Tech Boulevard, Toronto',
       imageUrl: 'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&q=60&w=800&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGV2ZW50fGVufDB8fDB8fHww',
     },
-  ];
+  ]);
 
-  const location = useLocation();
-  const isLoggedIn = location?.state?.params;
+  const [showPopUp, setShowPopUp] = useState(false);
+  const [currentEvent, setCurrentEvent] = useState(null);
+
+  useEffect(() => {
+    const currentDate = new Date();
+
+    const recentlyFinishedEvents = events.filter((event) => {
+      const eventDateTime = new Date(event.date + ' ' + event.time.split(' - ')[0]);
+      return currentDate > eventDateTime && !event.feedbackFormDisplayed;
+    });
+
+    if (recentlyFinishedEvents.length > 0) {
+      recentlyFinishedEvents.forEach((recentEvent) => {
+        setEvents((prevEvents) =>
+          prevEvents.map((prevEvent) =>
+            prevEvent.id === recentEvent.id
+              ? { ...prevEvent, feedbackFormDisplayed: true }
+              : prevEvent
+          )
+        );
+      });
+
+      setShowPopUp(true);
+      setCurrentEvent(recentlyFinishedEvents[0]);
+    }
+  }, [events]);
+
+  const handleClosePopUp = () => {
+    setShowPopUp(false);
+  };
+
+  // State for radio button selection
+  const [rating, setRating] = useState(null);
+
+  // State for text input
+  const [additionalComments, setAdditionalComments] = useState('');
+
+  // State for improvement suggestions
+  const [improvements, setImprovements] = useState('');
+
+  const handleRatingChange = (event) => {
+    setRating(event.target.value);
+  };
+
+  const handleCommentsChange = (event) => {
+    setAdditionalComments(event.target.value);
+  };
+
+  const handleImprovementsChange = (event) => {
+    setImprovements(event.target.value);
+  };
+
+  const handleSubmit = () => {
+    // Add logic to submit feedback to the backend
+    // You can use rating, additionalComments, and improvements states for the feedback data
+    // ...
+    // After submitting, close the pop-up
+    handleClosePopUp();
+  };
 
   return (
     <div className='home-page-container'>
-      <Navbar isLoggedIn={isLoggedIn} />
+          <Navbar isLoggedIn={isLoggedIn} username={username} accountType={accountType} userID={userID} />
       <div className='background-image'>
         <img src={CoverPhoto} alt='' />
       </div>
@@ -94,7 +183,7 @@ export const HomePage = () => {
             <Link
               key={event.id}
               to={`/event/${event.id}`}
-              onClick={() => dispatch({ type: 'SET_EVENT', payload: event })}
+              onClick={() => dispatch({ type: 'SET_EVENT', payload: { event, userID, username, isLoggedIn, accountType } })}
             >
               <EventCard event={event} />
             </Link>
@@ -103,4 +192,5 @@ export const HomePage = () => {
       </div>
     </div>
   );
-}
+};
+
