@@ -77,7 +77,7 @@ function Navbar({ isLoggedIn, username, accountType, userID }) {
       <ul className="nav-items">
           <li><a onClick={goHome} href="/">Find Events</a></li>
           <li><a onClick={goHome} href="/">FAQ</a></li>
-          <li><a onClick={goHome}  href="/">My Events</a></li>
+          <li><a onClick={goHome}  href="/myEvents">My Events</a></li>
           <li><a onClick={gotoCalendar} href="/calendar">My Calendar</a></li>
           {/* If user is logged in, they will have the Profile navbar item
           instead of Sign In */}
