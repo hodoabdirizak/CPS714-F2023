@@ -60,8 +60,8 @@ function Navbar({ isLoggedIn, username, accountType, userID }) {
   };
   const createEvent = (e) => {
     e.preventDefault();
-    // Redirect to the event creation page
-    history.push('/EventCreation'); // Update the path according to your route
+    // Redirect to the event creatio
+    history.push('/eventCreation'); 
   };
 
 
@@ -82,35 +82,32 @@ function Navbar({ isLoggedIn, username, accountType, userID }) {
         </div>
       </div>
       <ul className="nav-items">
-      <button onClick={createEvent} className="button">Create Event</button>
+        {isLoggedIn && accountType === 'Organizer' && (
+          <li>
+            <button onClick={createEvent} className="button">Create Event</button>
+          </li>
+        )}
           <li><a onClick={goHome} href="/">Find Events</a></li>
           <li><a onClick={goHome} href="/">FAQ</a></li>
           <li><a onClick={goHome}  href="/">My Events</a></li>
           <li><a onClick={gotoCalendar} href="/calendar">My Calendar</a></li>
           
-          {/* If user is logged in, they will have the Profile navbar item
-          instead of Sign In */}
-          {isLoggedIn && accountType === 'Organizer' && (
-          <li>
-            <button onClick={createEvent} className="button">Create Event</button>
-          </li>
-        )}
-          { isLoggedIn 
-            ? <li className="profile-item">
-                  <a href='/' onClick={goToProfile}>
-                    <div className="profile-icon">
-                      <FontAwesomeIcon icon={faUser} size="lg" style={{ color: "#1e0900" }} />
-                    </div>
-                    {username}
-                  </a>
-              </li>
-            : null
-          } 
+        { isLoggedIn 
+          ? <li className="profile-item">
+                <a href='/' onClick={goToProfile}>
+                  <div className="profile-icon">
+                    <FontAwesomeIcon icon={faUser} size="lg" style={{ color: "#1e0900" }} />
+                  </div>
+                  {username}
+                </a>
+            </li>
+          : null
+        } 
 
-          { isLoggedIn 
-            ? <li><a href='/' onClick={signOut}>Sign Out</a></li>         
-            : <li><a href="/login">Sign In</a></li>
-          }
+        { isLoggedIn 
+          ? <li><a href='/' onClick={signOut}>Sign Out</a></li>         
+          : <li><a href="/login">Sign In</a></li>
+        }
       </ul>
     </div>
   );
