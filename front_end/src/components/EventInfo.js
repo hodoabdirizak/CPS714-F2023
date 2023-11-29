@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import Navbar from '../components/Navbar';
 import { useParams } from 'react-router-dom';
 import { areIntervalsOverlapping } from "date-fns";
+import Map from '../components/Map'
 import './EventInfo.css';
 
 export const EventInfo = () => {
@@ -111,12 +112,10 @@ export const EventInfo = () => {
         seteventEndTime(SQLevent[0]["Event_end_time"]);
         console.log(eventStartDate + " " + eventStartTime);
     }
+    
+ 
 
-    getDates(event.id);
-    getUserEvents();
-    useEffect(() => {
-
-    }, []); 
+    const [hasdates , sethasdates] = useState(false)
 
     const handleBuy = () => {
         if (conflicts.length > 0) {
@@ -147,6 +146,11 @@ export const EventInfo = () => {
   useEffect(() => {
     const currentDate = new Date();
     const eventEndTime = new Date(event.date + ' ' + event.time.split(' - ')[1]);
+    if(hasdates == false){
+      getDates(event.id);
+      getUserEvents();
+      sethasdates(true);
+    };
 
     if (currentDate > eventEndTime) {
       setShowFeedbackButton(true);
@@ -220,6 +224,7 @@ export const EventInfo = () => {
           <h3>{event.catering}</h3>
           <h2>Event Description</h2>
           <p>{event.event_desc}</p>
+          <Map address={event.address} />
           <button className='buy-ticket' style={{ width: '25%' }} onClick={handleBuy}>Buy Ticket</button>
           {showFeedbackButton && (
             <button className='buy-ticket' style={{ width: '25%', marginLeft: '5%' }} onClick={handleGiveFeedback}>
