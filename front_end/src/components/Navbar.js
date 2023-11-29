@@ -1,13 +1,13 @@
 // Navbar.js
 
-import React  from 'react';
+import React, { useState } from 'react';
 import logo from '../assets/logo.png';
 import { useHistory } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faUser } from '@fortawesome/free-solid-svg-icons'
 import './Navbar.css';
 
-function Navbar({ isLoggedIn, username, accountType, userID }) {
+function Navbar({ isLoggedIn, username, accountType, userID, onSearch }) {
   const history = useHistory();
 
   const goToProfile = (e) => {
@@ -73,6 +73,12 @@ function Navbar({ isLoggedIn, username, accountType, userID }) {
     history.push('/eventCreation'); 
   };
 
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+    onSearch(e.target.value); // Pass the search query to the parent component
+  };
 
   return (
     <div className="navbar">
@@ -86,7 +92,9 @@ function Navbar({ isLoggedIn, username, accountType, userID }) {
           <FontAwesomeIcon icon={ faSearch } />
           <input type="text" 
           placeholder='Search for an event'
-          className="rounded-input" 
+          className="rounded-input"
+          value={searchQuery}
+          onChange={handleSearchChange} 
           />
         </div>
       </div>

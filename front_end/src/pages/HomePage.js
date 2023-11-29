@@ -16,6 +16,7 @@ export const HomePage = () => {
   const hasID = location?.state?.userID || 0;
   const [userID, setUserID] = useState(0);
   const [events, setEvents] = useState([]);
+  const [filteredEvents, setFilteredEvents] = useState([]);
 
   if (hasID !== 0 && userID === 0) {
     setUserID(hasID);
@@ -66,10 +67,16 @@ export const HomePage = () => {
     getEvents();
   }, []);
 
+  const onSearch = (searchQuery) => {
+    const filtered = events.filter((event) =>
+      event.title.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    setFilteredEvents(filtered);
+  };
 
   return (
     <div className='home-page-container'>
-      <Navbar isLoggedIn={isLoggedIn} username={username} accountType={accountType} userID={userID} />
+      <Navbar isLoggedIn={isLoggedIn} username={username} accountType={accountType} userID={userID} onSearch={onSearch}/>
       <div className='background-image'>
         <img src={CoverPhoto} alt='' />
       </div>
@@ -77,11 +84,16 @@ export const HomePage = () => {
         <h1>Socials, conferences, corporate events, workshops and <span style={{ color: '#8C6ACB' }}>more</span>.</h1>
         <h2>Trending events in <span style={{ color: '#696969' }}>Toronto</span></h2>
         <div className="event-cards">
-          {events.map((event) => (
+          {filteredEvents.map((event) => (
             <Link
               key={event.id}
               to={`/event/${event.id}`}
-              onClick={() => dispatch({ type: 'SET_EVENT', payload: { event, userID, username, isLoggedIn, accountType } })}
+              onClick={() =>
+                dispatch({
+                  type: 'SET_EVENT',
+                  payload: { event, userID, username, isLoggedIn, accountType },
+                })
+              }
             >
               <EventCard event={event} />
             </Link>

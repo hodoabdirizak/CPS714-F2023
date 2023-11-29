@@ -5,11 +5,12 @@
   
   .event-date {
     text-align: center;
+    padding-left: 20px;
     line-height: 0.6;
   }
   
   .event-details {
-    padding-left: 50px;
+    padding-left: 60px;
     width: 700px;
   }
   

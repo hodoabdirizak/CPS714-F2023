@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import Navbar from '../components/Navbar';
 import { useParams } from 'react-router-dom';
 import { areIntervalsOverlapping } from "date-fns";
+import Map from '../components/Map'
 import './EventInfo.css';
 
 export const EventInfoAttendee = () => {
@@ -224,6 +225,7 @@ export const EventInfoAttendee = () => {
             <h3 style={{ fontSize: '30px', color: 'orange'}}><strong>{event.no_ticket} Tickets</strong></h3>
             <h2>You have a confirmed purchase of <strong>{event.no_ticket}</strong> tickets. When it's time for the event, present this page at registration.</h2>
           </div>
+          <Map address={event.address} />
           {showFeedbackButton && (
             <button className='buy-ticket' style={{ width: '25%', marginLeft: '5%' }} onClick={handleGiveFeedback}>
               Give Feedback
