@@ -111,12 +111,10 @@ export const EventInfo = () => {
         seteventEndTime(SQLevent[0]["Event_end_time"]);
         console.log(eventStartDate + " " + eventStartTime);
     }
+    
+ 
 
-    getDates(event.id);
-    getUserEvents();
-    useEffect(() => {
-
-    }, []); 
+    const [hasdates , sethasdates] = useState(false)
 
     const handleBuy = () => {
         if (conflicts.length > 0) {
@@ -147,6 +145,11 @@ export const EventInfo = () => {
   useEffect(() => {
     const currentDate = new Date();
     const eventEndTime = new Date(event.date + ' ' + event.time.split(' - ')[1]);
+    if(hasdates == false){
+      getDates(event.id);
+      getUserEvents();
+      sethasdates(true);
+    };
 
     if (currentDate > eventEndTime) {
       setShowFeedbackButton(true);
