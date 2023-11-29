@@ -1,12 +1,16 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useHistory } from 'react-router-dom';
 import './EventCard.css';
 
 function EventCard({ event }) {
 
     /* need to get from database */
 
+    const location = useLocation();
+    const history = useHistory();
     const { title, date, venue, imageUrl, id } = event;
+    const isLoggedIn = location.state?.isLoggedIn;
+    const accountType = location.state?.accountType;
 
 
     return (

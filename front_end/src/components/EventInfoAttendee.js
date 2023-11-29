@@ -77,6 +77,7 @@ export const EventInfoAttendee = () => {
     const isConflict = (temp) => {
         const startTime = event.time.split(" - ")[0];
         const endTime = event.time.split(" - ")[1];
+        console.log(event.date);
         const eventStart = (new Date(event.date + " " + startTime));
         const eventEnd = new Date(event.date + " " + endTime);
         console.log(eventStart + " " + eventEnd);
@@ -145,12 +146,12 @@ export const EventInfoAttendee = () => {
   const [showFeedbackButton, setShowFeedbackButton] = useState(false);
 
   useEffect(() => {
-    const currentDate = new Date();
-    const eventEndTime = new Date(event.date + ' ' + event.time.split(' - ')[1]);
-    console.log("Number of tickets:",event.no_ticket);
-    if (currentDate > eventEndTime) {
+    // const currentDate = new Date();
+    // const eventEndTime = new Date(event.date + ' ' + event.time.split(' ')[1]);
+    // if (currentDate > eventEndTime) {
       setShowFeedbackButton(true);
-    }
+    // }
+    // console.log('state',showFeedbackButton);
   }, [event]);
 
 
@@ -228,11 +229,12 @@ export const EventInfoAttendee = () => {
             </div>
           )}
           <Map address={event.address} />
-          {showFeedbackButton && (
+          
+        
             <button className='buy-ticket' style={{ width: '25%', marginLeft: '5%' }} onClick={handleGiveFeedback}>
               Give Feedback
             </button>
-          )}
+          
 
         {showFeedbackPopup && (
         <div className="popup-overlay">
