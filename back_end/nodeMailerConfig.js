@@ -13,12 +13,20 @@ const transporter = nodemailer.createTransport({
 });
 
 // Forgot password
+const generateRandomCode = () => {
+  const codeLength = 6;
+  const min = Math.pow(10, codeLength - 1);
+  const max = Math.pow(10, codeLength) - 1;
+  return Math.floor(Math.random() * (max - min + 1) + min);
+};
+
 const sendVerificationEmail = async (recipientEmail) => {
+  const verificationCode = generateRandomCode();
   const mailOptions = {
     from: 'eventeasy714@gmail.com', 
     to: recipientEmail,
     subject: 'Verification Code',
-    text: `Your verification code is: code`,
+    text: `Your verification code is: ${verificationCode}`,
   };
   await transporter.sendMail(mailOptions);
 };
