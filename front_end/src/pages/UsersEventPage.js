@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Navbar from '../components/Navbar';
-import EventCard from '../components/EventCard';
+import EventCardAttendee from '../components/EventCardAttendee';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import './UsersEventPage.css';
@@ -17,7 +17,7 @@ export const UsersEventPage = () => {
     const userID = location?.state?.userID || 0;
     const [events, setEvents] = useState([]);
 
-    const getMyEvents = async () => {
+    const getMyEventsAttendee = async () => {
       console.log("------Getting all events-----");
       const result = await fetch('/api/event/getmyevents', {
         method: 'POST',
@@ -36,8 +36,7 @@ export const UsersEventPage = () => {
     };
   
     useEffect(() => {
-      console.log('UID',userID);
-      getMyEvents();
+      getMyEventsAttendee();
     }, []);
   
 
@@ -50,10 +49,10 @@ export const UsersEventPage = () => {
             {events.map((event) => (
               <Link
                 key={event.id}
-                to={`/event/${event.id}`}
+                to={`/eventattendee/${event.id}`}
                 onClick={() => dispatch({ type: 'SET_EVENT', payload: { event, userID, username, isLoggedIn, accountType } })}
               >
-                <EventCard event={event} />
+                <EventCardAttendee event={event} />
               </Link>
             ))}
           </div>

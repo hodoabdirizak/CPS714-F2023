@@ -12,6 +12,7 @@ import { EventCreationForm } from './pages/EventCreationForm';
 import { EventCreationConfirmation } from './pages/EventCreationConfirmation';
 import { CalendarPage } from './pages/CalendarPage';
 import EventInfo from './components/EventInfo';
+import EventInfoAttendee from './components/EventInfoAttendee';
 import { UsersEventPage } from './pages/UsersEventPage';
 import { ProfileAttendee } from './pages/ProfileAttendee';
 import { ProfileCaterer } from './pages/ProfileCaterer';
@@ -67,6 +68,7 @@ const Routes = () => {
                     <CalendarPage/>
                 </Route>
                 <Route path="/event/:id" component={EventInfo} />
+                <Route path="/eventattendee/:id" component={EventInfoAttendee} />
                 <Route path="/myEvents">
                     <UsersEventPage/>
                 </Route>
