@@ -20,8 +20,8 @@ export const HomePage = () => {
 
   if (hasID !== 0 && userID === 0) {
     setUserID(hasID);
-    console.log("hasID " +userID);
-  }  
+    console.log("hasID " + userID);
+  }
 
   const getUserID = async () => {
     console.log("Getting ID for user " + username);
@@ -35,16 +35,16 @@ export const HomePage = () => {
         email: username
       })
     });
-      var data = await result.json();
-      setUserID(data);
+    var data = await result.json();
+    setUserID(data);
     console.log(data);
     return data;
   }
 
   if (username !== "" && userID === 0 && hasID === 0) {
     getUserID().then((res) => {
-        setUserID(res);
-        console.log("got id "+res);
+      setUserID(res);
+      console.log("got id " + res);
     });
   }
 
@@ -58,7 +58,7 @@ export const HomePage = () => {
       }
     });
     const data = await result.text();
-    const eventsList = JSON.parse(data);   
+    const eventsList = JSON.parse(data);
     setEvents([...eventsList]);
     return;
   };
@@ -66,6 +66,10 @@ export const HomePage = () => {
   useEffect(() => {
     getEvents();
   }, []);
+
+  useEffect(() => {
+    setFilteredEvents([...events]);
+  }, [events]);
 
   const onSearch = (searchQuery) => {
     const filtered = events.filter((event) =>
@@ -76,7 +80,7 @@ export const HomePage = () => {
 
   return (
     <div className='home-page-container'>
-      <Navbar isLoggedIn={isLoggedIn} username={username} accountType={accountType} userID={userID} onSearch={onSearch}/>
+      <Navbar isLoggedIn={isLoggedIn} username={username} accountType={accountType} userID={userID} onSearch={onSearch} />
       <div className='background-image'>
         <img src={CoverPhoto} alt='' />
       </div>
