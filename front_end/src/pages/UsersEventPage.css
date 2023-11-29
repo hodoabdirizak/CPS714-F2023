@@ -1,0 +1,13 @@
+.users-event-page-container {
+    margin-top: 7%;
+    margin-left: 2%;
+}
+
+.event-cards {
+    display: flex;
+    justify-content: flex-start;
+    flex-flow: row wrap;
+    overflow-x: auto;
+    padding: 10px;
+    
+  }

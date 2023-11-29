@@ -12,6 +12,7 @@ import { EventCreationForm } from './pages/EventCreationForm';
 import { EventCreationConfirmation } from './pages/EventCreationConfirmation';
 import { CalendarPage } from './pages/CalendarPage';
 import EventInfo from './components/EventInfo';
+import { UsersEventPage } from './pages/UsersEventPage';
 import { ProfileAttendee } from './pages/ProfileAttendee';
 import { ProfileCaterer } from './pages/ProfileCaterer';
 import { ProfileOrganizer } from './pages/ProfileOrganizer';
@@ -66,6 +67,9 @@ const Routes = () => {
                     <CalendarPage/>
                 </Route>
                 <Route path="/event/:id" component={EventInfo} />
+                <Route path="/myEvents">
+                    <UsersEventPage/>
+                </Route>
             </Switch>
         </Router>
     )

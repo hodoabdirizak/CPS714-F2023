@@ -316,7 +316,27 @@ const emailController = {
     const email = req.query.email;
     console.log(`${email} was recieved from the URL. type: ${typeof email}`);
     res.send(email.toString());
-  }
+    },
+
+    remindEmail: async (req, res) => {
+        console.log('Called /api/event/remindEmail');
+        try {
+            const email = req.body.email;
+            const name = req.body.name;
+            const desc = req.body.desc;
+            const startDate = req.body.startDate;
+            const startTime = req.body.startTime;
+            const endDate = req.body.endDate;
+            const endTime = req.body.endTime;
+            const result = await nodemailerConfig.remindEmail(email, name, desc, startDate, startTime, endDate, endTime);
+            console.log(result);
+            res.send('Email sent successfully');
+        }
+        catch (e) {
+            console.error('Error:', e);
+            res.status(500).send('Internal Server Error');
+        }
+    }
 }
 
 module.exports = {
