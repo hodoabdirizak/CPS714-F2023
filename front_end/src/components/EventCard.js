@@ -8,11 +8,6 @@ function EventCard({ event }) {
 
     const { title, date, venue, imageUrl, id } = event;
 
-    const editEvent = (e) => {
-        e.preventDefault();
-        // Redirect to the event creatio
-        history.push('/eventCreation'); 
-      };
 
     return (
     <Link to={`/event/${id}`} className="event-card">
@@ -22,11 +17,6 @@ function EventCard({ event }) {
             <div className='event-info'>
                 <p>{date}</p>
                 <p>{venue}</p>
-                {isLoggedIn && accountType === 'Organizer' && (
-                    <li>
-                        <button onClick={editEvent} className="button">Edit Event</button>
-                    </li>
-                )}
             </div>
         </div>
     </Link>

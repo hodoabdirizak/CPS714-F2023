@@ -1,12 +1,18 @@
 import React from 'react';
-import { Link } from 'react-router-dom'; 
+import { Link} from 'react-router-dom'; 
 import './EventCard.css';
 
-function EventCardAttendee({ event }) {
+function EventCardAttendee({ event, accountType, isLoggedIn }) {
 
     /* need to get from database */
 
     const { title, date, venue, imageUrl, id } = event;
+
+    const editEvent = (e) => {
+        e.preventDefault();
+        // Redirect to the event creatio
+        history.push('/eventCreation'); 
+      };
 
     return (
     <Link to={`/eventattendee/${id}`} className="event-card">
@@ -16,6 +22,11 @@ function EventCardAttendee({ event }) {
             <div className='event-info'>
                 <p>{date}</p>
                 <p>{venue}</p>
+                {isLoggedIn && accountType === 'Organizer' && (
+                    <li>
+                        <button onClick={editEvent} className="button">Edit Event</button>
+                    </li>
+                )}
             </div>
         </div>
     </Link>
