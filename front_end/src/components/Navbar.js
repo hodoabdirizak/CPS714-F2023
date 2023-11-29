@@ -39,8 +39,11 @@ function Navbar({ isLoggedIn, username, accountType, userID, onSearch }) {
   };
 
   const goHome = (e) => {
-    e.preventDefault();
-    let url = "/"
+    if (e) {
+      e.preventDefault();
+    }
+
+    let url = "/";
 
     history.push({
         pathname: url,
@@ -77,14 +80,19 @@ function Navbar({ isLoggedIn, username, accountType, userID, onSearch }) {
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
-    onSearch(e.target.value); // Pass the search query to the parent component
+    onSearch(e.target.value);
+  };
+
+  const clearSearch = () => {
+    setSearchQuery('');
+    onSearch('');
   };
 
   return (
     <div className="navbar">
       <div className="left-section">
         <div className="logo">
-          <a onClick={goHome} href="/">
+        <a onClick={() => { goHome(); clearSearch(); }} href="/">
           <img src={logo} alt="Logo" />
           </a>
         </div>
