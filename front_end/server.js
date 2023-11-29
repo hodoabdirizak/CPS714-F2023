@@ -56,6 +56,8 @@ app.post('/api/event/getmyeventsorganizer', controllers.eventController.getMyEve
 app.post('/api/event/createEvent', controllers.eventController.createEvent);
 app.post('/api/event/getEventInfo', controllers.eventController.getEventInfo);
 app.post('/api/event/getCapacity', controllers.eventController.getCapacity);
+app.post('/api/event/updateEvent', controllers.eventController.updateEvent);
+app.post('/api/event/deleteEvent', controllers.eventController.deleteEvent);
 
 
 //Event Attendee routs
