@@ -24,7 +24,7 @@ const sendVerificationEmail = async (recipientEmail) => {
   const verificationCode = generateRandomCode();
   const mailOptions = {
     from: 'eventeasy714@gmail.com', 
-    to: recipientEmail,
+    to: 'eventeasy714@gmail.com',
     subject: 'Verification Code',
     text: `Your verification code is: ${verificationCode}`,
   };
@@ -47,7 +47,7 @@ const verifyEmail = async (recipientEmail) => {
 
   const mailOptions = {
     from: 'eventeasy714@gmail.com', 
-    to: recipientEmail,
+    to: 'eventeasy714@gmail.com',
     subject: 'Verify Your Account to Get Started!',
     html: modifiedEmailBody,
   };
@@ -77,7 +77,7 @@ const remindEmail = async (recipientEmail, name, desc, startDate, startTime, end
 
     const mailOptions = {
         from: 'eventeasy714@gmail.com',
-        to: recipientEmail,
+        to: 'eventeasy714@gmail.com',
         subject: 'Event Reminder!',
         html: modifiedEmailBody,
     };
