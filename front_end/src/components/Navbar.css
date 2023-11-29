@@ -78,19 +78,20 @@
     align-items: center;
   }
   .button {
-    background-color: transparent;
-    color: white;
+    background-color: white;
+    color: black;
     border: 2px solid #000000;
-    padding: 8px; 
+    padding: 5px; 
     cursor: pointer;
     transition: background-color 0.3s, box-shadow 0.3s;
     border-radius: 8px; 
-    width: 4rem; 
-    height: 4rem;
-    margin-right: 70px;
+    width: 8rem; 
+    height: 2rem;
+    font-size: 16px;
   }
   
   .button:hover {
     background-color: black; /* Solid black background */
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    color: white;
   }

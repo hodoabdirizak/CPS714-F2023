@@ -220,10 +220,12 @@ export const EventInfoAttendee = () => {
           <h2>Event Description</h2>
           <p>{event.event_desc}</p>
           <br></br>
-          <div>
-            <h3 style={{ fontSize: '30px', color: 'orange'}}><strong>{event.no_ticket} Tickets</strong></h3>
-            <h2>You have a confirmed purchase of <strong>{event.no_ticket}</strong> tickets. When it's time for the event, present this page at registration.</h2>
-          </div>
+          {accountType === 'Attendee' && (
+            <div>
+              <h3 style={{ fontSize: '30px', color: 'orange'}}><strong>{event.no_ticket} Tickets</strong></h3>
+              <h2>You have a confirmed purchase of <strong>{event.no_ticket}</strong> tickets. When it's time for the event, present this page at registration.</h2>
+            </div>
+          )}
           {showFeedbackButton && (
             <button className='buy-ticket' style={{ width: '25%', marginLeft: '5%' }} onClick={handleGiveFeedback}>
               Give Feedback

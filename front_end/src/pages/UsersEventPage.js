@@ -34,9 +34,31 @@ export const UsersEventPage = () => {
       setEvents([...eventsList]);
       return;
     };
+
+    const getMyEventsOrganizer = async () => {
+      console.log("------Getting all events-----");
+      const result = await fetch('/api/event/getmyeventsorganizer', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          userID: userID
+        })
+      });
+      const data = await result.text();
+      const eventsList = JSON.parse(data);   
+      setEvents([...eventsList]);
+      return;
+    };
   
     useEffect(() => {
-      getMyEventsAttendee();
+      if (accountType === 'Attendee'){
+        getMyEventsAttendee();
+      } else if (accountType === 'Organizer'){
+        getMyEventsOrganizer();
+      }
     }, []);
   
 

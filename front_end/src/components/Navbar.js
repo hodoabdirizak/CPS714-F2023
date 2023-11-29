@@ -96,26 +96,32 @@ function Navbar({ isLoggedIn, username, accountType, userID }) {
             <button onClick={createEvent} className="button">Create Event</button>
           </li>
         )}
-          <li><a onClick={goHome} href="/">Find Events</a></li>
-          <li><a onClick={goToMyEvents}  href="/myEvents">My Events</a></li>
+        {isLoggedIn && (accountType === 'Attendee' || accountType === 'Organizer') && (
+          <>
+            <li><a onClick={goHome} href="/">Find Events</a></li>
+            <li><a onClick={goToMyEvents} href="/myEvents">My Events</a></li>
+          </>
+        )}
+        {isLoggedIn && accountType === 'Attendee' && (
           <li><a onClick={gotoCalendar} href="/calendar">My Calendar</a></li>
-          {/* If user is logged in, they will have the Profile navbar item
-          instead of Sign In */}
-          { isLoggedIn 
-            ? <li className="profile-item">
-                  <a href='/' onClick={goToProfile}>
-                    <div className="profile-icon">
-                      <FontAwesomeIcon icon={faUser} size="lg" style={{ color: "#1e0900" }} />
-                    </div>
-                    {username}
-                  </a>
-              </li>
-            : null
-          } 
-          { isLoggedIn 
-            ? <li><a href='/' onClick={signOut}>Sign Out</a></li>         
-            : <li><a href="/login">Sign In</a></li>
-          }
+        )}
+        {/* If user is logged in, they will have the Profile navbar item
+        instead of Sign In */}
+        { isLoggedIn 
+          ? <li className="profile-item">
+                <a href='/' onClick={goToProfile}>
+                  <div className="profile-icon">
+                    <FontAwesomeIcon icon={faUser} size="lg" style={{ color: "#1e0900" }} />
+                  </div>
+                  {username}
+                </a>
+            </li>
+          : null
+        } 
+        { isLoggedIn 
+          ? <li><a href='/' onClick={signOut}><strong>Sign Out</strong></a></li>         
+          : <li><a href="/login">Sign In</a></li>
+        }
       </ul>
     </div>
   );
