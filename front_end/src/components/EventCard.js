@@ -1,12 +1,14 @@
 import React from 'react';
-import { Link } from 'react-router-dom'; 
+import { Link, useLocation, useHistory } from 'react-router-dom';
 import './EventCard.css';
 
 function EventCard({ event }) {
 
     /* need to get from database */
 
+    
     const { title, date, venue, imageUrl, id } = event;
+    
 
     return (
     <Link to={`/event/${id}`} className="event-card">

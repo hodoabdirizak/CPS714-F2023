@@ -4,12 +4,85 @@ const sql = require('mssql');
 const getEvents = async () => {
   try {
     await sql.connect(config);
-    const result = await sql.query('SELECT * FROM Event_table');
+    events_query = `
+    SELECT DISTINCT
+      e.Event_id AS id, e.Event_name AS title, CONCAT(e.Event_start_date, ' ', e.Event_end_date) AS date,
+      CONCAT(e.Event_start_time, ' ', e.Event_end_time) AS time, ua.Full_name AS organizers, ua.Email AS org_email,
+      e.Capacity AS capacity, e.Event_type AS event_type, STRING_AGG(ua2.Full_name, ', ') AS catering, 
+      e.Event_description AS event_desc, v.Venue_name AS venue, v.Venue_address AS address, e.imageUrl AS imageUrl
+    FROM Event_table AS e JOIN Organizer_events AS oe ON e.Event_id = oe.Event_id JOIN Organizer AS o ON oe.Organizer_id = o.Organizer_id
+    JOIN User_Account AS ua ON o.User_id = ua.User_id JOIN Event_hosting AS eh ON e.Event_id = eh.Event_id 
+    JOIN Venue AS v ON eh.Venue_id = v.Venue_id JOIN Venue_caterer AS vc ON v.Venue_id = vc.Venue_id 
+    JOIN Caterer AS c ON vc.Caterer_id = c.Caterer_id JOIN User_Account AS ua2 ON c.User_id = ua2.User_id
+    GROUP BY e.Event_id, e.Event_name, e.Event_start_date, e.Event_end_date, e.Event_start_time, e.Event_end_time,
+      ua.Full_name, ua.Email, e.Capacity, e.Event_type, e.Event_description, v.Venue_name, v.Venue_address, e.imageUrl;`;
+    const result = await sql.query(events_query);
     return result.recordset;
   } catch (err) {
     throw err;
   }
 };
+
+const getMyEvents = async (userId) => {
+  try {
+    console.log('USER_ID',userId);
+    await sql.connect(config);
+    events_query = `
+    SELECT DISTINCT
+      e.Event_id AS id, e.Event_name AS title, CONCAT(e.Event_start_date, ' ', e.Event_end_date) AS date,
+      CONCAT(e.Event_start_time, ' ', e.Event_end_time) AS time, ua.Full_name AS organizers, ua.Email AS org_email,
+      e.Capacity AS capacity, e.Event_type AS event_type, STRING_AGG(ua2.Full_name, ', ') AS catering, 
+      e.Event_description AS event_desc, v.Venue_name AS venue, v.Venue_address AS address, e.imageUrl AS imageUrl, ea.Number_of_tickets AS no_ticket 
+    FROM Event_table AS e 
+	JOIN Organizer_events AS oe ON e.Event_id = oe.Event_id 
+	JOIN Organizer AS o ON oe.Organizer_id = o.Organizer_id
+    JOIN User_Account AS ua ON o.User_id = ua.User_id 
+	JOIN Event_hosting AS eh ON e.Event_id = eh.Event_id 
+    JOIN Venue AS v ON eh.Venue_id = v.Venue_id 
+	JOIN Venue_caterer AS vc ON v.Venue_id = vc.Venue_id 
+    JOIN Caterer AS c ON vc.Caterer_id = c.Caterer_id 
+	JOIN User_Account AS ua2 ON c.User_id = ua2.User_id 
+	JOIN Event_attendees AS ea ON ea.User_id = ${userId}
+	WHERE ea.Event_id = e.Event_id
+    GROUP BY ea.User_id, e.Event_id, e.Event_name, e.Event_start_date, e.Event_end_date, e.Event_start_time, e.Event_end_time,
+      ua.Full_name, ua.Email, e.Capacity, e.Event_type, e.Event_description, v.Venue_name, v.Venue_address, e.imageUrl, ea.Number_of_tickets;`;
+    const result = await sql.query(events_query);
+    return result.recordset;
+  } catch (err) {
+    throw err;
+  }
+};
+
+const getMyEventsOrganizer = async (userId) => {
+  try {
+    console.log('USER_ID',userId);
+    await sql.connect(config);
+    events_query = `
+    SELECT e.Event_id AS id, e.Event_name AS title, CONCAT(e.Event_start_date, ' ', e.Event_end_date) AS date,
+    CONCAT(e.Event_start_time, ' ', e.Event_end_time) AS time, ua.Full_name AS organizers, ua.Email AS org_email,
+    e.Capacity AS capacity, e.Event_type AS event_type, STRING_AGG(ua2.Full_name, ', ') AS catering,
+    e.Event_description AS event_desc, v.Venue_name AS venue, v.Venue_address AS address, e.imageUrl AS imageUrl 
+    FROM Event_table AS e 
+    JOIN Organizer_events AS oe ON e.Event_id = oe.Event_id 
+    JOIN Organizer AS o ON oe.Organizer_id = o.Organizer_id
+    JOIN User_Account AS ua ON o.User_id = ua.User_id 
+    JOIN Event_hosting AS eh ON e.Event_id = eh.Event_id 
+    JOIN Venue AS v ON eh.Venue_id = v.Venue_id 
+    JOIN Venue_caterer AS vc ON v.Venue_id = vc.Venue_id 
+    JOIN Caterer AS c ON vc.Caterer_id = c.Caterer_id 
+    JOIN User_Account AS ua2 ON c.User_id = ua2.User_id 
+    JOIN Organizer_events AS oe2 ON oe2.Event_id = e.Event_id
+    JOIN Organizer AS o2 ON o2.Organizer_id = oe2.Organizer_id
+    WHERE o2.User_id = ${userId} 
+    GROUP BY e.Event_id, e.Event_name, e.Event_start_date, e.Event_end_date, e.Event_start_time, e.Event_end_time,
+    ua.Full_name, ua.Email, e.Capacity, e.Event_type, e.Event_description, v.Venue_name, v.Venue_address, e.imageUrl;`;
+    const result = await sql.query(events_query);
+    return result.recordset;
+  } catch (err) {
+    throw err;
+  }
+};
+
 
 const getEventByName = async (Event_Name) => {
     try {
@@ -83,6 +156,8 @@ const deleteEvent = async (eventID) => {
 
 module.exports = {
     getEvents,
+    getMyEvents,
+    getMyEventsOrganizer,
     getCapacity,
     deleteEvent,
     createEvent,

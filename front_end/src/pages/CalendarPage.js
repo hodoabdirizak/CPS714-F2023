@@ -1,23 +1,25 @@
 
 // pages/HomePage.js
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useLocation } from "react-router-dom";
 import Navbar from '../components/Navbar'; 
 import './CalendarPage.css';
 import { Scheduler } from "@aldabil/react-scheduler";
-import { useSelector } from 'react-redux';
+import  { useState } from 'react';
 
 export const CalendarPage = () => {
 
   /*const events = */
 
     const location = useLocation();
-    const isLoggedIn = location.state?.isLoggedIn || false;
+    const isLoggedIn = location.state?.isLoggedIn;
     const accountType = location.state?.accountType;
     const username = location.state?.username || "";
     const userID = location.state?.userID || 0;
     console.log(username + " " + accountType + " " + isLoggedIn + " " + userID);
+    var [events, setEvents] = useState([]);
+    var [tempEvents, setTempEvents] = useState([]);
 
     const getUserEvents = async () => {
         console.log("Getting events for user " + userID);
@@ -34,12 +36,13 @@ export const CalendarPage = () => {
         const eventIDs = await result.json();
         console.log("Calendar "+ eventIDs);
         for (var i in eventIDs) {
-            getEventInfo(eventIDs[i]);
+            getEventInfo(eventIDs[i], eventIDs.length);
         }
+        setEvents(tempEvents);
             
     }
 
-    const getEventInfo = async (eventID) => {
+    const getEventInfo = async (eventID, length) => {
         console.log("Getting event " + eventID);
         const result = await fetch('/api/event/getEventInfo', {
             method: 'POST',
@@ -62,11 +65,17 @@ export const CalendarPage = () => {
             deletable: false,
             draggable: false
         };
-        events.push(temp);
+        let tempArr = events;
+        if (length > tempArr.length) {
+            tempArr.push(temp);
+            setEvents(tempArr);
+        }
     }
 
-    var events = [];
-    var eventIDs = getUserEvents();
+    useEffect(() => {
+        if (events.length === 0 && userID !== 0)
+            getUserEvents();
+    }, []);
 
   
 

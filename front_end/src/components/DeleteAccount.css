@@ -1,0 +1,26 @@
+.delete-account button {
+  padding: 12px 20px;
+  margin: 8px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+.delete_account-cancel-btn {
+  background-color: #e74c3c;
+  color: #fff;
+}
+
+.ddelete_account-confirm-btn {
+  background-color: #3498db;
+  color: #fff;
+}
+
+.delete_account-cancel-btn:hover {
+  background-color: #c0392b;
+}
+
+.delete_account-confirm-btn:hover {
+  background-color: #2980b9;
+}

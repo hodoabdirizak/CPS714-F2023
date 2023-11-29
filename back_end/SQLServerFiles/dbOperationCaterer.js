@@ -69,6 +69,10 @@ module.exports = {
   //createCaterer,
   //getCaterersByCuisine,
   //updateCaterer,
-  getCaterers,
+    getCaterers,
+    deleteAccountCaterer,
+    getCatererAccount,
+    updateCatererAccount
+
 
 };

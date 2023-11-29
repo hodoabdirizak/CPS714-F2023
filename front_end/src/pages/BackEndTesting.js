@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 
 export const BackEndTesting = () => {
-  const [returnedData, setReturnedData] = useState(['Some data']);
-  const [newUserAccount, setUserAccount] = useState({User_id: 0, Email: '', Full_name: '', 
-                                                  Phone_number: 0, Pronouns: '', Account_type: ''});
+  // const [returnedData, setReturnedData] = useState(['Some data']);
+  // const [newUserAccount, setUserAccount] = useState({User_id: 0, Email: '', Full_name: '', 
+  //                                                 Phone_number: 0, Pronouns: '', Account_type: ''});
 
-    const [newEvent, setEvent] = useState({ name: '', type: '',
-                                                        startDate: 0, endDate: '', startTime: '',endTime: '', desc:'',
-                                                        capacity: 1, MinimumAge: 0, approved: 'True', cost: 0 ,location: '' });
+  const [newEvent, setEvent] = useState({ name: '', type: '',
+                                                      startDate: 0, endDate: '', startTime: '',endTime: '', desc:'',
+                                                      capacity: 1, MinimumAge: 0, approved: 'True', cost: 0 ,location: '' });
 
   const setInput = (e) => {
     const {name, value} = e.target;
@@ -28,96 +28,115 @@ export const BackEndTesting = () => {
     return;
   }
 
-    const fetchAccounts = async () => {
-      console.log("Getting all accounts")
-    await fetch('/api/account/getaccounts', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      }
-    })
+  // const fetchAccounts = async () => {
+  //     console.log("Getting all accounts")
+  //   await fetch('/api/account/getaccounts', {
+  //     method: 'GET',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'Accept': 'application/json'
+  //     }
+  //   })
+  // }
+
+
+  // const fetchAccountData = async () => {
+  //   await fetch('/api/account/getaccountbyname', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'Accept': 'application/json'
+  //     },
+  //     body: JSON.stringify({
+  //       name: newUserAccount.Full_name
+  //     })
+  //   })
+  // }
+
+  const fetchEvents = async () => {
+      console.log("Getting all events")
+      await fetch('/api/event/getEvents', {
+          method: 'GET',
+          headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+          }
+      })
   }
 
 
-  const fetchAccountData = async () => {
-    await fetch('/api/account/getaccountbyname', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify({
-        name: newUserAccount.Full_name
-      })
+  const fetchEventData = async () => {
+    console.log("newEvent: " + newEvent.name);
+    console.log("Getting event: " + newEvent.name);
+    await fetch('/api/event/getEventbyName', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+            name: newEvent.name
+        })
     })
-    }
-
-    const fetchEvents = async () => {
-        console.log("Getting all events")
-        await fetch('/api/event/getEvents', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            }
-        })
-    }
-
-
-    const fetchEventData = async () => {
-        console.log("newEvent: " + newEvent.name);
-        console.log("Getting event: " + newEvent.name);
-        await fetch('/api/event/getEventbyName', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify({
-                name: newEvent.name
-            })
-        })
-    }
+  }
 
   
-  const addAccount = async () => {
-    await fetch('/api/account/addaccount', {
+  // const addAccount = async () => {
+  //   await fetch('/api/account/addaccount', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'Accept': 'application/json'
+  //     },
+  //     body: JSON.stringify({
+  //       ...newUserAccount
+  //     })
+  //   })
+  // }
+
+  const addEvent = async () => {
+    await fetch('/api/event/createevent', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
       },
       body: JSON.stringify({
-        ...newUserAccount
+          Event_name: newEvent.name,
+          Event_type: newEvent.type,
+          Event_start_date: newEvent.startDate,
+          Event_end_date: newEvent.endDate,
+          Event_start_time: newEvent.startTime,
+          Event_end_time: newEvent.endTime,
+          Event_description: newEvent.desc,
+          Capacity: newEvent.capacity,
+          Minimum_age: newEvent.MinimumAge,
+          Approved: newEvent.approved,
+          Ticket_cost: newEvent.cost,
+          Event_location: newEvent.location
+          
       })
     })
-  }
+    }
 
-    const addEvent = async () => {
-        await fetch('/api/event/createevent', {
+    const sendEmail = async () => {
+        await fetch('/api/email/remindEmail', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             },
             body: JSON.stringify({
-                Event_name: newEvent.name,
-                Event_type: newEvent.type,
-                Event_start_date: newEvent.startDate,
-                Event_end_date: newEvent.endDate,
-                Event_start_time: newEvent.startTime,
-                Event_end_time: newEvent.endTime,
-                Event_description: newEvent.desc,
-                Capacity: newEvent.capacity,
-                Minimum_age: newEvent.MinimumAge,
-                Approved: newEvent.approved,
-                Ticket_cost: newEvent.cost,
-                Event_location: newEvent.location
-                
+                name: newEvent.name,
+                startDate: newEvent.startDate,
+                endDate: newEvent.endDate,
+                startTime: newEvent.startTime,
+                endTime: newEvent.endTime,
+                desc: newEvent.desc,
             })
         })
     }
+
 
   return (
     <div>
@@ -134,7 +153,7 @@ export const BackEndTesting = () => {
       <input type="number" name="cost" placeholder="Ticket Cost" onChange={setInput}></input>
       <button onClick={() => fetchEvents()}>Fetch Data About All Events</button>
           <button onClick={() => fetchEventData()}>Fetch Data About an Event</button>
-          <button onClick={() => addEvent()}>Add User Account</button>
+          <button onClick={() => sendEmail()}>Send Email</button>
     </div>
   );
 }

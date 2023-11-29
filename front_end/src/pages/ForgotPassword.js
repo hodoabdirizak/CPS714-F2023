@@ -17,6 +17,27 @@ export const ForgotPassword = () => {
     return;
   }
 
+  const sendVerificationCode = async () => {
+    try {
+      const response = await fetch('/api/email/sendverificationcode', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          email: userInfo.Email,
+        }),
+      });
+  
+      const data = await response.text();
+      alert(data); 
+      
+    } catch (error) {
+      console.error('Error sending verification code:', error);
+    }
+  }
+
   const changePassword = async () => {
     let response = await fetch('/api/account/changepassword', {
       method: 'POST',
@@ -71,9 +92,21 @@ export const ForgotPassword = () => {
     <div style={{ backgroundImage: `url(${bg})` }}>
       <div className="login-container" style={{ backgroundColor: `white` }}>
         <br></br>
-        <br></br>
         <img src={logo} alt="Logo" />
         <h1>Password Reset</h1>
+        <button
+          type="button"
+          onClick={sendVerificationCode}
+          style={{
+            backgroundColor: '#E98123',
+            borderRadius: '10px',
+            fontSize: '1rem',
+            width: '40%',
+            padding: '8px 16px',
+            marginTop: '20px',
+        }}
+      > Send Verification Code
+        </button>
         <form onSubmit={handlePasswordReset}>
           <div className="form-group-item">
             <input
@@ -129,17 +162,15 @@ export const ForgotPassword = () => {
           <br></br>
           <br></br>
           <br></br>          
-          <br></br>
-          <br></br>
-          <br></br>
+          <br></br>          
           <button
             type="button"
             onClick={() => history.push('/', {})}
             style={{
               backgroundColor: 'gray',
               borderRadius: '15px',
-              fontSize: '1.1rem',    // Increase the font size
-              width: '80%',          // Set the width to 50% of its container
+              fontSize: '0.9rem',    // Increase the font size
+              width: '65%',          // Set the width to 50% of its container
               padding: '10px 20px'  // Add padding to control the button size
             }}
             >Return to Home Page

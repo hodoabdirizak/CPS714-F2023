@@ -15,9 +15,9 @@ export const PurchaseTicketPage = props => {
     //const queryParams = new URLSearchParams(location.search);
     //const numOfTickets = queryParams.get('quantity');
 
-    const userID = location.state?.userID | 1;
-    const eventID = location.state?.eventID | 0;
-    const userOwnedTickets = location.state?.userOwnedTickets | 0;
+    const userID = location.state?.userID || 1;
+    const eventID = location.state?.eventID || 0;
+    const userOwnedTickets = location.state?.userOwnedTickets || 0;
     const numOfTickets = location.state?.numOfTickets | 1;
     const eventDate = location.state?.eventDate || "December 10th, 2023";
     const eventName = location.state?.eventName || "Graduation Ceremony";
@@ -25,16 +25,13 @@ export const PurchaseTicketPage = props => {
     const isLoggedIn = location?.state?.isLoggedIn;
     const accountType = location?.state?.accountType;
     const username = location?.state?.username || "";
+    const startDate = location.state?.startDate || "";
+    const startTime = location.state?.startTime || "";
+    const endDate = location.state?.endDate || "";
+    const endTime = location.state?.endTime || "";
+    const eventDesc = location.state?.eventDesc || "";
     console.log("Username " + username);
-    //const {
-    //    userID = 0,
-    //    eventID = 0,
-    //    userOwnedTickets = 0,
-    //    numOfTickets = 1,
-    //    eventDate = "December 10th, 2023",
-    //    eventName = "Graduation Ceremony",
-    //    eventVenue = "Madison Square Garden"
-    //} = JSON.stringify(state);
+
     console.log(userID + ", " + eventID + ", " + userOwnedTickets);
 
     const updateTickets = async () => {
@@ -59,10 +56,31 @@ export const PurchaseTicketPage = props => {
         }
     }
 
+
+    const sendEmail = async () => {
+        await fetch('/api/email/remindEmail', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                name: eventName,
+                startDate: startDate,
+                endDate: endDate,
+                startTime: startTime,
+                endTime: endTime,
+                desc: eventDesc,
+                email: username
+            })
+        })
+    }
+
     const handleConfirm = (e) => {
         e.preventDefault();
         console.log("Handling Submission");
         updateTickets();
+        sendEmail();
         history.push(`/purchase-success`,
             {
                 isLoggedIn: isLoggedIn,

@@ -8,7 +8,7 @@ import { areIntervalsOverlapping } from "date-fns";
 import Map from '../components/Map'
 import './EventInfo.css';
 
-export const EventInfo = () => {
+export const EventInfoAttendee = () => {
 
   const event = useSelector((state) => state.event.event);
   const userID = useSelector((state) => state.event.userID);
@@ -77,6 +77,7 @@ export const EventInfo = () => {
     const isConflict = (temp) => {
         const startTime = event.time.split(" - ")[0];
         const endTime = event.time.split(" - ")[1];
+        console.log(event.date);
         const eventStart = (new Date(event.date + " " + startTime));
         const eventEnd = new Date(event.date + " " + endTime);
         console.log(eventStart + " " + eventEnd);
@@ -112,10 +113,11 @@ export const EventInfo = () => {
         seteventEndTime(SQLevent[0]["Event_end_time"]);
         console.log(eventStartDate + " " + eventStartTime);
     }
-    
- 
 
-    const [hasdates , sethasdates] = useState(false)
+    useEffect(() => {
+      getDates(event.id);
+      getUserEvents();
+    }, []); 
 
     const handleBuy = () => {
         if (conflicts.length > 0) {
@@ -144,17 +146,12 @@ export const EventInfo = () => {
   const [showFeedbackButton, setShowFeedbackButton] = useState(false);
 
   useEffect(() => {
-    const currentDate = new Date();
-    const eventEndTime = new Date(event.date + ' ' + event.time.split(' - ')[1]);
-    if(hasdates == false){
-      getDates(event.id);
-      getUserEvents();
-      sethasdates(true);
-    };
-
-    if (currentDate > eventEndTime) {
+    // const currentDate = new Date();
+    // const eventEndTime = new Date(event.date + ' ' + event.time.split(' ')[1]);
+    // if (currentDate > eventEndTime) {
       setShowFeedbackButton(true);
-    }
+    // }
+    // console.log('state',showFeedbackButton);
   }, [event]);
 
 
@@ -224,13 +221,20 @@ export const EventInfo = () => {
           <h3>{event.catering}</h3>
           <h2>Event Description</h2>
           <p>{event.event_desc}</p>
+          <br></br>
+          {accountType === 'Attendee' && (
+            <div>
+              <h3 style={{ fontSize: '30px', color: 'orange'}}><strong>{event.no_ticket} Tickets</strong></h3>
+              <h2>You have a confirmed purchase of <strong>{event.no_ticket}</strong> tickets. When it's time for the event, present this page at registration.</h2>
+            </div>
+          )}
           <Map address={event.address} />
-          <button className='buy-ticket' style={{ width: '25%' }} onClick={handleBuy}>Buy Ticket</button>
-          {showFeedbackButton && (
+          
+        
             <button className='buy-ticket' style={{ width: '25%', marginLeft: '5%' }} onClick={handleGiveFeedback}>
               Give Feedback
             </button>
-          )}
+          
 
         {showFeedbackPopup && (
         <div className="popup-overlay">
@@ -264,4 +268,4 @@ export const EventInfo = () => {
   );
 };
 
-export default EventInfo;
+export default EventInfoAttendee;

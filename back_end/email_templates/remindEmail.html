@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Reminder</title>
+    <style>
+        html {
+            text-align:center;
+            align-content: center:
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .info {
+            width = 40%;
+            max-width: 300px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            text-align:left;
+               
+        }
+
+        .container {
+            width = 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction:column;
+            justify-content:center;
+            align-items:center;
+        }
+
+        h1 {
+            color: #333333;
+            text-align: center;
+        }
+
+        p {
+            color: #666666;
+           
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .verification-button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            text-decoration: none;
+            background-color: orange;
+            color: #ffffff;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Event Reminder</h1>
+            <strong >An event you signed up for is happening very soon!</strong>
+            <div class="info">
+                <p id="EventName">Event Name: N/A</p>
+                <p id="EventDescription">Event Description: N/A</p>
+                <p id="EventStartDate">Event Start Date: N/A</p>
+                <p id="EventStartTime">Event Start Time: N/A</p>
+                <p id="EventEndDate">Event End Date: N/A</p>
+                <p id="EventEndTime">Event End Time: N/A</p>
+            </div>
+        <br>
+        <br>
+        <p align="center">Thanks for using Event Easy!</p>
+    </div>
+</body>
+</html>

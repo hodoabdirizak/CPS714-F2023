@@ -5,10 +5,20 @@ import logo from '../assets/logo.png';
 import bg from '../assets/logo200.png';
 import { useHistory } from 'react-router-dom';
 
+
 export const SignUpPage = () => {
-  const [newUserAccount, setUserAccount] = useState({Email: '', Full_name: '', 
-                                                  Phone_number: '', Pronouns: '', Account_type: '', Pswd: ''});
+  const [newUserAccount, setUserAccount] 
+    = useState({Email: '', Full_name: '', 
+                Phone_number: '', Pronouns: '', 
+                Account_type: '', Pswd: ''});
+
   const history = useHistory();
+
+  const [isChecked, setIsChecked] = useState('');
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked);
+  }
+
   const options = [
     { 
       value: "Attendee",
@@ -22,8 +32,8 @@ export const SignUpPage = () => {
       value: "Caterer",
       label: "Caterer"
     }
-  ];                                                  
-
+  ]; 
+  
   const setInput = (e) => {
     const {name, value} = e.target;
     if (name === 'Phone_number'){
@@ -49,11 +59,6 @@ export const SignUpPage = () => {
       Account_type: type 
     }));
     return;
-  }
-
-  const getUserIdByEmail = async () => {
-
-    console.log()
   }
 
   const addOrganizerAccount = async (new_user_id) => {
@@ -98,6 +103,25 @@ export const SignUpPage = () => {
     }
   }
 
+  const verifyEmail = async () => {
+    try {
+      const response = await fetch('/api/email/verifyEmail', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          email: newUserAccount.Email,
+        }),
+      });
+      const data = await response.text();
+      console.log(data);
+      } catch (error) {
+      console.error('Error:', error);
+    }
+  } 
+
   const addAccount = async () => {
     let response = await fetch('/api/account/addaccount', {
       method: 'POST',
@@ -128,6 +152,7 @@ export const SignUpPage = () => {
         });
         const new_user_id = await response.text();
         addOrganizerAccount(new_user_id);
+        alert(`Check your email to verify your account.`);
       } else if (newUserAccount.Account_type==='Caterer') {
         let response = await fetch('/api/account/getuseridbyemail', {
           method: 'POST',
@@ -141,12 +166,9 @@ export const SignUpPage = () => {
         });
         const new_user_id = await response.text();
         addCatererAccount(new_user_id);
-        alert(`Caterer account has been created successfully.`);
-      } else {
-        alert(`User account has been created successfully.`);
-      }
-      // history.push('/login',{params:'true'});
-      // history.go(0);
+      } 
+      verifyEmail();
+      alert('Follow the instructions sent to your email to verify your account.')
     } else {
       alert('An error has occurred. We were unable to create your account.')
     }
@@ -160,9 +182,11 @@ export const SignUpPage = () => {
   };
 
   return (
-    <div style={{ backgroundImage: `url(${bg})` }}>
+    <div style={{
+      backgroundImage: `url(${bg})`, height: '100vh', backgroundSize: 'cover',
+      backgroundRepeat: 'no-repeat', margin: '1'
+    }}>
       <div className="login-container" style={{ backgroundColor: `white` }}>
-      <br></br>
       <br></br>
         <img src={logo} alt="Logo" />
         <h1>Sign Up</h1>
@@ -245,18 +269,43 @@ export const SignUpPage = () => {
               />
             </div>
           </div>
-          <button 
-            // onClick={() => handleSignUp()}
-            type="submit" 
+          <div style={{ display: 'flex', alignItems: 'left' }}>
+            <input
+              type="checkbox"
+              checked={isChecked}
+              onChange={handleCheckboxChange}
+              style={{ marginLeft: '-11rem' }}
+              required
+            />
+            <label style={{ marginLeft: '-14rem' }}>
+              By checking this box, you verify that you are 18 or older.
+            </label>
+          </div>
+          <br></br>
+          {/* <button 
+            onClick={verifyEmail}
+            type="button" 
             style={{
-              backgroundColor: '#E98123',
+              backgroundColor: 'red',
               borderRadius: '15px',
-              fontSize: '1.2rem',    // Increase the font size
+              fontSize: '1rem',    // Increase the font size
               width: '35%',          // Set the width to 50% of its container
               padding: '10px 20px',  // Add padding to control the button size
             }}
+          >Test - Send Email</button> */}
+          <button 
+            // onClick={() => handleSignUp()}
+            type="submit" 
+	    disabled={!isChecked}
+            style={{
+              backgroundColor: isChecked ? '#E98123' : 'grey',
+              borderRadius: '15px',
+              fontSize: '1rem',    // Increase the font size
+              width: '33%',          // Set the width to 50% of its container
+              padding: '10px 20px',  // Add padding to control the button size
+              backgroundColor: 'orange'
+            }}
           >Create Account</button>
-          <br></br>
           <br></br>
           <br></br>
           <br></br>
@@ -266,13 +315,15 @@ export const SignUpPage = () => {
             style={{
               backgroundColor: 'gray',
               borderRadius: '15px',
-              fontSize: '1.1rem',    // Increase the font size
-              width: '43%',          // Set the width to 50% of its container
+              fontSize: '0.9rem',    // Increase the font size
+              width: '38%',          // Set the width to 50% of its container
               padding: '10px 20px'  // Add padding to control the button size
             }}
             >Return to Home Page
           </button>
         </form>
+        <br></br>
+        <br></br>
         <br></br>
       </div>
     </div>

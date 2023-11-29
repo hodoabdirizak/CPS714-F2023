@@ -4,9 +4,10 @@ const dbOperationEvent = require('./SQLServerFiles/dbOperationEvent');
 const dbOperationEventAttendees = require('./SQLServerFiles/dbOperationEventAttendees');
 const dbOperationVenues = require('./SQLServerFiles/dbOperationVenues');
 const dbOperationEventHosting = require('./SQLServerFiles/dbOperationEventHosting');
+const dbOperationOrganizer = require('./SQLServerFiles/dbOperationOrganizer');
 const dbOperationOrganizerEvents = require('./SQLServerFiles/dbOperationOrganizerEvents');
 const dbOperationCaterers = require('./SQLServerFiles/dbOperationCaterer');
-
+const nodemailerConfig = require('./nodeMailerConfig');
 
 const userAccountController = {
   createUserAccount: async(req,res) => {
@@ -104,9 +105,28 @@ const userAccountController = {
     } else {
       res.send('False');
     }
+  },
+  isAccountVerified: async (req, res) => {
+    console.log('Called /api/account/isaccountverified');
+    const result = await dbOperationUserAccount.isAccountVerified(req.body.email);
+    if (result == 'No') {
+      console.log("Account hasn't been verified");
+      res.send('False');
+    } else {
+      res.send('True');
+    }
+  },
+  verifyAccount: async (req, res) => {
+    console.log('Called /api/account/updateaccountverificationstatus');
+    const result = await dbOperationUserAccount.verifyAccount(req.body.email);
+    if (result > 0) {
+      console.log("Account has been verified");
+      res.send('True');
+    } else {
+      res.send('False');
+    }
   }
-};
-
+}
 
 const organizerController = {
   getOrganizerAccount: async(req,res) => {
@@ -150,10 +170,22 @@ const eventController = {
         res.send(result.recordset);
     },
     getEvents: async (req, res) => {
-        console.log('Called /api/event/getEvents');
-        const result = await dbOperationEvent.getEvents(req.body.name);
-        console.dir(result);
-        res.send(result.recordset);
+        console.log('Called /api/event/getevents');
+        const result = await dbOperationEvent.getEvents();
+        // console.dir(result);
+        res.send(result);
+    },
+    getMyEvents: async (req, res) => {
+      console.log('Called /api/event/getmyevents');
+      const result = await dbOperationEvent.getMyEvents(req.body.userID);
+      // console.dir(result);
+      res.send(result);
+    },
+    getMyEventsOrganizer: async (req, res) => {
+      console.log('Called /api/event/getmyeventsorganizer');
+      const result = await dbOperationEvent.getMyEventsOrganizer(req.body.userID);
+      // console.dir(result);
+      res.send(result);
     },
     createEvent: async (req, res) => {
         console.log('Called /api/event/createEvent');
@@ -224,7 +256,7 @@ const eventAttendeeController = {
   getUserEvents: async (req, res) => {
     console.log('Called /api/eventAttendee/getUserEvents');
     const result = await dbOperationEventAttendees.getUserEvents(req.body.id);
-    console.dir(result);
+    // console.dir(result);
     res.send(result);
   },
 };
@@ -279,6 +311,58 @@ const catererController = {
   }
 };
 
+const emailController = {
+  sendVerificationCode: async (req, res) => {
+    console.log('Called /api/email/sendverificationcode');
+    const { email } = req.body;
+
+    try {
+      await nodemailerConfig.sendVerificationEmail(req.body.email);
+
+      res.send('Verification code sent successfully.');
+    } catch (error) {
+      console.error('Error in sending verification code:', error);
+      res.status(500).send('Internal Server Error');
+    }
+  },
+  verifyEmail: async (req, res) => {
+    console.log('Called /api/email/verifyemail');
+    try {
+      const result = await nodemailerConfig.verifyEmail(req.body.email);
+      console.dir(result);
+      res.send('Email sent successfully.');
+    } catch (error) {
+      console.error('Error:', error);
+      res.status(500).send('Internal Server Error');
+    }
+  },
+  verifyAccount: async (req, res) => {
+    console.log('Called /api/loginverify');
+    const email = req.query.email;
+    console.log(`${email} was recieved from the URL. type: ${typeof email}`);
+    res.send(email.toString());
+    },
+
+    remindEmail: async (req, res) => {
+        console.log('Called /api/event/remindEmail');
+        try {
+            const email = req.body.email;
+            const name = req.body.name;
+            const desc = req.body.desc;
+            const startDate = req.body.startDate;
+            const startTime = req.body.startTime;
+            const endDate = req.body.endDate;
+            const endTime = req.body.endTime;
+            const result = await nodemailerConfig.remindEmail(email, name, desc, startDate, startTime, endDate, endTime);
+            console.log(result);
+            res.send('Email sent successfully');
+        }
+        catch (e) {
+            console.error('Error:', e);
+            res.status(500).send('Internal Server Error');
+        }
+    }
+}
 
 module.exports = {
     userAccountController,
@@ -286,5 +370,6 @@ module.exports = {
     eventController,
     eventAttendeeController,
     venueController,
-    catererController
+    catererController,
+    emailController
 }
