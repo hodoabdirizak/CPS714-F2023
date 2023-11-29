@@ -48,6 +48,7 @@
 .event-cards {
   display: flex;
   justify-content: space-between;
+  flex-flow: row wrap;
   overflow-x: auto;
   padding: 10px;
 }

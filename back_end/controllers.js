@@ -170,10 +170,10 @@ const eventController = {
         res.send(result.recordset);
     },
     getEvents: async (req, res) => {
-        console.log('Called /api/event/getEvents');
-        const result = await dbOperationEvent.getEvents(req.body.name);
+        console.log('Called /api/event/getevents');
+        const result = await dbOperationEvent.getEvents();
         console.dir(result);
-        res.send(result.recordset);
+        res.send(result);
     },
     createEvent: async (req, res) => {
         console.log('Called /api/event/createEvent');
