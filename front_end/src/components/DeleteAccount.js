@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
-import './DeleteAccountModal.css';
+import './DeleteAccount.css';
 
 const DeleteAccountModal = ({ isOpen, onClose, onConfirm }) => {
   return (
