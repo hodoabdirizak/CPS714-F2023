@@ -1,13 +1,15 @@
 import React from 'react';
-import { Link} from 'react-router-dom'; 
+import { Link, useLocation, useHistory } from 'react-router-dom'; 
 import './EventCard.css';
 
 function EventCardAttendee({ event, accountType, isLoggedIn }) {
 
     /* need to get from database */
-
+    const location = useLocation();
+    const history = useHistory();
     const { title, date, venue, imageUrl, id } = event;
-
+    const isLoggedIn = location.state?.isLoggedIn;
+    const accountType = location.state?.accountType;
     const editEvent = (e) => {
         e.preventDefault();
         // Redirect to the event creatio
