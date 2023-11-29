@@ -26,37 +26,48 @@ function Navbar({ isLoggedIn, username, accountType, userID }) {
       pathname: url,
       state: { isLoggedIn: true, username: username },
     });
-    };
-
-    const gotoCalendar = (e) => {
-        e.preventDefault();
-        let url = "/calendar"
-
-        history.push({
-            pathname: url,
-            state: { isLoggedIn: isLoggedIn, username: username, accountType: accountType, userID: userID },
-        });
-    };
-
-    const goHome = (e) => {
-        e.preventDefault();
-        let url = "/"
-
-        history.push({
-            pathname: url,
-            state: { isLoggedIn: isLoggedIn, username: username, accountType: accountType, userID: userID },
-        });
-    };
-
-    const signOut = (e) => {
-      e.preventDefault();
-      let url = "/"
-
-      history.push({
-          pathname: url,
-          state: { },
-      });
   };
+
+  const gotoCalendar = (e) => {
+    e.preventDefault();
+    let url = "/calendar"
+
+    history.push({
+        pathname: url,
+        state: { isLoggedIn: isLoggedIn, username: username, accountType: accountType, userID: userID },
+    });
+  };
+
+  const goHome = (e) => {
+    e.preventDefault();
+    let url = "/"
+
+    history.push({
+        pathname: url,
+        state: { isLoggedIn: isLoggedIn, username: username, accountType: accountType, userID: userID },
+    });
+  };
+
+  const signOut = (e) => {
+    e.preventDefault();
+    let url = "/"
+
+    history.push({
+        pathname: url,
+        state: { },
+    });
+  };
+
+  const goToMyEvents = (e) => {
+    e.preventDefault();
+    let url = "/myEvents"
+
+    history.push({
+        pathname: url,
+        state: { isLoggedIn: isLoggedIn, username: username, accountType: accountType, userID: userID },
+    });
+  };
+
 
   return (
     <div className="navbar">
@@ -76,8 +87,7 @@ function Navbar({ isLoggedIn, username, accountType, userID }) {
       </div>
       <ul className="nav-items">
           <li><a onClick={goHome} href="/">Find Events</a></li>
-          <li><a onClick={goHome} href="/">FAQ</a></li>
-          <li><a onClick={goHome}  href="/myEvents">My Events</a></li>
+          <li><a onClick={goToMyEvents}  href="/myEvents">My Events</a></li>
           <li><a onClick={gotoCalendar} href="/calendar">My Calendar</a></li>
           {/* If user is logged in, they will have the Profile navbar item
           instead of Sign In */}

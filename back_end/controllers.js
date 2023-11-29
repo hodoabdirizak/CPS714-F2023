@@ -172,8 +172,14 @@ const eventController = {
     getEvents: async (req, res) => {
         console.log('Called /api/event/getevents');
         const result = await dbOperationEvent.getEvents();
-        console.dir(result);
+        // console.dir(result);
         res.send(result);
+    },
+    getMyEvents: async (req, res) => {
+      console.log('Called /api/event/getmyevents');
+      const result = await dbOperationEvent.getMyEvents(req.body.userID);
+      // console.dir(result);
+      res.send(result);
     },
     createEvent: async (req, res) => {
         console.log('Called /api/event/createEvent');

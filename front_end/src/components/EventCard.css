@@ -5,34 +5,33 @@
     display: inline-block;
     width: 242px;
     height: auto;
-    margin-right: 90px;
+    margin-right: 150px;
     color: #000;
     transition: transform 0.2s;
-    margin-bottom: 30px;
-  }
+    margin-bottom: 60px;
+}
   
-  .event-card:hover {
-    transform: scale(1.05);
-  }
+.event-card:hover {
+  transform: scale(1.05);
+}
 
-  .event-image {
-    width: 242px;
-    height: 242px;
-    object-fit: cover;
-    border-radius: 10%;
-    margin: 0 auto;
-    display: block;
-  }
-  
-  .event-title {
-    font-size: 18px;
-    margin: 5px 0;
-    color: #000;
-  }
-  
-  .event-info p {
-    color: #696969;
-    font-size: 16px;
-    margin: auto;
-  }
-  
+.event-image {
+  width: 242px;
+  height: 242px;
+  object-fit: cover;
+  border-radius: 10%;
+  margin: 0 auto;
+  display: block;
+}
+
+.event-title {
+  font-size: 18px;
+  margin: 5px 0;
+  color: #000;
+}
+
+.event-info p {
+  color: #696969;
+  font-size: 16px;
+  margin: auto;
+}

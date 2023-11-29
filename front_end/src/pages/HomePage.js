@@ -47,11 +47,6 @@ export const HomePage = () => {
     });
   }
 
-  function getRandomImage(array) {
-    const randomIndex = Math.floor(Math.random() * array.length);
-    return array[randomIndex];
-  };
-
   const getEvents = async () => {
     console.log("------Getting all events-----");
     const result = await fetch('/api/event/getevents', {
@@ -69,13 +64,12 @@ export const HomePage = () => {
 
   useEffect(() => {
     getEvents();
-    console.log('hardcoded:',events[0]);
   }, []);
 
 
   return (
     <div className='home-page-container'>
-          <Navbar isLoggedIn={isLoggedIn} username={username} accountType={accountType} userID={userID} />
+      <Navbar isLoggedIn={isLoggedIn} username={username} accountType={accountType} userID={userID} />
       <div className='background-image'>
         <img src={CoverPhoto} alt='' />
       </div>
