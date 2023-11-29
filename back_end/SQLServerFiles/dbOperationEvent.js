@@ -112,7 +112,7 @@ const updateEvent = async (Event_id, updatedEvent) => {
   try {
     await sql.connect(config);
     const result = await sql.query(`UPDATE Event_table SET Event_name = '${updatedEvent.Event_name}',  Event_type = '${updatedEvent.Event_type}', Event_start_date = '${updatedEvent.Event_start_date}', Event_end_date = '${updatedEvent.Event_end_date}', Event_start_time = '${updatedEvent.Event_start_time}', Event_end_time = '${updatedEvent.Event_end_time}', Event_description = '${updatedEvent.Event_description}', Capacity = '${updatedEvent.Capacity}', Minimum_age = '${updatedEvent.Minimum_age}', Ticket_cost = '${updatedEvent.Ticket_cost}' WHERE Event_id = ${Event_id}`);
-    return result.recordset;
+    return result;
   } catch (err) {
     throw err;
   }
@@ -142,15 +142,27 @@ const getEventInfo = async (eventID) => {
     }
 };
 
+const deleteEvent = async (eventID) => {
+  try {
+    console.dir(eventID);
+    await sql.connect(config);
+    const result = await sql.query(`DELETE FROM Event_Table where Event_id = '${eventID}'`);
+    console.log(result);
+    return result.recordset;
+  } catch (err) {
+    throw err;
+  }
+};
+
 module.exports = {
     getEvents,
     getMyEvents,
     getMyEventsOrganizer,
     getCapacity,
-
+    deleteEvent,
     createEvent,
     updateEvent,
     getEventByName,
-
+  
     getEventInfo
 };
