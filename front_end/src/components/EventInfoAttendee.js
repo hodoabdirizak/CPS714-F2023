@@ -230,11 +230,11 @@ export const EventInfoAttendee = () => {
           )}
           <Map address={event.address} />
           
-        
+          {accountType === 'Attendee' && (
             <button className='buy-ticket' style={{ width: '25%', marginLeft: '5%' }} onClick={handleGiveFeedback}>
               Give Feedback
             </button>
-          
+          )}
 
         {showFeedbackPopup && (
         <div className="popup-overlay">

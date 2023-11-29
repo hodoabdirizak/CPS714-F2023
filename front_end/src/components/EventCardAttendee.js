@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useLocation, useHistory } from 'react-router-dom'; 
 import './EventCard.css';
 
-function EventCardAttendee({ event, accountType, isLoggedIn }) {
+function EventCardAttendee({ event }) {
 
     /* need to get from database */
     const location = useLocation();
@@ -25,9 +25,7 @@ function EventCardAttendee({ event, accountType, isLoggedIn }) {
                 <p>{date}</p>
                 <p>{venue}</p>
                 {isLoggedIn && accountType === 'Organizer' && (
-                    <li>
-                        <button onClick={editEvent} className="button">Edit Event</button>
-                    </li>
+                    <button onClick={editEvent} className="button">Edit Event</button>
                 )}
             </div>
         </div>
