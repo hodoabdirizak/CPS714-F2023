@@ -269,13 +269,20 @@ export const SignUpPage = () => {
               />
             </div>
           </div>
-	  <div>
-	    <h3>By checking the box below you verify that you are 18 or older.</h3>
-	    <h3>This box MUST be checked.</h3>
-	      <input type="checkbox" checked={isChecked} onChange={handleCheckboxChange}/>
-  	    <h3></h3>
-	  </div>
-          <button 
+          <div style={{ display: 'flex', alignItems: 'left' }}>
+            <input
+              type="checkbox"
+              checked={isChecked}
+              onChange={handleCheckboxChange}
+              style={{ marginLeft: '-11rem' }}
+              required
+            />
+            <label style={{ marginLeft: '-14rem' }}>
+              By checking this box, you verify that you are 18 or older.
+            </label>
+          </div>
+          <br></br>
+          {/* <button 
             onClick={verifyEmail}
             type="button" 
             style={{
@@ -285,7 +292,7 @@ export const SignUpPage = () => {
               width: '35%',          // Set the width to 50% of its container
               padding: '10px 20px',  // Add padding to control the button size
             }}
-          >Test - Send Email</button>
+          >Test - Send Email</button> */}
           <button 
             // onClick={() => handleSignUp()}
             type="submit" 
@@ -296,6 +303,7 @@ export const SignUpPage = () => {
               fontSize: '1rem',    // Increase the font size
               width: '33%',          // Set the width to 50% of its container
               padding: '10px 20px',  // Add padding to control the button size
+              backgroundColor: 'orange'
             }}
           >Create Account</button>
           <br></br>
@@ -314,6 +322,8 @@ export const SignUpPage = () => {
             >Return to Home Page
           </button>
         </form>
+        <br></br>
+        <br></br>
         <br></br>
       </div>
     </div>

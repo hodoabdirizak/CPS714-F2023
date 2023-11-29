@@ -114,7 +114,10 @@ export const LoginPageVerifiedEmail = () => {
   };
 
   return (
-    <div style={{ backgroundImage: `url(${bg})` }}>
+    <div style={{
+      backgroundImage: `url(${bg})`, height: '100vh', backgroundSize: 'cover',
+      backgroundRepeat: 'no-repeat', margin: '1'
+    }}>      
       <div className="login-container" style={{ backgroundColor: `white` }}>
       <br></br>
       <img src={logo} alt="Logo" />
@@ -178,6 +181,7 @@ export const LoginPageVerifiedEmail = () => {
           }}
           >Return to Home Page
         </button>
+        <br></br>
       </div>
   <div>
   <br></br>
