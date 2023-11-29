@@ -67,6 +67,11 @@ function Navbar({ isLoggedIn, username, accountType, userID }) {
         state: { isLoggedIn: isLoggedIn, username: username, accountType: accountType, userID: userID },
     });
   };
+  const createEvent = (e) => {
+    e.preventDefault();
+    // Redirect to the event creatio
+    history.push('/eventCreation'); 
+  };
 
 
   return (
@@ -86,6 +91,11 @@ function Navbar({ isLoggedIn, username, accountType, userID }) {
         </div>
       </div>
       <ul className="nav-items">
+        {isLoggedIn && accountType === 'Organizer' && (
+          <li>
+            <button onClick={createEvent} className="button">Create Event</button>
+          </li>
+        )}
           <li><a onClick={goHome} href="/">Find Events</a></li>
           <li><a onClick={goToMyEvents}  href="/myEvents">My Events</a></li>
           <li><a onClick={gotoCalendar} href="/calendar">My Calendar</a></li>
