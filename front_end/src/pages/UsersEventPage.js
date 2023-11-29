@@ -65,7 +65,7 @@ export const UsersEventPage = () => {
     return (
       <div className='users-event-page-container'>
         <Navbar isLoggedIn={isLoggedIn} username={username} accountType={accountType} userID={userID} />
-        <h1>My Upcoming Events</h1>
+        <h1 style={{marginLeft: '6%'}}>My Upcoming Events</h1>
         <div className='content'>
           <div className="event-cards">
             {events.map((event) => (
