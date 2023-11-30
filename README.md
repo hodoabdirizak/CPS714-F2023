@@ -18,6 +18,7 @@ The goal of this system is to help individuals and communities connect with one 
 - [Hoang Vo](https://github.com/HoangVo-hnvo)
 
 ## Technologies Used
+MSSQL, Amazon RDS, Express, React, Node.js
 
 ## Features
 Our web application will include the following features:
